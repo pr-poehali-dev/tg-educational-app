@@ -907,7 +907,7 @@ function ScreenUpdates() {
         <div className="flex items-center justify-between">
           <div>
             <div className="font-display text-sm text-muted-foreground">ПРИЛОЖЕНИЕ</div>
-            <div className="font-semibold mt-0.5">AutoDiag Pro v{APP_VERSION}</div>
+            <div className="font-semibold mt-0.5">Diagnostic v{APP_VERSION}</div>
           </div>
           <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center">
             <Icon name="Activity" size={18} className="text-[hsl(220,20%,8%)]" />
@@ -1060,7 +1060,7 @@ const Index = () => {
             <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center shadow-glow">
               <Icon name="Activity" size={18} className="text-[hsl(220,20%,8%)]" />
             </div>
-            <span className="font-display text-lg text-cyan-glow">AutoDiag Pro</span>
+            <span className="font-display text-lg text-cyan-glow">Diagnostic</span>
           </div>
           {/* BT статус в шапке */}
           <button onClick={btConnected ? disconnectBluetooth : connectBluetooth} disabled={btConnecting}
