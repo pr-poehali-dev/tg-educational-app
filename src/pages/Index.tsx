@@ -204,10 +204,13 @@ const MOCK_FAULTS: Record<string, DtcEntry[]> = {
   kdss: [],
 };
 
-function ScreenVehicle() {
+function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
   const [step, setStep] = useState<VehicleStep>('region');
   const [sel, setSel] = useState<VehicleSelection>({ region: '', make: '', model: '', year: 0, ecu: null });
   const [activeTab, setActiveTab] = useState<'dtc' | 'live' | 'special' | 'service'>('dtc');
+  const [dtcLoading, setDtcLoading] = useState(false);
+  const [dtcClearing, setDtcClearing] = useState(false);
+  const [realDtc, setRealDtc] = useState<string[] | null>(null);
   const [loadProgress, setLoadProgress] = useState(0);
   const [scanning, setScanning] = useState(false);
   const [scanResults, setScanResults] = useState<{ecu: string; faults: DtcEntry[]}[]>([]);
@@ -496,20 +499,54 @@ function ScreenVehicle() {
         {activeTab === 'dtc' && (
           <div className="space-y-3 animate-fade-up">
             <div className="flex items-center justify-between">
-              <div className="font-display text-xs text-muted-foreground">КОДЫ НЕИСПРАВНОСТЕЙ ({ecuFaults.length})</div>
+              <div className="font-display text-xs text-muted-foreground">
+                КОДЫ НЕИСПРАВНОСТЕЙ ({(realDtc !== null ? realDtc.length : ecuFaults.length)})
+              </div>
               <div className="flex gap-2">
-                <button className="text-xs text-cyan font-bold border border-primary/30 px-3 py-1.5 rounded-lg hover:bg-primary/10 transition flex items-center gap-1">
-                  <Icon name="RefreshCw" size={12} />Читать
+                <button
+                  onClick={async () => {
+                    if (!btConnected) return;
+                    setDtcLoading(true);
+                    try { const codes = await elm327.readDTC(); setRealDtc(codes); }
+                    finally { setDtcLoading(false); }
+                  }}
+                  disabled={dtcLoading}
+                  className={`text-xs font-bold border px-3 py-1.5 rounded-lg transition flex items-center gap-1 ${btConnected ? 'border-primary/30 text-cyan hover:bg-primary/10' : 'border-border text-muted-foreground cursor-not-allowed'}`}>
+                  <Icon name={dtcLoading ? 'Loader' : 'RefreshCw'} size={12} className={dtcLoading ? 'animate-spin' : ''} />
+                  {dtcLoading ? 'Чтение...' : 'Читать'}
                 </button>
-                <button className="text-xs text-red-400 font-bold border border-red-400/30 px-3 py-1.5 rounded-lg hover:bg-red-400/10 transition flex items-center gap-1">
-                  <Icon name="Trash2" size={12} />Удалить
+                <button
+                  onClick={async () => {
+                    if (!btConnected) return;
+                    setDtcClearing(true);
+                    try { await elm327.clearDTC(); setRealDtc([]); }
+                    finally { setDtcClearing(false); }
+                  }}
+                  disabled={dtcClearing}
+                  className={`text-xs font-bold border px-3 py-1.5 rounded-lg transition flex items-center gap-1 ${btConnected ? 'border-red-400/30 text-red-400 hover:bg-red-400/10' : 'border-border text-muted-foreground cursor-not-allowed'}`}>
+                  <Icon name={dtcClearing ? 'Loader' : 'Trash2'} size={12} className={dtcClearing ? 'animate-spin' : ''} />
+                  {dtcClearing ? 'Сброс...' : 'Удалить'}
                 </button>
               </div>
             </div>
-            {ecuFaults.length === 0
-              ? <div className="border-glow bg-card rounded-xl p-8 text-center"><Icon name="CheckCircle" size={32} className="text-green-400 mx-auto mb-2" /><div className="text-sm font-semibold text-green-400">Ошибок не обнаружено</div></div>
-              : ecuFaults.map(f => <DtcCard key={f.code} entry={f} />)
-            }
+            {!btConnected && (
+              <div className="text-[11px] text-amber-400 bg-amber-400/10 border border-amber-400/20 rounded-lg px-3 py-2 flex items-center gap-2">
+                <Icon name="Bluetooth" size={12} />Подключите адаптер ELM327 для чтения реальных ошибок
+              </div>
+            )}
+            {/* Реальные коды от ELM327 */}
+            {realDtc !== null ? (
+              realDtc.length === 0
+                ? <div className="border-glow bg-card rounded-xl p-8 text-center"><Icon name="CheckCircle" size={32} className="text-green-400 mx-auto mb-2" /><div className="text-sm font-semibold text-green-400">Ошибок не обнаружено</div></div>
+                : realDtc.map(code => (
+                    <DtcCard key={code} entry={{ code, status: 'active', count: 1, lastSeen: 'только что' }} />
+                  ))
+            ) : (
+              /* Демо-данные */
+              ecuFaults.length === 0
+                ? <div className="border-glow bg-card rounded-xl p-8 text-center"><Icon name="CheckCircle" size={32} className="text-green-400 mx-auto mb-2" /><div className="text-sm font-semibold text-green-400">Ошибок не обнаружено</div></div>
+                : ecuFaults.map(f => <DtcCard key={f.code} entry={f} />)
+            )}
           </div>
         )}
 
@@ -991,7 +1028,9 @@ const Index = () => {
   const [btError, setBtError] = useState('');
   const [btConnecting, setBtConnecting] = useState(false);
 
-  elm327.onDisconnect(() => { setBtConnected(false); setBtName(null); });
+  useEffect(() => {
+    elm327.onDisconnect(() => { setBtConnected(false); setBtName(null); });
+  }, []);
 
   const connectBluetooth = async () => {
     setBtConnecting(true); setBtError('');
@@ -1044,7 +1083,7 @@ const Index = () => {
 
         {/* Страницы */}
         {tab === 'vin'     && <ScreenVin />}
-        {tab === 'vehicle' && <ScreenVehicle />}
+        {tab === 'vehicle' && <ScreenVehicle btConnected={btConnected} />}
         {tab === 'history' && <ScreenHistory />}
         {tab === 'dtc'     && <ScreenDTC />}
         {tab === 'updates' && <ScreenUpdates />}
