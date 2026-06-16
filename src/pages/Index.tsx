@@ -4,7 +4,7 @@ import Icon from '@/components/ui/icon';
 import { VEHICLE_DB, REGIONS, type EcuBlock, type EcuFunction } from '@/data/vehicles';
 import { DTC_DB } from '@/data/dtc';
 import { elm327, LIVE_PARAMS_CONFIG, PARAM_GROUPS, type LiveParam } from '@/lib/bluetooth';
-import { useProtocolFolder } from '@/hooks/useProtocolFolder';
+import { useBuiltinProtocols } from '@/hooks/useBuiltinProtocols';
 
 // ── VIN API ───────────────────────────────────────────────────────────────────
 interface VinResult {
@@ -222,8 +222,8 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
   const [scanning, setScanning] = useState(false);
   const [scanResults, setScanResults] = useState<{ecu: string; faults: DtcEntry[]}[]>([]);
 
-  // Протоколы с телефона
-  const { findProtocol, folderPath, resetFolder, files } = useProtocolFolder();
+  // Встроенные протоколы (грузятся из public/protocols/ при старте)
+  const { findProtocol, loading: protocolsLoading, totalCount } = useBuiltinProtocols();
   const [protocolEcus, setProtocolEcus] = useState<EcuBlock[] | null>(null);
   const [protocolStatus, setProtocolStatus] = useState<'idle' | 'loading' | 'found' | 'not_found'>('idle');
 
@@ -246,10 +246,10 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
     }, 120);
   };
 
-  // Загрузка протокола после выбора года
-  const loadProtocolForSelection = useCallback(async (makeId: string, modelId: string, year: number) => {
+  // Загрузка протокола после выбора года — из встроенных файлов
+  const loadProtocolForSelection = useCallback(async (makeId: string, modelId: string, _year: number) => {
     setProtocolStatus('loading');
-    const data = await findProtocol(makeId, modelId, year);
+    const data = findProtocol(makeId, modelId);
     if (data && data.ecus?.length > 0) {
       setProtocolEcus(data.ecus as EcuBlock[]);
       setProtocolStatus('found');
@@ -441,19 +441,19 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
           {protocolStatus === 'found' && (
             <div className="mt-3 flex items-center gap-1.5 text-xs text-white/80 relative">
               <Icon name="FileCheck" size={12} className="shrink-0" />
-              Протокол из файла · {activeEcus.length} блоков
+              Протокол загружен · {activeEcus.length} блоков ЭБУ
             </div>
           )}
           {protocolStatus === 'loading' && (
             <div className="mt-3 flex items-center gap-1.5 text-xs text-white/70 relative">
               <Icon name="Loader2" size={12} className="animate-spin shrink-0" />
-              Ищем протокол...
+              Загружаем протокол...
             </div>
           )}
           {protocolStatus === 'not_found' && (
             <div className="mt-3 flex items-center gap-1.5 text-xs text-white/60 relative">
               <Icon name="Database" size={12} className="shrink-0" />
-              Встроенная база данных
+              Используется встроенная БД · {activeEcus.length} блоков
             </div>
           )}
         </div>
@@ -549,15 +549,12 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
           })}
         </div>
 
-        {/* Подвал — папка протоколов */}
-        <div className="flex items-center gap-3 px-1 py-2">
-          <Icon name="FolderOpen" size={14} className="text-muted-foreground shrink-0" />
-          <div className="flex-1 min-w-0">
-            <div className="text-xs text-muted-foreground truncate">{files.length} протоколов · {folderPath?.split('/').pop()}</div>
+        {/* Подвал — счётчик встроенных протоколов */}
+        <div className="flex items-center gap-2 px-1 py-2">
+          <Icon name="Database" size={13} className="text-muted-foreground shrink-0" />
+          <div className="text-xs text-muted-foreground">
+            {protocolsLoading ? 'Загрузка протоколов...' : `${totalCount} протоколов встроено`}
           </div>
-          <button onClick={resetFolder} className="text-xs text-blue-400 hover:text-blue-300 transition shrink-0">
-            Сменить папку
-          </button>
         </div>
       </div>
     );
