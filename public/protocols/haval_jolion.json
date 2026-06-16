@@ -1,0 +1,124 @@
+{
+  "makeId": "haval",
+  "modelId": "jolion",
+  "name": "Haval Jolion / F7 / H6 / Tank 300/500",
+  "generations": ["Jolion (2021+)", "F7/F7x (2018+)", "H6 3rd gen (2020+)", "Tank 300 (2021+)"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / GWM GDS / LAUNCH X431-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (ECM Bosch/Delphi/Siemens)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4 / UDS",
+      "baudrate": 500000,
+      "note": "Двигатели: 1.5T (GW4B15A) Jolion/F7, 2.0T (GW4C20NT) H6/Tank 300, 2.4T (GW4D20) Tank 500",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя GWM/Haval. Используются стандартные OBD-II коды", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры турбодвигателя GWM в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0B", "name": "Давление наддува", "unit": "кПа" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" },
+          { "pid": "0x5C", "name": "Температура масла", "unit": "°C" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс интервала замены масла", "type": "service", "description": "Сброс счётчика ТО Haval", "service": "0x31", "routine_id": "0x0501", "note": "Через меню информационной системы: Настройки → Автомобиль → Сброс ТО" },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя GWM", "type": "adaptation", "description": "Обнуление электронного дросселя после чистки или замены. Двиг. GW4B15A/GW4C20", "service": "0x31", "routine_id": "0x0120" },
+        { "id": "dpf_regen", "name": "Регенерация DPF", "type": "service", "description": "Принудительная регенерация DPF. Tank 500 с дизельным GW4D20", "service": "0x31", "routine_id": "0x6001", "warning": "Только дизельный Tank 500" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок 7DCT / 8AT (DCT300/ZF8HP)",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "note": "DCT300 (7-ступенчатый влажный DCT) на Jolion/F7. ZF 8HP на Tank 300/500/H6 3rd gen",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (КПП)", "type": "special", "description": "Коды 7DCT или 8AT ZF", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (КПП)", "type": "special", "description": "Очистить ошибки КПП", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры КПП", "type": "special", "description": "Температура масла КПП, передача, давление масла, статус сцепления" },
+        { "id": "dct_adapt", "name": "Адаптация сцепления DCT", "type": "adaptation", "description": "Обучение точки касания сцепления 7DCT300 после замены сцепления или масла", "service": "0x31", "routine_id": "0x0801", "warning": "Автомобиль стоит, ДВС запущен, педаль тормоза нажата" },
+        { "id": "oil_reset", "name": "Сброс интервала масла КПП", "type": "service", "description": "Сброс счётчика замены масла в коробке DCT/ZF", "service": "0x31", "routine_id": "0x0504" }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ESP (Bosch)",
+      "address": "0x7A0",
+      "response_address": "0x7A8",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS)", "type": "special", "description": "C-коды ABS/ESP Haval", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS)", "type": "special", "description": "Очистить ошибки ABS/ESP", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры ABS", "type": "special", "description": "Скорости 4 колёс, давление тормозов, флаги ESP/TCS" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов", "type": "activation", "description": "Режим прокачки тормозной системы с насосом ABS", "service": "0x31", "routine_id": "0x0301" },
+        { "id": "steering_calib", "name": "Калибровка угла руля", "type": "adaptation", "description": "Сброс нулевого положения датчика угла ESP после сход-развала", "service": "0x31", "routine_id": "0x0090" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS (подушки безопасности)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Haval", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS. Только после замены компонентов", "service": "0x04" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Состояние цепей пиропатронов, датчиков удара, преднатяжителей" }
+      ]
+    },
+    {
+      "id": "eps",
+      "name": "Электроусилитель руля EPS",
+      "address": "0x730",
+      "response_address": "0x738",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (EPS)", "type": "special", "description": "Коды EPS Haval", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (EPS)", "type": "special", "description": "Очистить ошибки EPS", "service": "0x04" },
+        { "id": "eps_calib", "name": "Калибровка EPS", "type": "adaptation", "description": "Инициализация нулевого положения руля после замены рейки или ЭБУ EPS", "service": "0x31", "routine_id": "0x0080" }
+      ]
+    },
+    {
+      "id": "tpms",
+      "name": "TPMS (контроль давления шин)",
+      "address": "0x7B2",
+      "response_address": "0x7BA",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (TPMS)", "type": "special", "description": "Коды датчиков давления Haval", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (TPMS)", "type": "special", "description": "Очистить ошибки TPMS", "service": "0x04" },
+        { "id": "live_data", "name": "Давление в шинах", "type": "special", "description": "Давление (кПа), температура датчиков, заряд батарей 4 датчиков" },
+        { "id": "tpms_reset", "name": "Регистрация датчиков TPMS", "type": "adaptation", "description": "Перерегистрация датчиков после замены шин или колёс", "service": "0x31", "routine_id": "0x0602", "steps": ["Накачать шины до нормы (240-260 кПа)", "Запустить процедуру через диагностику", "Или: держать кнопку SET в бардачке 5 сек, проехать 20 км/ч 5 мин"] }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0300": "Пропуски зажигания турбодвигателя — свечи, катушки, форсунки",
+    "P0171": "Бедная смесь — MAF, дроссель, утечки наддува",
+    "P0234": "Давление наддува превышено — перепускной клапан турбины, патрубки",
+    "P0299": "Давление наддува ниже нормы — турбина, патрубки, интеркулер",
+    "P0087": "Низкое давление топлива — ТНВД, форсунки, фильтр",
+    "P0741": "Пробуксовка муфты ГТ DCT — масло DCT, мехатроник",
+    "C0035": "Датчик скорости переднего правого колеса ABS",
+    "U0100": "Нет CAN от ЭБУ двигателя"
+  },
+  "notes": [
+    "GWM (Great Wall Motors) использует ЭБУ Bosch (ME17), Delphi и Siemens в зависимости от модели и года",
+    "LAUNCH X431 Pro / Autel MK908 — наиболее полная совместимость с китайскими марками в России",
+    "Tank 300/500 (2021+) — марка Tank, дочерняя от Haval/GWM. Те же адреса и протоколы",
+    "Файл совместим с Haval H9 (2014+), H2 (2014+), M6 (2018+) на аналогичных платформах GWM",
+    "Китайские автомобили 2021+ используют современный UDS ISO 14229 — совместимы с современными OBD адаптерами",
+    "Chery, Geely, BYD используют аналогичные адреса — см. отдельные файлы протоколов"
+  ]
+}

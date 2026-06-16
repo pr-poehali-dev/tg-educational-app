@@ -1,0 +1,114 @@
+{
+  "makeId": "mitsubishi",
+  "modelId": "outlander",
+  "name": "Mitsubishi Outlander / ASX / Pajero Sport / L200",
+  "generations": ["Outlander III (2012-2022)", "Eclipse Cross GK (2017+)", "Pajero Sport III (2016+)"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Mitsubishi MUT-III / EOBD-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (ECM)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "note": "Двигатели: 2.0 MIVEC (4B11), 2.4 MIVEC (4J12), 3.0 V6 (6B31), 2.4 PHEV (4B12), 2.0D (4N14), 2.4D DiD (4N15)",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя Mitsubishi. Стандартные OBD-II + P1xxx Mitsubishi-specific", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя MIVEC в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x0F", "name": "Температура воздуха", "unit": "°C" },
+          { "pid": "0x10", "name": "Расход воздуха MAF", "unit": "г/с" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" },
+          { "pid": "0x5C", "name": "Температура масла", "unit": "°C" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс интервала замены масла", "type": "service", "description": "Сброс счётчика ТО Mitsubishi", "service": "0x31", "routine_id": "0x0501", "note": "Ручной: зажигание ON (без запуска), нажать кнопку пробега 3+ раз за 5 секунд" },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя MIVEC", "type": "adaptation", "description": "Обнуление электронного дросселя. Двигатели 4B11/4J12 — после чистки или замены", "service": "0x31", "routine_id": "0x0121", "warning": "Только при холодном двигателе (ОЖ ниже 30°C)" },
+        { "id": "dpf_regen", "name": "Принудительная регенерация DPF (DiD)", "type": "service", "description": "Прожиг DPF. Только дизельные версии Outlander/Pajero Sport/L200 (4N14/4N15 DiD)", "service": "0x31", "routine_id": "0x6001", "warning": "Только дизель. Скорость 60+ км/ч, ОЖ >80°C" },
+        { "id": "mivec_adapt", "name": "Адаптация MIVEC (фазовращатель)", "type": "adaptation", "description": "Обнуление адаптивных данных системы MIVEC. После замены распредвала или натяжителя цепи", "service": "0x31", "routine_id": "0x0140" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок АКПП CVT / 6AT (INVECS-III)",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "CVT Jatco (JF011E) на Outlander 2.0/2.4. 6AT Aisin TF80-SC на Outlander 3.0. INVECS-III — фирменное название АКПП",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (АКПП)", "type": "special", "description": "Коды CVT Jatco или 6AT INVECS-III", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (АКПП)", "type": "special", "description": "Очистить ошибки трансмиссии", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры CVT/АКПП", "type": "special", "description": "Температура масла, передаточное отношение CVT, давление масла, статус Lock-Up" },
+        { "id": "cvt_adapt", "name": "Сброс адаптации CVT Jatco", "type": "adaptation", "description": "Сброс обученных данных CVT Jatco JF011E. После замены масла или ремонта", "service": "0x31", "routine_id": "0x0802", "warning": "Использовать только Mitsubishi CVT Fluid J4 или аналог Nissan NS-2/NS-3" }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ASC (Active Stability Control)",
+      "address": "0x7A0",
+      "response_address": "0x7A8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "ASC — Mitsubishi-название ESP",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS/ASC)", "type": "special", "description": "C-коды ABS/ASC Mitsubishi", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS/ASC)", "type": "special", "description": "Очистить ошибки ABS/ASC", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры ABS/ASC", "type": "special", "description": "Скорости 4 колёс, давление тормозов, угол руля, флаги ASC/TCS" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов с ABS", "type": "activation", "description": "Режим прокачки тормозной системы Mitsubishi", "service": "0x31", "routine_id": "0x0301" },
+        { "id": "steering_calib", "name": "Калибровка датчика угла руля", "type": "adaptation", "description": "Сброс нулевого положения после регулировки сход-развала", "service": "0x31", "routine_id": "0x0040" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS (Airbag)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Mitsubishi", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS", "service": "0x04" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Состояние цепей пиропатронов, датчиков удара, ремней" }
+      ]
+    },
+    {
+      "id": "phev",
+      "name": "Блок гибридной системы PHEV (Outlander PHEV)",
+      "address": "0x7E4",
+      "response_address": "0x7EC",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "Только Outlander PHEV (4B12 + два электромотора + 12 кВтч АКБ). С 2013 года",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (PHEV)", "type": "special", "description": "Коды гибридной системы PHEV. P1xxx Mitsubishi PHEV-specific", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (PHEV)", "type": "special", "description": "Очистить ошибки PHEV системы", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры PHEV", "type": "special", "description": "SOC батареи (%), мощность электромоторов, температура АКБ, режим зарядки, рекуперация" },
+        { "id": "bms_balance", "name": "Балансировка ячеек АКБ", "type": "adaptation", "description": "Принудительная балансировка ячеек тяговой батареи PHEV", "service": "0x31", "routine_id": "0x0701", "warning": "Только при SOC 50-80%. Занимает до 2 часов" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0011": "Фазовращатель MIVEC впуск — соленоид OCV, давление масла",
+    "P0171": "Бедная смесь — MAF, форсунки, утечки",
+    "P0300": "Пропуски зажигания — свечи, катушки",
+    "P0700": "Общая ошибка трансмиссии — CVT масло, датчики",
+    "P0868": "Низкое давление CVT — масло, насос CVT",
+    "P0420": "Катализатор ниже нормы",
+    "P0403": "Клапан EGR — EGR DiD дизельных версий",
+    "P242F": "DPF засорён — принудительная регенерация",
+    "C0200": "Датчик скорости правого переднего колеса"
+  },
+  "notes": [
+    "MUT-III (Multi-Use Tester III) — официальный диагностический инструмент Mitsubishi",
+    "Outlander PHEV требует специальную осторожность — тяговая АКБ 300В. Работы только при выключенной силовой установке",
+    "CVT Jatco JF011E — замена масла КАЖДЫЕ 40000 км реального пробега. Использовать ТОЛЬКО Mitsubishi CVT Fluid J4!",
+    "Файл совместим с Mitsubishi ASX/RVR (GA, 2010+), Eclipse Cross GK (2017+), Pajero Sport III (2016+)",
+    "L200 (KL/KH) — пикап с дизелем 4N15 DiD, те же адреса диагностики"
+  ]
+}

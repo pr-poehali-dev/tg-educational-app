@@ -1,0 +1,120 @@
+{
+  "makeId": "byd",
+  "modelId": "seal",
+  "name": "BYD Seal / Han / Atto 3 / Tang / Dolphin",
+  "generations": ["Seal (2022+)", "Han EV/DM (2020+)", "Atto 3 (2021+)", "Tang DM-i (2021+)", "Dolphin (2021+)"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / BYD DiLink / LAUNCH X431-совместимый",
+  "ecus": [
+    {
+      "id": "vcu",
+      "name": "VCU (Vehicle Control Unit — главный блок EV)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4 / UDS",
+      "baudrate": 500000,
+      "note": "VCU — центральный блок управления электромобилем BYD e-Platform 3.0. Координирует MCU, BMS, OBC",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (VCU)", "type": "special", "description": "Коды неисправностей главного блока управления BYD EV. P-коды + BYD-specific U-коды", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (VCU)", "type": "special", "description": "Очистить ошибки VCU", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры VCU", "type": "special", "description": "Режим езды, рекуперация, потребляемая мощность, скорость, состояние систем EV", "pids": [
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x42", "name": "Напряжение бортовой сети 12В", "unit": "В" }
+        ]}
+      ]
+    },
+    {
+      "id": "bms",
+      "name": "BMS (Battery Management System — Blade Battery)",
+      "address": "0x7E4",
+      "response_address": "0x7EC",
+      "protocol": "CAN ISO 15765-4 / BYD BMS protocol",
+      "baudrate": 500000,
+      "note": "Blade Battery (LFP) BYD: Seal 82.56 кВтч, Han EV 85.44/76.9 кВтч, Atto 3 60.48 кВтч, Dolphin 44.9 кВтч",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (BMS)", "type": "special", "description": "Коды неисправностей системы управления батареей Blade Battery. P-коды BMS", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (BMS)", "type": "special", "description": "Очистить ошибки BMS", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры Blade Battery", "type": "special", "description": "SOC (%), SOH (%), напряжение пакета, ток, температура ячеек (min/max/avg), баланс ячеек, ёмкость", "pids": [
+          { "pid": "0x5B", "name": "Заряд гибридной батареи", "unit": "%" }
+        ]},
+        { "id": "cell_balance", "name": "Принудительная балансировка ячеек", "type": "adaptation", "description": "Запуск активной балансировки ячеек Blade Battery для выравнивания SOC ячеек", "service": "0x31", "routine_id": "0x0701", "warning": "SOC должен быть 40-80%. Занимает 1-3 часа. Автомобиль подключить к зарядке" },
+        { "id": "bms_reset", "name": "Сброс BMS (после замены батареи)", "type": "adaptation", "description": "Инициализация BMS после замены или ремонта батарейного пакета", "service": "0x31", "routine_id": "0x0710", "warning": "Только после полной замены батарейного пакета" }
+      ]
+    },
+    {
+      "id": "mcu",
+      "name": "MCU (Motor Control Unit — силовой инвертор)",
+      "address": "0x7E2",
+      "response_address": "0x7EA",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "note": "Seal: двойной MCU (переднего 150 кВт + заднего 230 кВт). Han: задний 200 кВт или AWD 363 кВт суммарно",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (MCU)", "type": "special", "description": "Коды неисправностей инвертора электромотора BYD", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (MCU)", "type": "special", "description": "Очистить ошибки MCU", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры MCU", "type": "special", "description": "Мощность электромотора (кВт), ток (А), температура инвертора и мотора, обороты мотора, КПД" }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ESP (Bosch iBooster)",
+      "address": "0x7A0",
+      "response_address": "0x7A8",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "note": "BYD использует Bosch iBooster (электрический усилитель тормозов) + ESP. Рекуперативное торможение интегрировано",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS/iBooster)", "type": "special", "description": "C-коды ABS/ESP/iBooster BYD", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS)", "type": "special", "description": "Очистить ошибки ABS/iBooster", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры тормозной системы", "type": "special", "description": "Скорости 4 колёс, давление тормозов, флаги ESP/TCS, режим рекуперации, % рекуперативного торможения" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов", "type": "activation", "description": "Режим прокачки гидравлической тормозной системы (требуется редко — EV тормозят рекуперацией)", "service": "0x31", "routine_id": "0x0301" },
+        { "id": "steering_calib", "name": "Калибровка угла руля ESP", "type": "adaptation", "description": "Сброс нулевого положения датчика угла после сход-развала", "service": "0x31", "routine_id": "0x0090" }
+      ]
+    },
+    {
+      "id": "obc",
+      "name": "OBC (On-Board Charger — бортовое зарядное устройство)",
+      "address": "0x7E6",
+      "response_address": "0x7EE",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "note": "OBC: Seal/Han — 11 кВт AC. Dolphin — 7 кВт AC. Все — DC быстрая зарядка 100-150 кВт",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (OBC)", "type": "special", "description": "Коды неисправностей бортового зарядного устройства", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (OBC)", "type": "special", "description": "Очистить ошибки OBC", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры OBC/зарядки", "type": "special", "description": "Ток зарядки (А), напряжение AC/DC, мощность зарядки (кВт), температура OBC, статус соединения" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS BYD", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS", "service": "0x04" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Состояние пиропатронов, датчиков удара, ремней" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0A09": "Напряжение батареи высокое — BMS, ячейки",
+    "P0A0A": "Напряжение батареи низкое — SOC, разряд ячеек",
+    "P0A0C": "Температура батареи высокая — система охлаждения батареи",
+    "P0A1F": "SOC батареи не в норме — балансировка ячеек, BMS",
+    "P0B00": "Гибридная система — BMS, VCU, MCU",
+    "U0100": "Нет CAN от VCU",
+    "C1095": "Неисправность насоса ABS/iBooster"
+  },
+  "notes": [
+    "LAUNCH X431 Pro5 / Autel MaxiCOM Ultra — рекомендуются для полной диагностики BYD EV в России",
+    "BYD Blade Battery (LFP) не требует активной термобалансировки как NMC, но балансировка по SOC важна",
+    "НИКОГДА не вскрывать Blade Battery самостоятельно — напряжение пакета 600-700В, смертельно опасно",
+    "DM-i (гибридные версии Tang/Qin/Song) — дополнительно имеют ЭБУ ДВС на 0x7E0 (1.5L Atkinson) + BMS PHEV",
+    "Файл совместим с BYD Song Plus EV/DM-i, BYD Han DM, BYD Atto 3 (Yuan Plus), Dolphin (EV/DM)",
+    "BYD DiLink 4.0/5.0 (мультимедиа) — отдельная система на Android, диагностируется через DiLink порт"
+  ]
+}

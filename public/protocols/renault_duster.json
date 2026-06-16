@@ -1,0 +1,112 @@
+{
+  "makeId": "renault",
+  "modelId": "duster",
+  "name": "Renault Duster / Logan / Sandero / Kaptur / Arkana / Megane",
+  "generations": ["Duster I (2010-2017)", "Duster II (2017+)", "Logan/Sandero X52/B52", "Kaptur/Arkana"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Renault DDT2000 / CAN-клип совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (UCE/Siemens/Bosch)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4 / KWP2000",
+      "baudrate": 500000,
+      "note": "Logan/Sandero до 2014 — K-Line KWP2000 (ISO 9141). Duster/Kaptur/Arkana — CAN",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя Renault. DF-коды (DF001 и т.д.) + стандартные P-коды", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x10", "name": "Расход воздуха MAF", "unit": "г/с" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс интервала замены масла", "type": "service", "description": "Сброс счётчика ТО. Renault использует пробег/время", "service": "0x31", "routine_id": "0x0E01", "note": "Ручной способ: при выключенном двигателе удерживать кнопку TRIP 3+ секунд в режиме OIL на дисплее" },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя (UCE)", "type": "adaptation", "description": "Базовое положение дросселя. K4M/H4M/HR16/F4R двигатели", "service": "0x31", "routine_id": "0x0170", "warning": "Только при холодном двигателе, зажигание ON без запуска" },
+        { "id": "dpf_regen", "name": "Регенерация DPF (дизель K9K)", "type": "service", "description": "Принудительная регенерация сажевого фильтра. Дизель K9K (1.5 dCi)", "service": "0x31", "routine_id": "0x5001", "warning": "Только дизельные версии. 60+ км/ч, ОЖ >80°C" },
+        { "id": "injector_learn", "name": "Адаптация форсунок (IMA дизель)", "type": "adaptation", "description": "Ввод кодов коррекции форсунок для дизеля K9K. Код нанесён на форсунке", "service": "0x2E", "did": "0x0180", "note": "Только Common Rail дизель K9K. Каждая форсунка имеет уникальный код C2I" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок АКПП / EDC (JR5/TL4/DP0/DP2/CVT)",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "DP0 (4AT) на Logan/Duster I. DP2 на Duster II. EDC (CVT) на Kaptur/Arkana. XTronic (CVT) на Renault от Nissan",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (АКПП)", "type": "special", "description": "Коды трансмиссии Renault/Jatco. DF-коды", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (АКПП)", "type": "special", "description": "Очистить ошибки АКПП", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры АКПП", "type": "special", "description": "Температура масла, текущая передача, давление масла, состояние гидротрансформатора" },
+        { "id": "trans_adapt", "name": "Сброс адаптации АКПП DP0/DP2", "type": "adaptation", "description": "Сброс адаптивных данных автоматической трансмиссии DP0/DP2 после замены масла", "service": "0x31", "routine_id": "0x0801", "warning": "После сброса нужен ездовой цикл 200+ км" }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ESP (Bosch/Continential)",
+      "address": "0x7A0",
+      "response_address": "0x7A8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS)", "type": "special", "description": "C-коды ABS/ESP Renault", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS)", "type": "special", "description": "Очистить ошибки ABS/ESP", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры ABS", "type": "special", "description": "Скорости 4 колёс, давление тормозов, угол руля, флаги ESP" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов", "type": "activation", "description": "Активация насоса ABS для прокачки", "service": "0x31", "routine_id": "0x0301" },
+        { "id": "steering_calib", "name": "Калибровка угла руля ESP", "type": "adaptation", "description": "Обнуление датчика угла после сход-развала", "service": "0x31", "routine_id": "0x0041" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS (Airbag)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Renault", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS", "service": "0x04" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Цепи пиропатронов, датчики удара, преднатяжители" }
+      ]
+    },
+    {
+      "id": "ucm",
+      "name": "Блок управления кузовом UCH (UCM)",
+      "address": "0x760",
+      "response_address": "0x768",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "UCH — Unite de Commande Habitacle. Управляет центральным замком, стеклоподъёмниками, освещением",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (кузов)", "type": "special", "description": "B-коды кузовного блока UCH", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (кузов)", "type": "special", "description": "Очистить ошибки UCH", "service": "0x04" },
+        { "id": "window_calib", "name": "Калибровка стеклоподъёмников", "type": "adaptation", "description": "Обнуление и повторное обучение электрических стеклоподъёмников с автодоводкой", "steps": ["Поднять стекло до конца", "Удерживать кнопку вверх 2 секунды после закрытия", "Опустить стекло до конца", "Удерживать кнопку вниз 2 секунды"] }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0300": "Пропуски зажигания — свечи, катушки (K4M особенно чувствителен)",
+    "P0171": "Бедная смесь — MAF, утечки воздуха, форсунки",
+    "P0130": "Датчик кислорода до катализатора — датчик, цепи",
+    "DF011": "Отказ датчика MAP — датчик давления коллектора",
+    "DF088": "Ошибка потенциометра дросселя — дроссельный узел",
+    "P0403": "Клапан EGR — клапан EGR K9K",
+    "P242F": "Сажевый фильтр DPF (K9K) засорён",
+    "P0606": "ЭБУ двигателя (ECU) внутренняя ошибка",
+    "DF311": "Клапан EGR заклинил в открытом положении (K9K)",
+    "C0040": "Датчик скорости правого переднего колеса"
+  },
+  "notes": [
+    "Двигатели: K4M (1.6 MPI Logan/Sandero/Duster), H4M (1.6 MPI Renault NISSAN), F4R (2.0 Duster AWD), K9K (1.5 dCi дизель), HR16DE (1.6 Kaptur/Arkana от Nissan)",
+    "Logan/Sandero до 2014 (K-Line) требует адаптер ELM327 с поддержкой KWP2000/ISO 9141",
+    "CAN-Clip — официальный диагностический инструмент Renault. Альтернатива: DiagBox, DELPHI DS150E",
+    "DDT2000 — популярный неофициальный инструмент для глубокой диагностики Renault",
+    "Файл совместим с Dacia Duster/Logan, Lada Largus (R90) — та же платформа B0/M0",
+    "Kaptur/Arkana используют двигатели Nissan (HR16DE) — совместимость с Nissan Consult"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "makeId": "mazda",
+  "modelId": "cx5",
+  "name": "Mazda CX-5 / Mazda 6 / CX-9 / Mazda 3",
+  "generations": ["CX-5 KE (2012-2017)", "CX-5 KF (2017+)", "Mazda 6 GJ/GL"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Mazda IDS / M-MDS-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (PCM)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя Mazda (стандартные + P1xxx Mazda-specific). SkyActiv двигатели: SKYACTIV-G/D", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры SkyActiv двигателя в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x10", "name": "Расход воздуха MAF", "unit": "г/с" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" },
+          { "pid": "0x5C", "name": "Температура масла", "unit": "°C" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс Oil Life Monitor", "type": "service", "description": "Сброс счётчика замены масла Mazda OLM", "service": "0x31", "routine_id": "0x0501", "note": "Ручной способ: зажигание ON без запуска, нажать INFO на руле → ТО → Сброс масла" },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя SkyActiv", "type": "adaptation", "description": "Инициализация электронного дросселя SkyActiv-G после замены или чистки", "service": "0x31", "routine_id": "0x0130", "warning": "Двигатель холодный. Зажигание ON, двигатель НЕ запускать" },
+        { "id": "dpf_regen", "name": "Принудительная регенерация DPF (SkyActiv-D)", "type": "service", "description": "Прожиг DPF. Только SkyActiv-D (2.0D/2.2D) на CX-5/Mazda 6 дизельных версиях", "service": "0x31", "routine_id": "0x0050", "warning": "Только SkyActiv-D. 60+ км/ч, ОЖ >80°C" },
+        { "id": "cam_timing_adapt", "name": "Адаптация фаз ГРМ SkyActiv", "type": "adaptation", "description": "Обучение системы изменения фаз SkyActiv VVT после замены цепи или натяжителя", "service": "0x31", "routine_id": "0x0141" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок АКПП SkyActiv-Drive (6AT/ATSC)",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "SkyActiv-Drive 6AT (FS5A-EL). Mazda 3 2019+ — SkyActiv-Drive 6AT или МКПП SkyActiv-MT",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (АКПП)", "type": "special", "description": "Коды АКПП SkyActiv-Drive", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (АКПП)", "type": "special", "description": "Очистить ошибки АКПП", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры АКПП", "type": "special", "description": "Температура масла АКПП, передача, обороты входного/выходного валов, давление масла" },
+        { "id": "trans_adapt", "name": "Сброс адаптации АКПП", "type": "adaptation", "description": "Сброс адаптивных данных SkyActiv-Drive после замены масла или ремонта", "service": "0x31", "routine_id": "0x0800" }
+      ]
+    },
+    {
+      "id": "abs_dsc",
+      "name": "Блок ABS/DSC (Dynamic Stability Control)",
+      "address": "0x760",
+      "response_address": "0x768",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "DSC — Mazda-фирменное название ESP. Bosch ABS 9.0 на KF",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (DSC)", "type": "special", "description": "C-коды ABS/DSC Mazda", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (DSC)", "type": "special", "description": "Очистить ошибки ABS/DSC", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры DSC", "type": "special", "description": "Скорости 4 колёс, давление тормозов, угол руля, боковое ускорение, флаги DSC/TCS" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов DSC", "type": "activation", "description": "Активация насоса DSC для прокачки тормозной системы", "service": "0x31", "routine_id": "0x0301" },
+        { "id": "steering_calib", "name": "Калибровка угла руля DSC", "type": "adaptation", "description": "Сброс нулевого положения датчика угла. Обязательна после сход-развала", "service": "0x31", "routine_id": "0x0090" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Mazda", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS", "service": "0x04" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Цепи пиропатронов, датчики удара, преднатяжители ремней" }
+      ]
+    },
+    {
+      "id": "eps",
+      "name": "Электроусилитель руля EPS",
+      "address": "0x730",
+      "response_address": "0x738",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (EPS)", "type": "special", "description": "Коды EPS Mazda", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (EPS)", "type": "special", "description": "Очистить ошибки EPS", "service": "0x04" },
+        { "id": "eps_calib", "name": "Калибровка EPS", "type": "adaptation", "description": "Инициализация нулевого положения рулевого колеса Mazda EPS после замены рейки", "service": "0x31", "routine_id": "0x0080" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0340": "Датчик фаз CMP — датчик, звёздочка",
+    "P0171": "Бедная смесь — MAF, лямбда, утечки",
+    "P0420": "Катализатор ниже нормы",
+    "P0016": "Рассогласование фаз — цепь ГРМ SkyActiv, натяжитель",
+    "P2177": "Бедная смесь после коррекции — форсунки, давление топлива",
+    "P242F": "DPF засорён — требуется регенерация (SkyActiv-D)"
+  },
+  "notes": [
+    "Двигатели: SKYACTIV-G 2.0 (PE-VPS) CX-5 KE/KF, SKYACTIV-G 2.5 (PY-VPS) CX-5 KF, SKYACTIV-D 2.2 (SH-VPTS) дизельные версии",
+    "M-MDS (Mazda Modular Diagnostic System) — официальный инструмент. Альтернатива: LAUNCH, Autel",
+    "SkyActiv-G использует степень сжатия 14:1 (как дизель!) — чувствителен к качеству масла и его своевременной замене",
+    "Файл совместим с Mazda 6 GJ/GL (2012+), CX-9 TC (2016+), Mazda 3 BP (2019+) на платформе SkyActiv"
+  ]
+}

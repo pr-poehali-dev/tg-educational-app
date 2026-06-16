@@ -1,0 +1,129 @@
+{
+  "makeId": "ford",
+  "modelId": "focus",
+  "name": "Ford Focus / Kuga / Explorer / Ranger / Transit",
+  "generations": ["Focus II (2004-2011)", "Focus III (2011-2019)", "Kuga II/III", "Explorer V/VI"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Ford IDS / FDRS-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (PCM/ECM)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4 / Ford UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды Ford. Стандартные OBD-II + P1xxx Ford-specific коды", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя Ford в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0B", "name": "Давление MAP", "unit": "кПа" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x10", "name": "Расход воздуха MAF", "unit": "г/с" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" },
+          { "pid": "0x5C", "name": "Температура масла", "unit": "°C" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс Oil Life Monitor (ILR)", "type": "service", "description": "Сброс Oil Life индикатора Ford. Intelligent Oil-Life Monitor (IOLM)", "service": "0x31", "routine_id": "0x0001", "note": "Ручной: зажигание ON, нажать газ до упора 3 раза за 10 секунд. Или через меню SETTINGS → VEHICLE → OIL LIFE RESET" },
+        { "id": "throttle_adapt", "name": "Адаптация дроссельной заслонки (TP-IA)", "type": "adaptation", "description": "Инициализация электронного дросселя. После замены или чистки. Двигатели Duratec/EcoBoost", "service": "0x31", "routine_id": "0x0100", "steps": ["Зажигание ON (двигатель НЕ запускать)", "Нажать педаль газа медленно до упора", "Медленно отпустить педаль", "Ожидать 30 секунд", "Запустить двигатель"] },
+        { "id": "dpf_regen", "name": "Принудительная регенерация DPF (TDCi)", "type": "service", "description": "Прожиг DPF. Дизельные Focus/Kuga/Transit TDCi (двиг. Duratorq T6JA/DV6C)", "service": "0x31", "routine_id": "0x0340", "warning": "Только дизельные версии. 60+ км/ч, ОЖ >80°C, масло в норме" },
+        { "id": "injector_coding", "name": "Кодирование форсунок TDCi", "type": "adaptation", "description": "Ввод кодов коррекции форсунок Common Rail после замены. Код на корпусе форсунки", "service": "0x2E", "did": "0x1901", "note": "16-символьный код (С2И) на каждой форсунке" },
+        { "id": "idle_adapt", "name": "Адаптация холостого хода", "type": "adaptation", "description": "Обучение блока PCM оборотам холостого хода после замены АКБ или сброса PCM", "steps": ["Прогреть двигатель до 80°C+", "Включить все электропотребители (A/C, обогревы)", "Дать поработать 10 минут на ХХ"] }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок АКПП / PowerShift DCT / CVT",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "Ford UDS CAN",
+      "baudrate": 500000,
+      "note": "PowerShift DCT (DPS6) на Focus III — 6-ступенчатый роботизированный. Selectshift 6AT на Kuga/Explorer. Aisin 6AT на Focus III 2.0",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (КПП)", "type": "special", "description": "Коды PowerShift DCT/АКПП Ford. P07xx — специфичные коды PowerShift", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (КПП)", "type": "special", "description": "Очистить ошибки КПП", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры КПП", "type": "special", "description": "Температура масла, передача, давление, статус сцепления, режим" },
+        { "id": "dct_adapt", "name": "Адаптация сцепления PowerShift DCT", "type": "adaptation", "description": "ОБЯЗАТЕЛЬНАЯ процедура после замены сцепления DCT или масла PowerShift", "service": "0x31", "routine_id": "0x0801", "warning": "PowerShift DCT ОЧЕНЬ чувствителен к состоянию масла. Замена масла каждые 80000 км!" },
+        { "id": "oil_reset", "name": "Сброс интервала масла PowerShift", "type": "service", "description": "Сброс счётчика замены масла в коробке PowerShift DCT", "service": "0x31", "routine_id": "0x0504" }
+      ]
+    },
+    {
+      "id": "abs_asc",
+      "name": "Блок ABS/AdvanceTrac (Bosch/Continential)",
+      "address": "0x713",
+      "response_address": "0x77B",
+      "protocol": "Ford UDS CAN",
+      "baudrate": 500000,
+      "note": "AdvanceTrac — фирменное название ESP у Ford",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS)", "type": "special", "description": "C-коды ABS/AdvanceTrac Ford", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS)", "type": "special", "description": "Очистить ошибки ABS", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры ABS", "type": "special", "description": "Скорости 4 колёс, давление тормозов, угол руля, флаги AdvanceTrac" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов с ABS", "type": "activation", "description": "Режим прокачки ABS-насоса. Ford IDS процедура", "service": "0x31", "routine_id": "0x0203" },
+        { "id": "steering_calib", "name": "Калибровка датчика угла руля", "type": "adaptation", "description": "Сброс нулевого положения AdvanceTrac после сход-развала", "service": "0x31", "routine_id": "0x0090" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок RCM (Restraints Control Module / SRS)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "Ford UDS CAN",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды RCM Ford", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки RCM. Только после замены компонентов", "service": "0x04" },
+        { "id": "live_data", "name": "Данные RCM", "type": "special", "description": "Состояние пиропатронов, датчиков удара, преднатяжителей ремней" }
+      ]
+    },
+    {
+      "id": "bcm",
+      "name": "Блок управления кузовом BCM (GEM)",
+      "address": "0x726",
+      "response_address": "0x72E",
+      "protocol": "Ford UDS CAN",
+      "baudrate": 500000,
+      "note": "GEM — Generic Electronic Module (Focus II). BCM на Focus III+",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (BCM)", "type": "special", "description": "B-коды кузовного блока Ford", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (BCM)", "type": "special", "description": "Очистить ошибки BCM/GEM", "service": "0x04" },
+        { "id": "battery_adapt", "name": "Адаптация АКБ (BMS)", "type": "adaptation", "description": "Регистрация нового аккумулятора в системе управления зарядом Ford BMS. Важно после замены АКБ", "service": "0x31", "routine_id": "0x4108", "warning": "Без регистрации система будет заряжать АКБ по старым параметрам" },
+        { "id": "window_init", "name": "Инициализация стеклоподъёмников", "type": "adaptation", "description": "Обучение положений стеклоподъёмников с автодоводкой после замены стекла или мотора", "steps": ["Опустить стекло полностью", "Поднять стекло до упора", "Удерживать кнопку вверх 2 секунды после закрытия"] }
+      ]
+    },
+    {
+      "id": "eps",
+      "name": "Электроусилитель руля EPAS",
+      "address": "0x730",
+      "response_address": "0x738",
+      "protocol": "Ford UDS CAN",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (EPAS)", "type": "special", "description": "Коды рулевого усилителя Ford EPAS", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (EPAS)", "type": "special", "description": "Очистить ошибки EPAS", "service": "0x04" },
+        { "id": "steering_calib", "name": "Калибровка EPAS", "type": "adaptation", "description": "Инициализация нулевого положения рулевого колеса. После замены рейки или датчика угла", "service": "0x31", "routine_id": "0x0006" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0171": "Бедная смесь — MAF, утечка воздуха, свечи",
+    "P0300": "Пропуски зажигания — свечи, катушки, компрессия",
+    "P0420": "Катализатор ниже нормы — катализатор, лямбда",
+    "P0087": "Низкое давление топлива EcoBoost — ТНВД, регулятор давления",
+    "P0299": "Давление наддува ниже нормы EcoBoost — турбина, патрубки, intercooler",
+    "P0741": "Муфта TCC АКПП — PowerShift масло, мехатроник",
+    "P07B6": "Ошибка сцепления PowerShift — критично, требует замены сцепления",
+    "C1185": "Моторчик насоса ABS — блок ABS",
+    "U0100": "Нет CAN от PCM — CAN шина, питание ЭБУ"
+  },
+  "notes": [
+    "Двигатели бензин: 1.4/1.6 Duratec Ti-VCT (Focus II/III), 1.0 EcoBoost (Focus III), 1.5/2.0 EcoBoost (Kuga III/Explorer)",
+    "Двигатели дизель: 1.6 TDCi DV6C (Focus II/III), 2.0 TDCi Duratorq (Focus III/Kuga)",
+    "PowerShift DCT (DPS6) — проблемная коробка на Focus III 1.0/1.6. Классическая проблема рывков при переключениях",
+    "Ford IDS (Integrated Diagnostic System) — официальный инструмент. FORSCAN — бесплатная альтернатива для Ford/Lincoln/Mercury",
+    "FORSCAN — мощный бесплатный инструмент с поддержкой большинства функций Ford без дилерского оборудования",
+    "Файл совместим с Ford Mondeo (CD345/CD391), Kuga (C519/CBV), Explorer (CD4/U625)"
+  ]
+}

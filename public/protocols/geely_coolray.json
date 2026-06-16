@@ -1,0 +1,108 @@
+{
+  "makeId": "geely",
+  "modelId": "coolray",
+  "name": "Geely Coolray / Atlas / Tugella / Monjaro / Zeekr",
+  "generations": ["Coolray SX11 (2019+)", "Atlas NL3 (2016+)", "Tugella FY11 (2019+)", "Monjaro KX11 (2022+)"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Geely GDS / LAUNCH X431-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (Bosch ME17/Delphi MT92)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4 / UDS",
+      "baudrate": 500000,
+      "note": "Двигатели: 1.5T JLH-3G15TD (Coolray), 1.8T JLD-4G18TD (Atlas/Tugella), 2.0T JLH-4G20TDB (Monjaro), Volvo Drive-E B48 (некоторые версии)",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя Geely. Используются стандартные OBD-II + Geely-specific коды через Bosch ME17", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры турбодвигателя Geely в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0B", "name": "Давление наддува", "unit": "кПа" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" },
+          { "pid": "0x5C", "name": "Температура масла", "unit": "°C" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс интервала замены масла", "type": "service", "description": "Сброс счётчика ТО Geely", "service": "0x31", "routine_id": "0x0501", "note": "Через меню автомобиля: Настройки → Обслуживание → Сброс ТО" },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя Geely", "type": "adaptation", "description": "Обнуление электронного дросселя после чистки или замены. Двигатели JLH-3G15/JLD-4G18", "service": "0x31", "routine_id": "0x0120" },
+        { "id": "injector_adapt", "name": "Адаптация форсунок GDI", "type": "adaptation", "description": "Адаптация форсунок непосредственного впрыска (GDI) после замены. Код с корпуса форсунки", "service": "0x2E", "did": "0x1901" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок 7DCT / 6AT / CVT",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "note": "7DCT300 (Getrag DCT) на Coolray/Atlas. CVT Jatco на некоторых версиях. 8AT ZF на Tugella/Monjaro",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (КПП)", "type": "special", "description": "Коды 7DCT или ZF 8AT Geely", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (КПП)", "type": "special", "description": "Очистить ошибки КПП", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры КПП", "type": "special", "description": "Температура масла, передача, статус сцепления DCT, давление масла" },
+        { "id": "dct_adapt", "name": "Адаптация сцепления 7DCT", "type": "adaptation", "description": "Обучение точки касания сцепления 7DCT300 Getrag. После замены масла или сцепления", "service": "0x31", "routine_id": "0x0801", "warning": "ДВС запущен и прогрет, педаль тормоза нажата, режим P" }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ESP (Bosch/Mando)",
+      "address": "0x7A0",
+      "response_address": "0x7A8",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS/ESP)", "type": "special", "description": "C-коды ABS/ESP Geely", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS/ESP)", "type": "special", "description": "Очистить ошибки ABS/ESP", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры ABS", "type": "special", "description": "Скорости 4 колёс, флаги ESP/TCS, давление тормозов" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов", "type": "activation", "description": "Режим прокачки тормозной системы с насосом ABS", "service": "0x31", "routine_id": "0x0301" },
+        { "id": "steering_calib", "name": "Калибровка угла руля ESP", "type": "adaptation", "description": "Сброс нулевого положения датчика угла после сход-развала", "service": "0x31", "routine_id": "0x0090" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Geely", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS", "service": "0x04" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Состояние пиропатронов, датчиков удара, преднатяжителей" }
+      ]
+    },
+    {
+      "id": "tpms",
+      "name": "TPMS (контроль давления)",
+      "address": "0x7B2",
+      "response_address": "0x7BA",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (TPMS)", "type": "special", "description": "Коды датчиков TPMS Geely", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (TPMS)", "type": "special", "description": "Очистить ошибки TPMS", "service": "0x04" },
+        { "id": "live_data", "name": "Давление в шинах", "type": "special", "description": "Давление (кПа), температура, заряд батарей 4 датчиков" },
+        { "id": "tpms_reset", "name": "Регистрация датчиков TPMS", "type": "adaptation", "description": "Перерегистрация датчиков TPMS после замены шин", "service": "0x31", "routine_id": "0x0602" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0300": "Пропуски зажигания — свечи, катушки, форсунки GDI",
+    "P0171": "Бедная смесь — MAF, наддув, форсунки",
+    "P0234": "Давление наддува превышено — перепускной клапан WG",
+    "P0299": "Давление наддува ниже нормы — турбина, патрубки",
+    "P0087": "Низкое давление топлива ТНВД — насос, форсунки",
+    "C0035": "Датчик скорости переднего правого колеса",
+    "U0100": "Нет CAN от ЭБУ двигателя"
+  },
+  "notes": [
+    "Geely использует Bosch ME17.8.x и Delphi MT92 в зависимости от двигателя и года выпуска",
+    "LAUNCH X431 Pro5 / Autel MaxiCOM MK908 — лучшая совместимость с Geely в России",
+    "Monjaro/Xingyue L (2022+) использует двигатель 2.0TD от Volvo (B4204T) — те же процедуры что и Volvo XC40",
+    "Zeekr 001/009 (электромобили Geely) — BMS на адресе 0x7E4, MCU на 0x7E0",
+    "Файл совместим с Geely Atlas Pro (NL3C), Tugella (FY11), Okavango (KX11C)"
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "makeId": "mercedes",
+  "modelId": "c-class",
+  "name": "Mercedes-Benz C-Class / E-Class / GLC / GLE",
+  "generations": ["W203 (2000-2007)", "W204 (2007-2014)", "W205 (2014-2021)", "W206 (2021+)"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Mercedes XENTRY UDS / DAS-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (ME/CDI)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765 / Mercedes UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя. Mercedes использует стандартные OBD-II + собственные расширения (P15xx, P16xx)", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x14" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя в реальном времени", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x10", "name": "Расход воздуха MAF", "unit": "г/с" },
+          { "pid": "0x33", "name": "Давление наддува", "unit": "кПа" },
+          { "pid": "0x5C", "name": "Температура масла", "unit": "°C" }
+        ]},
+        { "id": "service_reset", "name": "Сброс сервисного интервала (Assyst/Service A/B)", "type": "service", "description": "Сброс счётчика ТО. Service A (масло+фильтр) или Service B (полное ТО). Система Assyst/Assyst Plus", "service": "0x31", "routine_id": "0xE100", "note": "Ручной способ: ключ в положение 2 (без запуска), удерживать кнопку RESET на щитке 3 секунды" },
+        { "id": "throttle_adapt", "name": "Адаптация электронного дросселя (ETC)", "type": "adaptation", "description": "Базовая настройка электронного дросселя ME-Motronic. После замены или чистки дросселя", "service": "0x31", "routine_id": "0x1003", "warning": "Двигатель холодный. Зажигание ON, двигатель не запускать. Подождать 30 секунд" },
+        { "id": "dpf_regen", "name": "Принудительная регенерация DPF (CDI)", "type": "service", "description": "Прожиг сажевого фильтра. Только дизельные OM651/OM654", "service": "0x31", "routine_id": "0x8010", "warning": "Движение 60+ км/ч, температура ОЖ >80°C. Занимает 15-20 минут" },
+        { "id": "scr_reset", "name": "Сброс счётчика SCR/AdBlue", "type": "service", "description": "Сброс после заправки AdBlue. OM651/OM654 Euro6", "service": "0x31", "routine_id": "0x8012" },
+        { "id": "egr_adapt", "name": "Адаптация клапана EGR", "type": "adaptation", "description": "Базовое положение клапана EGR после замены или чистки", "service": "0x31", "routine_id": "0x1009" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок управления АКПП (EGS/722.9)",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "Mercedes UDS CAN",
+      "baudrate": 500000,
+      "note": "7G-Tronic (722.9) на W204/W205. 5G-Tronic (722.6) на W203. 9G-Tronic (725.0) на W205 поздние",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (АКПП)", "type": "special", "description": "Коды трансмиссии 7G-Tronic/9G-Tronic", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (АКПП)", "type": "special", "description": "Очистить ошибки АКПП", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры АКПП", "type": "special", "description": "Температура масла АКПП, передача, давление, статус режимов Comfort/Sport/Manual" },
+        { "id": "trans_adapt", "name": "Сброс адаптации АКПП", "type": "adaptation", "description": "Сброс адаптивных данных 7G-Tronic после замены масла", "service": "0x31", "routine_id": "0x0805", "warning": "После сброса потребуется 400-500 км обкатки" },
+        { "id": "oil_reset", "name": "Сброс интервала масла АКПП", "type": "service", "description": "Сброс счётчика замены масла 7G-Tronic", "service": "0x31", "routine_id": "0x0506" }
+      ]
+    },
+    {
+      "id": "abs_esp",
+      "name": "Блок ABS/ESP (Bosch ESP)",
+      "address": "0x7B0",
+      "response_address": "0x7B8",
+      "protocol": "Mercedes UDS CAN",
+      "baudrate": 500000,
+      "note": "Bosch ESP 8.0/9.0/9.1. Включает ABS, ASR (антипробуксовка), BAS (Brake Assist), EBD",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ESP)", "type": "special", "description": "Коды ABS/ESP. C-коды Mercedes Bosch", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ESP)", "type": "special", "description": "Очистить ошибки ABS/ESP", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры ESP", "type": "special", "description": "Скорости колёс, угол поворота, боковые ускорения, давление тормозов, флаги активации" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов с насосом ESP", "type": "activation", "description": "Активация насоса ABS/ESP для прокачки тормозной системы", "service": "0x31", "routine_id": "0x0301", "warning": "Только с диагностикой. Педаль нажата, автомобиль стоит" },
+        { "id": "epb_service", "name": "Обслуживание EPB (электрический стояночный тормоз)", "type": "activation", "description": "Отвести/поджать задние тормозные колодки EPB для замены колодок", "service": "0x31", "routine_id": "0x0206", "warning": "Только при выключенном двигателе" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS / RCM (Restraint Control Module)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "Mercedes UDS CAN",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "Коды подушек безопасности, преднатяжителей, датчиков удара. B-коды Mercedes", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS. Только после замены всех неисправных компонентов", "service": "0x14", "warning": "Отключить АКБ за 30 минут. Убедиться в отсутствии пассажиров" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Статус цепей пиропатронов, датчиков удара, ремней безопасности" }
+      ]
+    },
+    {
+      "id": "eis_ezs",
+      "name": "Блок EIS/EZS (иммобилайзер, замок зажигания)",
+      "address": "0x720",
+      "response_address": "0x728",
+      "protocol": "Mercedes UDS CAN",
+      "baudrate": 500000,
+      "note": "EZS (W203) / EIS (W204/W205). Управляет запуском двигателя и авторизацией ключей",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (EIS)", "type": "special", "description": "Коды иммобилайзера и замка зажигания", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (EIS)", "type": "special", "description": "Очистить ошибки EIS/EZS", "service": "0x14" },
+        { "id": "key_adapt", "name": "Прописка ключей", "type": "adaptation", "description": "Регистрация новых ключей в EIS. Требует дилерского ПО XENTRY или специализированного ключевщика", "warning": "Требует авторизационный пин-код производителя или SSID" }
+      ]
+    },
+    {
+      "id": "climate",
+      "name": "Климат-контроль Thermotronic / Comand",
+      "address": "0x714",
+      "response_address": "0x71C",
+      "protocol": "Mercedes UDS CAN",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (климат)", "type": "special", "description": "Коды системы климат-контроля Thermotronic", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (климат)", "type": "special", "description": "Очистить ошибки климата", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры климата", "type": "special", "description": "Температуры датчиков климата, обороты вентилятора, давление хладагента, статус компрессора" },
+        { "id": "flap_calib", "name": "Калибровка заслонок климата", "type": "adaptation", "description": "Обнуление и повторная калибровка заслонок Thermotronic", "service": "0x31", "routine_id": "0x0115" }
+      ]
+    },
+    {
+      "id": "eps",
+      "name": "Электроусилитель руля EPS",
+      "address": "0x712",
+      "response_address": "0x71A",
+      "protocol": "Mercedes UDS CAN",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (EPS)", "type": "special", "description": "Коды электроусилителя руля", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (EPS)", "type": "special", "description": "Очистить ошибки EPS", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры EPS", "type": "special", "description": "Ток мотора, угол руля, момент, температура" },
+        { "id": "steering_calib", "name": "Калибровка датчика угла руля", "type": "adaptation", "description": "Сброс и обучение нулевого положения руля. Обязательна после развала/схождения", "service": "0x31", "routine_id": "0x0090" }
+      ]
+    },
+    {
+      "id": "airmatic",
+      "name": "Пневмоподвеска AIRMATIC (опция)",
+      "address": "0x737",
+      "response_address": "0x73F",
+      "protocol": "Mercedes UDS CAN",
+      "baudrate": 500000,
+      "note": "E-Class W212/W213, GLS X166/X167, S-Class. Опция для C-Class W205 AMG Line",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (AIRMATIC)", "type": "special", "description": "Коды пневмоподвески AIRMATIC", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (AIRMATIC)", "type": "special", "description": "Очистить ошибки AIRMATIC", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры AIRMATIC", "type": "special", "description": "Высота кузова (4 датчика), давление в пневмоэлементах, статус компрессора, режимы (Comfort/Sport/Raised)" },
+        { "id": "height_calib", "name": "Калибровка высоты кузова", "type": "adaptation", "description": "Сброс и повторная калибровка датчиков высоты AIRMATIC после замены пневмоэлементов", "service": "0x31", "routine_id": "0x0502", "warning": "На ровной горизонтальной поверхности, без нагрузки, все двери закрыты" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0016": "Рассогласование фаз коленвал/распредвал — цепь ГРМ, натяжитель, фазовращатель",
+    "P0087": "Низкое давление топлива — ТНВД, регулятор давления Rail",
+    "P0299": "Давление наддува ниже нормы — актюатор турбины, патрубки, интеркулер",
+    "P0401": "Недостаточный поток EGR — клапан EGR OM651, патрубки",
+    "P0420": "Низкая эффективность катализатора — катализатор, лямбда-зонды",
+    "P20EE": "Низкая эффективность SCR катализатора — катализатор SCR, форсунка AdBlue",
+    "P207F": "Качество реагента AdBlue — некачественный AdBlue, датчик",
+    "P0705": "Датчик положения АКПП — датчик или мехатроника",
+    "C1000": "Неисправность гидроагрегата ABS — насос или клапаны ABS",
+    "B1001": "Компонент SRS — пиропатрон или датчик удара",
+    "U0100": "Нет CAN от ECU — обрыв CAN шины, питание ЭБУ"
+  },
+  "notes": [
+    "Двигатели бензин: M271 (1.8T W203/W204), M274 (2.0T W205), M256 (3.0T inline-6 W205 AMG 43)",
+    "Двигатели дизель: OM611 (2.2 CDI W203), OM651 (1.8/2.2 CDI W204), OM654 (1.5/2.0 CDI W205 2016+)",
+    "XENTRY (Mercedes dealer) рекомендуется для полного доступа. Бесплатный альтернатива: iCarsoft MB II, Autel",
+    "W205 (2014+) использует Ethernet OBD поверх DoIP — требует специальный адаптер MB Star",
+    "Файл совместим с E-Class W212/W213, GLC X253, GLE W166/W167 на аналогичных платформах",
+    "Assyst Plus (W204+) автоматически определяет тип обслуживания. На W203 — ручная система"
+  ]
+}

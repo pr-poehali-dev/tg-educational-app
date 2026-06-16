@@ -1,0 +1,97 @@
+{
+  "makeId": "kia",
+  "modelId": "rio",
+  "name": "Kia Rio / Cerato / Sportage / Sorento",
+  "generations": ["Rio III FB (2011-2017)", "Rio IV (2017+)", "Cerato YD/BD", "Sportage QL/NQ5"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Kia GDS / KWP2000-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (ECM)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя Kia (стандартные + P1xxx Kia-specific)", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя: ОЖ, RPM, MAF, дроссель, лямбда, топливо", "service": "0x01" },
+        { "id": "oil_reset", "name": "Сброс Oil Life Monitor", "type": "service", "description": "Сброс счётчика замены масла", "service": "0x2F", "did": "0x0B00", "note": "Kia Rio IV: кнопка OK в меню → ТО → Сброс" },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя", "type": "adaptation", "description": "Обнуление электронного дросселя после чистки. Двигатели G4FA/G4FC/G4FG", "service": "0x31", "routine_id": "0x2601" },
+        { "id": "dpf_regen", "name": "Регенерация DPF (дизель)", "type": "service", "description": "Принудительная регенерация DPF. Только дизельные версии Sportage/Sorento (D4FB/D4FD)", "service": "0x31", "routine_id": "0x6001", "warning": "Только дизель. Скорость 60+ км/ч, ОЖ >80°C" }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ESC",
+      "address": "0x7A0",
+      "response_address": "0x7A8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS)", "type": "special", "description": "Коды ABS/ESC Kia", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS)", "type": "special", "description": "Очистить ошибки ABS/ESC", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры ABS", "type": "special", "description": "Скорости колёс, давление тормозной жидкости, флаги ESC" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов", "type": "activation", "description": "Режим прокачки с активацией насоса ABS", "service": "0x31", "routine_id": "0x0301" },
+        { "id": "steering_calib", "name": "Калибровка угла руля", "type": "adaptation", "description": "Обнуление датчика угла ESC после сход-развала", "service": "0x31", "routine_id": "0x0040" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Kia", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS. Только после замены компонентов", "service": "0x04" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Состояние цепей подушек, датчиков удара, резервный конденсатор" }
+      ]
+    },
+    {
+      "id": "eps",
+      "name": "Электроусилитель руля MDPS",
+      "address": "0x7B0",
+      "response_address": "0x7B8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (MDPS)", "type": "special", "description": "Коды рулевого усилителя MDPS Kia", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (MDPS)", "type": "special", "description": "Очистить ошибки MDPS", "service": "0x04" },
+        { "id": "steering_calib", "name": "Калибровка MDPS", "type": "adaptation", "description": "Инициализация нулевого положения. Обязательна после замены рулевой рейки", "service": "0x31", "routine_id": "0x4201" }
+      ]
+    },
+    {
+      "id": "tpms",
+      "name": "TPMS (контроль давления шин)",
+      "address": "0x7B2",
+      "response_address": "0x7BA",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (TPMS)", "type": "special", "description": "Коды TPMS", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (TPMS)", "type": "special", "description": "Очистить ошибки TPMS", "service": "0x04" },
+        { "id": "live_data", "name": "Давление в шинах", "type": "special", "description": "Давление (кПа), температура и заряд батарей 4 датчиков" },
+        { "id": "tpms_reset", "name": "Регистрация датчиков TPMS", "type": "adaptation", "description": "Перерегистрация датчиков после замены шин", "steps": ["Накачать шины до нормы", "Нажать кнопку TPMS (бардачок) удерживать 3 сек", "Проехать >20 км/ч 5 минут"] }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0171": "Бедная смесь — утечка воздуха, MAF, форсунки",
+    "P0300": "Пропуски зажигания — свечи, катушки, компрессия",
+    "P1326": "Knock Sensor Rationality (стук) — типично для Theta II, прокладка ГБЦ",
+    "P0340": "Датчик CMP распредвала — датчик, звёздочка",
+    "P0420": "Катализатор ниже нормы",
+    "C1200": "Датчик скорости переднего правого колеса ABS",
+    "C1201": "Датчик скорости переднего левого колеса ABS"
+  },
+  "notes": [
+    "Двигатели Rio: 1.4 MPI G4FA, 1.6 MPI G4FC, 1.4T G4LD (2020+)",
+    "Двигатели Sportage: 1.6T G4FJ, 2.0 G4NC, 2.0D D4HA, 1.6T-GDi G4FJ",
+    "Файл совместим с Hyundai Solaris/Elantra на той же платформе K2/K3",
+    "GDS Mobile — мобильное приложение Kia/Hyundai для диагностики"
+  ]
+}

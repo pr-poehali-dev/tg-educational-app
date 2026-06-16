@@ -1,0 +1,142 @@
+{
+  "makeId": "hyundai",
+  "modelId": "solaris",
+  "name": "Hyundai Solaris / Elantra / Creta / Tucson",
+  "generations": ["Solaris I (2010-2017)", "Solaris II (2017+)", "Elantra MD/AD/CN7", "Creta I/II"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Hyundai GDS / KWP2000-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (ECM/PCM)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя. Hyundai/Kia использует стандартные + P1xxx собственные коды", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x0F", "name": "Температура воздуха", "unit": "°C" },
+          { "pid": "0x10", "name": "Расход воздуха MAF", "unit": "г/с" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" },
+          { "pid": "0x2F", "name": "Уровень топлива", "unit": "%" },
+          { "pid": "0x5C", "name": "Температура масла", "unit": "°C" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс интервала замены масла", "type": "service", "description": "Сброс счётчика Oil Life Monitor. Solaris/Elantra/Creta/Tucson", "service": "0x2F", "did": "0x0B00", "note": "Альтернативный способ: удерживать кнопку ODO/TRIP 3-5 секунд при включении зажигания (без запуска двигателя)" },
+        { "id": "throttle_adapt", "name": "Адаптация дроссельной заслонки", "type": "adaptation", "description": "Обнуление адаптивных данных электронного дросселя ETCS. После чистки или замены", "service": "0x31", "routine_id": "0x2601", "steps": ["Зажигание ON, двигатель НЕ запускать", "Запустить процедуру", "Ожидать 5 секунд", "Запустить двигатель, дать поработать 10 минут"] },
+        { "id": "idle_adapt", "name": "Адаптация холостого хода", "type": "adaptation", "description": "Обучение ЭБУ оборотам ХХ. После замены АКБ, сброса ЭБУ или чистки дросселя", "steps": ["Прогреть двигатель до 85-95°C", "Выключить все потребители", "Дать поработать 10 минут на ХХ"] }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок АКПП / IVT / DCT",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "note": "6AT (A6LF1), IVT/CVT на Solaris II, DCT (7DCT300) на Creta/Tucson. МКПП — блок отсутствует",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (АКПП)", "type": "special", "description": "Коды трансмиссии AKPP Hyundai", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (АКПП)", "type": "special", "description": "Очистить ошибки АКПП", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры АКПП", "type": "special", "description": "Температура масла, передача, входные/выходные обороты, давление масла" },
+        { "id": "trans_adapt", "name": "Сброс адаптации АКПП", "type": "adaptation", "description": "Сброс адаптивных данных АКПП после замены масла или ремонта", "service": "0x31", "routine_id": "0x4803", "warning": "После сброса обязателен ездовой цикл 200+ км" }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ESC/TCS",
+      "address": "0x7A0",
+      "response_address": "0x7A8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "note": "ESC — Electronic Stability Control (Hyundai). Bosch 9.3 или Mando ABS",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS)", "type": "special", "description": "Коды ABS/ESC. C-коды Hyundai/Kia", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS)", "type": "special", "description": "Очистить ошибки ABS/ESC", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры ABS", "type": "special", "description": "Скорости 4 колёс, давление тормозов, флаги ABS/ESC, угол руля" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов", "type": "activation", "description": "Режим прокачки тормозной системы с активацией насоса ABS", "service": "0x31", "routine_id": "0x0301", "warning": "Диагностическое оборудование подключено, педаль нажата" },
+        { "id": "steering_reset", "name": "Калибровка датчика угла руля", "type": "adaptation", "description": "Сброс нулевого положения датчика угла. После регулировки сход-развала", "service": "0x31", "routine_id": "0x0040" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS (Airbag Control Unit)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Hyundai. Цепи подушек, датчики удара, преднатяжители", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS", "service": "0x04", "warning": "Только после замены неисправных компонентов" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Состояние цепей пиропатронов, напряжение резервного конденсатора, датчики удара" }
+      ]
+    },
+    {
+      "id": "eps",
+      "name": "Электроусилитель руля MDPS (EPS)",
+      "address": "0x7B0",
+      "response_address": "0x7B8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "note": "MDPS — Motor Driven Power Steering. На Solaris/Elantra — колоночный тип (C-MDPS)",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (MDPS)", "type": "special", "description": "Коды электроусилителя MDPS. C-коды рулевого управления", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (MDPS)", "type": "special", "description": "Очистить ошибки MDPS", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры MDPS", "type": "special", "description": "Ток мотора MDPS, угол поворота, крутящий момент на руле, температура" },
+        { "id": "steering_calib", "name": "Калибровка MDPS (нулевое положение)", "type": "adaptation", "description": "Установка нулевого положения рулевого колеса. После регулировки сход-развала или замены рейки", "service": "0x31", "routine_id": "0x4201", "steps": ["Установить колёса прямо", "Зажигание ON", "Запустить процедуру", "Не вращать руль 5 секунд"] }
+      ]
+    },
+    {
+      "id": "cluster",
+      "name": "Комбинация приборов (BCM/Cluster)",
+      "address": "0x7C0",
+      "response_address": "0x7C8",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (щиток)", "type": "special", "description": "Коды щитка приборов Hyundai", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (щиток)", "type": "special", "description": "Очистить ошибки щитка", "service": "0x04" },
+        { "id": "service_reset", "name": "Сброс сервисного интервала", "type": "service", "description": "Сброс счётчика ТО через блок щитка", "service": "0x2F", "did": "0x0B00" }
+      ]
+    },
+    {
+      "id": "tpms",
+      "name": "Система контроля давления TPMS",
+      "address": "0x7B2",
+      "response_address": "0x7BA",
+      "protocol": "CAN ISO 15765-4",
+      "baudrate": 500000,
+      "note": "Присутствует на Creta, Tucson, Santa Fe. На Solaris I — опция, Solaris II — стандарт",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (TPMS)", "type": "special", "description": "Коды датчиков давления в шинах", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (TPMS)", "type": "special", "description": "Очистить ошибки TPMS", "service": "0x04" },
+        { "id": "live_data", "name": "Давление в шинах", "type": "special", "description": "Давление в каждой шине (кПа), температура датчиков, заряд батарей" },
+        { "id": "tpms_reset", "name": "Сброс TPMS (перерегистрация)", "type": "adaptation", "description": "Перерегистрация датчиков TPMS после замены шин или датчиков", "steps": ["Накачать шины до нормы (230-250 кПа)", "Нажать кнопку SET в бардачке (Solaris II) или через меню", "Проехать 20-30 км/ч 5 минут"] }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0171": "Бедная смесь банк 1 — утечка воздуха, MAF, лямбда-зонд",
+    "P0300": "Пропуски зажигания случайные — свечи, катушки, форсунки, компрессия",
+    "P0335": "Датчик коленвала CKP — датчик, зубчатый венец, обрыв цепи",
+    "P0340": "Датчик распредвала CMP — датчик, звёздочка",
+    "P0420": "Низкая эффективность катализатора — катализатор, лямбда-зонды",
+    "P1326": "Knock Sensor Rationality — детонация, прокладка ГБЦ (характерна для Theta II 2.0/2.4)",
+    "P0717": "Датчик скорости входного вала АКПП — датчик или мехатроник",
+    "C1200": "Неисправность датчика скорости переднего правого колеса",
+    "C1604": "Тормозное реле — предохранитель или реле ABS насоса"
+  },
+  "notes": [
+    "Двигатели Solaris: 1.4 MPI (G4FA), 1.6 MPI (G4FC), 1.4T-GDi (G4LD от Solaris II 2020)",
+    "Двигатели Creta: 1.6 MPI (G4FC), 2.0 MPI (G4NA), 1.6T-GDi (G4FJ), 2.0T (G4NC от Creta 2021)",
+    "GDS (Global Diagnostic System) — официальный диагностический инструмент Hyundai/Kia",
+    "iCarsoft Kr II или Autel MK808 поддерживают большинство функций без дилерского оборудования",
+    "P1326 (стук двигателя) — критическая проблема двигателей Theta II, требует внимания!",
+    "Файл совместим с Kia Rio (FB/JB), Ceed (JD/CD), Sportage (SL/QL) на платформе Hyundai K2"
+  ]
+}

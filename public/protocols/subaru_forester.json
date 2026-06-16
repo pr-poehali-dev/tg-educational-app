@@ -1,0 +1,112 @@
+{
+  "makeId": "subaru",
+  "modelId": "forester",
+  "name": "Subaru Forester / Outback / XV / WRX",
+  "generations": ["Forester SJ (2012-2018)", "Forester SK (2018+)", "Outback BS/BT", "XV GP/GT"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Subaru SSM4 / EOBD-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (ECM/PCM)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4 / Subaru SSM",
+      "baudrate": 500000,
+      "note": "Двигатели: FB20/FB25 (Forester SJ/SK, Outback), EJ25 (WRX STI), FA20DIT (WRX), FA24DIT (WRX 2022+)",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя Subaru Boxer. Стандартные OBD-II + P1xxx Subaru-specific", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры оппозитного двигателя Boxer в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x0F", "name": "Температура воздуха на впуске", "unit": "°C" },
+          { "pid": "0x10", "name": "Расход воздуха MAF", "unit": "г/с" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" },
+          { "pid": "0x0B", "name": "Давление наддува (WRX)", "unit": "кПа" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс интервала ТО", "type": "service", "description": "Сброс напоминания о замене масла Subaru", "service": "0x31", "routine_id": "0x0501", "note": "Ручной способ: зажигание ON (без запуска), нажать и удерживать кнопку TRIP 3+ секунд" },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя FB/FA", "type": "adaptation", "description": "Обнуление электронного дросселя ETCS. После чистки или замены. FB20/FB25/FA20", "service": "0x31", "routine_id": "0x0121", "steps": ["Зажигание OFF 10 сек", "Зажигание ON (двигатель НЕ запускать)", "Плавно нажать педаль газа до упора", "Плавно отпустить педаль", "Ждать 30 секунд", "Запустить двигатель"] },
+        { "id": "idle_adapt", "name": "Адаптация холостого хода Boxer", "type": "adaptation", "description": "Обучение ЭБУ оборотам ХХ. Актуально после замены АКБ, дросселя или сброса ЭБУ", "steps": ["Прогреть двигатель до 85°C+", "Отключить кондиционер", "Дать поработать 10 минут на ХХ"] },
+        { "id": "avcs_adapt", "name": "Адаптация AVCS (фазовращатель)", "type": "adaptation", "description": "Адаптация системы изменения фаз газораспределения AVCS (Active Valve Control System). После замены цепи ГРМ", "service": "0x31", "routine_id": "0x0140" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок АКПП Lineartronic CVT / 5AT",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN ISO 15765 / Subaru SSM",
+      "baudrate": 500000,
+      "note": "Lineartronic CVT (TR580/TR690) на Forester SJ/SK, Outback, XV. 5AT (TZ1B5ZWBAB) на старых Forester. 6MT/EJ257 на WRX STI",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (CVT)", "type": "special", "description": "Коды вариатора Lineartronic Subaru. P07xx/P08xx специфичные CVT коды", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (CVT)", "type": "special", "description": "Очистить ошибки CVT/АКПП", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры CVT Lineartronic", "type": "special", "description": "Температура масла CVT, передаточное отношение, давление масла, статус Lock-Up" },
+        { "id": "cvt_adapt", "name": "Сброс адаптации Lineartronic", "type": "adaptation", "description": "Сброс обученных данных вариатора Lineartronic. После замены масла CVTF или ремонта", "service": "0x31", "routine_id": "0x0802", "warning": "Использовать ТОЛЬКО оригинальное масло Subaru CVTF (синее). Смешивание масел — гибель CVT!" }
+      ]
+    },
+    {
+      "id": "abs_vdc",
+      "name": "Блок ABS/VDC (Vehicle Dynamics Control)",
+      "address": "0x7A0",
+      "response_address": "0x7A8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "VDC — Subaru-название ESP. Bosch ABS 9.0 на SK. На WRX STI — DCCD (Driver's Control Centre Differential)",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS/VDC)", "type": "special", "description": "C-коды ABS/VDC Subaru", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS/VDC)", "type": "special", "description": "Очистить ошибки ABS/VDC", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры VDC", "type": "special", "description": "Скорости 4 колёс, угол руля, боковое ускорение, флаги VDC/TCS. DCCD блокировка на WRX STI" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов с ABS", "type": "activation", "description": "Активация насоса ABS для прокачки тормозной системы Subaru", "service": "0x31", "routine_id": "0x0301" },
+        { "id": "steering_calib", "name": "Калибровка угла руля VDC", "type": "adaptation", "description": "Сброс нулевого положения датчика угла. После регулировки сход-развала", "service": "0x31", "routine_id": "0x0042" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS (Airbag)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Subaru", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS. Только после замены компонентов", "service": "0x04" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Состояние цепей пиропатронов, датчиков удара, преднатяжителей" }
+      ]
+    },
+    {
+      "id": "eps",
+      "name": "Электроусилитель руля EPS",
+      "address": "0x7B0",
+      "response_address": "0x7B8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (EPS)", "type": "special", "description": "Коды EPS Subaru", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (EPS)", "type": "special", "description": "Очистить ошибки EPS", "service": "0x04" },
+        { "id": "eps_calib", "name": "Калибровка EPS", "type": "adaptation", "description": "Инициализация нулевого положения рулевого колеса после замены рейки", "service": "0x31", "routine_id": "0x0080" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0028": "Клапан VVT (AVCS) выпускного распредвала — соленоид AVCS, давление масла",
+    "P0011": "Фаза впускного распредвала опережена — соленоид AVCS, цепь ГРМ",
+    "P0171": "Бедная смесь — MAF, утечки воздуха, форсунки",
+    "P0420": "Катализатор ниже нормы",
+    "P0700": "Общая ошибка трансмиссии CVT — масло CVT, датчики",
+    "P0868": "Низкое давление масла CVT — масло Subaru CVTF, насос",
+    "P0327": "Сигнал датчика детонации низкий — перегрев, некачественный бензин (WRX)",
+    "C0057": "Датчик скорости заднего левого колеса ABS"
+  },
+  "notes": [
+    "Lineartronic CVT ТРЕБУЕТ оригинального масла Subaru CVTF-II или Subaru CVTF-II Lite. Интервал замены 40000 км (реальный) или 80000 км (официальный)",
+    "SSM4 (Subaru Select Monitor 4) — официальный диагностический инструмент. Альтернатива: LAUNCH, Autel, бесплатный CarScanner",
+    "Оппозитный двигатель Boxer имеет особенность — масло стекает с распредвалов при стоянке, нормальный стук при холодном пуске проходит за 2-3 секунды",
+    "WRX STI с DCCD: блок DCCD имеет отдельный адрес — проверить через SSM4",
+    "Forester SK (2018+) с двигателем FB25 имеет улучшенный AVCS на обоих распредвалах (впуск + выпуск)",
+    "Файл совместим с Subaru Outback BS/BT (2014+), XV GP/GT (2012+), Impreza GP/GT (2011+)"
+  ]
+}

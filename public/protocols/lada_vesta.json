@@ -1,0 +1,115 @@
+{
+  "makeId": "lada",
+  "modelId": "vesta",
+  "name": "LADA Vesta / Granta / XRAY / Largus / Niva",
+  "generations": ["Vesta (2015+)", "Granta (2011+)", "XRAY (2015+)", "Largus (2012+)", "Niva Legend/Travel (2021+)"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / Январь / Bosch ME17 / AUTODOC-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (Январь 7.2 / Bosch ME17.9)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4 / ISO 9141-2",
+      "baudrate": 500000,
+      "note": "Старые Гранта/Приора (до 2016) — K-Line ISO 9141. Веста/XRAY/Гранта от 2016 — CAN. Январь 7.2 (ВАЗ) / Bosch ME17.9.7 (Renault K4M/H4M)",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя. Январь 7.2 и Bosch ME17 используют стандартные P-коды + специфичные российские", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x04" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя ВАЗ/K4M/H4M в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x0F", "name": "Температура воздуха на впуске", "unit": "°C" },
+          { "pid": "0x10", "name": "Расход воздуха MAF (если есть)", "unit": "г/с" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" },
+          { "pid": "0x2F", "name": "Уровень топлива", "unit": "%" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс интервала ТО", "type": "service", "description": "Сброс счётчика ТО на Весте/Гранте. Через меню бортового компьютера или диагностику", "service": "0x31", "routine_id": "0x0501", "note": "Vesta: MENU → Сервис → Сброс ТО. Или через диагностику ноутбука с ELM327" },
+        { "id": "idle_adapt", "name": "Адаптация холостого хода", "type": "adaptation", "description": "Базовая адаптация оборотов холостого хода Январь 7.2. После замены АКБ, сброса ЭБУ, чистки дросселя", "service": "0x31", "routine_id": "0x0101", "steps": ["Прогреть двигатель до 85-90°C", "Заглушить двигатель, ждать 30 секунд", "Запустить и дать поработать 10 минут на ХХ без нагрузки", "Включить кондиционер (если есть) на 5 минут"] },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя (Bosch ME17)", "type": "adaptation", "description": "Обнуление адаптации электронного дросселя. Применимо к Весте с двиг. H4M/K4M (Bosch ME17.9.7)", "service": "0x31", "routine_id": "0x0170", "note": "Двигатели ВАЗ 21127/21129 (16-клапанный) с ЭБУ Январь 7.2 используют другую процедуру" },
+        { "id": "lambda_adapt", "name": "Сброс адаптации топливной смеси", "type": "adaptation", "description": "Сброс адаптивных поправок по кислородным датчикам. После замены форсунок, MAF или ремонта впуска", "service": "0x31", "routine_id": "0x0200" }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ESP (Bosch 8.0 / KEIHIN)",
+      "address": "0x7A0",
+      "response_address": "0x7A8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "ABS опциональна на Грантe. Стандартна на Весте и XRAY. Блок Bosch 8.0 или KEIHIN (XRAY)",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS)", "type": "special", "description": "C-коды ABS/ESP Lada. Bosch 8.0 использует стандартные C-коды OBD-II", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS)", "type": "special", "description": "Очистить ошибки ABS/ESP", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры ABS", "type": "special", "description": "Скорости 4 колёс, давление тормозной жидкости, флаги ABS/ESP" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов с ABS", "type": "activation", "description": "Принудительная активация насоса ABS для прокачки тормозной системы", "service": "0x31", "routine_id": "0x0301", "warning": "Подключена диагностика, педаль нажата" },
+        { "id": "steering_calib", "name": "Калибровка датчика угла руля ESP", "type": "adaptation", "description": "Сброс нулевого положения после регулировки развала/схождения", "service": "0x31", "routine_id": "0x0040" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS (подушки безопасности)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "SRS присутствует на Весте стандартно. На Гранте — фронтальные подушки",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Lada", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS. Только после замены компонентов", "service": "0x04" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Состояние цепей пиропатронов, датчиков удара" }
+      ]
+    },
+    {
+      "id": "transmission_amt",
+      "name": "Блок роботизированной КПП AMT (Веста/Гранта)",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "note": "AMT (Automated Manual Transmission) от АвтоВАЗ/Renault. Не путать с АКПП — это роботизированная МКПП",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (AMT)", "type": "special", "description": "Коды роботизированной КПП AMT Lada", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (AMT)", "type": "special", "description": "Очистить ошибки AMT", "service": "0x04" },
+        { "id": "live_data", "name": "Параметры AMT", "type": "special", "description": "Текущая передача, положение актюаторов сцепления и КПП, температура" },
+        { "id": "amt_adapt", "name": "Адаптация сцепления AMT", "type": "adaptation", "description": "Обучение точки касания сцепления после замены сцепления или актюатора AMT", "service": "0x31", "routine_id": "0x0802", "warning": "Автомобиль стоит, ДВС запущен, педаль тормоза нажата" }
+      ]
+    },
+    {
+      "id": "instrument",
+      "name": "Комбинация приборов (БК)",
+      "address": "0x720",
+      "response_address": "0x728",
+      "protocol": "CAN ISO 15765",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (щиток)", "type": "special", "description": "Коды бортового компьютера Lada", "service": "0x03" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (щиток)", "type": "special", "description": "Очистить ошибки щитка", "service": "0x04" },
+        { "id": "service_reset", "name": "Сброс ТО через щиток", "type": "service", "description": "Сброс сервисного интервала через блок щитка приборов Lada", "service": "0x31", "routine_id": "0xE101" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0300": "Пропуски зажигания — свечи (особенно актуально для ВАЗ), катушки",
+    "P0171": "Бедная смесь — датчик MAF/MAP, утечки впуска, засоренные форсунки",
+    "P0120": "Датчик положения педали газа — ДПДЗ, цепи",
+    "P0130": "Датчик кислорода — лямбда-зонд до катализатора",
+    "P0340": "Датчик фаз — датчик CMP, звёздочка",
+    "P0335": "Датчик коленвала — ДПКВ, зубчатый венец",
+    "P0420": "Катализатор ниже нормы — износ катализатора",
+    "P0403": "Клапан EGR (только K4M/H4M с EGR)",
+    "C0035": "Датчик скорости переднего правого колеса ABS",
+    "P0605": "Внутренняя ошибка ЭБУ — перепрошивка или замена Январь 7.2"
+  },
+  "notes": [
+    "Двигатели: ВАЗ-21127 (1.6 16v, Гранта), ВАЗ-21129 (1.8 16v, Веста), K4M (1.6 Renault, Largus/Веста NG), H4M (1.6 HR16DE Renault-Nissan, Веста NG), ВАЗ-21214 (1.7 карб/инжектор, Нива)",
+    "Для диагностики K-Line ЭБУ (до 2016): адаптер ELM327 v1.5 с поддержкой ISO 9141-2, программа DiagSoft или АвтоСкан",
+    "ЭБУ Январь 7.2 — российского производства. Полная диагностика через ДИАГНОСТИЧЕСКИЙ РАЗЪЁМ под рулём",
+    "ETIS (ВАЗ официальная диагностика) или Bosch ESI tronic для Bosch ME17",
+    "Largus (R90) — платформа Renault B0, те же ЭБУ что у Logan/Sandero. Используй renault_duster.json дополнительно",
+    "Гранта до 2019 — некоторые версии без CAN шины диагностируются только через K-Line"
+  ]
+}

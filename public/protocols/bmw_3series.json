@@ -1,0 +1,160 @@
+{
+  "makeId": "bmw",
+  "modelId": "3series",
+  "name": "BMW 3 Series / 5 Series / X3 / X5",
+  "generations": ["E46 (1998-2005)", "E90/E91/E92/E93 (2005-2013)", "F30/F31/F34 (2012-2019)", "G20/G21 (2019+)"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / BMW UDS / ISTA-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя DME/DDE",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "BMW-ENET / CAN ISO 15765",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "Считать P-коды двигателя. BMW использует собственные коды (30xx, 2Exx и стандартные Pxxxx)", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x14" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0B", "name": "Давление MAP", "unit": "кПа" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0F", "name": "Температура воздуха на впуске", "unit": "°C" },
+          { "pid": "0x10", "name": "Расход воздуха MAF", "unit": "г/с" },
+          { "pid": "0x5C", "name": "Температура масла двигателя", "unit": "°C" },
+          { "pid": "0x42", "name": "Напряжение бортовой сети", "unit": "В" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс CBS (Condition Based Service)", "type": "service", "description": "Сброс счётчика ТО в системе CBS. Моторное масло — CBS канал 0x01", "service": "0x31", "routine_id": "0xE003", "note": "0xE001 — тормозная жидкость, 0xE002 — охлаждающая жидкость, 0xE003 — моторное масло, 0xE004 — микрофильтр" },
+        { "id": "vanos_test", "name": "Тест VANOS (фазовращатель)", "type": "activation", "description": "Принудительная активация VANOS для проверки соленоидов фазовращателя", "service": "0x31", "routine_id": "0x0120", "note": "Только N52/N54/N55/B48/B58. Проверка DTC 2E85 (впуск) и 2E86 (выпуск)" },
+        { "id": "dpf_regen", "name": "Принудительная регенерация DPF", "type": "service", "description": "Прожиг сажевого фильтра дизельного двигателя (N47/N57/B47/B57)", "service": "0x31", "routine_id": "0x03A1", "warning": "Автомобиль в движении 60+ км/ч, ОЖ >80°C, масло в норме. Только дизельные версии" },
+        { "id": "adblue_reset", "name": "Сброс счётчика AdBlue", "type": "service", "description": "Сброс после заправки реагентом. Дизели Euro6 N47/N57 с SCR (с 2014)", "service": "0x31", "routine_id": "0x03A5" },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя", "type": "adaptation", "description": "Обнуление электронного дросселя (EDK). После замены или чистки", "service": "0x31", "routine_id": "0x0121" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок управления АКПП (EGS/GS)",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "BMW-ENET / CAN UDS",
+      "baudrate": 500000,
+      "note": "ZF 6HP, ZF 8HP на E90/F30/G20. E46 — ZF 5HP или МКПП",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (АКПП)", "type": "special", "description": "Коды неисправностей АКПП ZF. Типичные: 4240 (общая ошибка трансмиссии)", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (АКПП)", "type": "special", "description": "Очистить ошибки трансмиссии", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры АКПП", "type": "special", "description": "Температура масла АКПП, текущая передача, давление масла, статус режимов" },
+        { "id": "trans_adapt", "name": "Сброс адаптации АКПП", "type": "adaptation", "description": "Сброс адаптивных данных ZF. Выполнять после замены масла или мехатроника", "service": "0x31", "routine_id": "0x0805", "warning": "После сброса потребуется ездовой цикл для повторного обучения. Возможны рывки при переключениях" },
+        { "id": "oil_reset", "name": "Сброс интервала масла АКПП", "type": "service", "description": "Сброс счётчика замены масла в АКПП ZF Lifeguard", "service": "0x31", "routine_id": "0x0505" }
+      ]
+    },
+    {
+      "id": "abs_dsc",
+      "name": "Блок ABS/DSC/DTC (динамическая стабилизация)",
+      "address": "0x713",
+      "response_address": "0x77B",
+      "protocol": "BMW-ENET / CAN UDS",
+      "baudrate": 500000,
+      "note": "DSC — Dynamic Stability Control (BMW). Bosch DSC8/DSC9/iDSC. На E46 — Bosch DSC 5.7",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS/DSC)", "type": "special", "description": "Коды неисправностей ABS/DSC. Типичные: 5E32 (требуется калибровка), 5E18 (датчик угла)", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS/DSC)", "type": "special", "description": "Очистить ошибки ABS/DSC", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры ABS/DSC", "type": "special", "description": "Скорости 4 колёс, давление тормозов, боковое ускорение, угол поворота, статус DSC/DTC/HDC" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов с насосом ABS", "type": "activation", "description": "Принудительная активация насоса Bosch ABS/DSC для прокачки системы", "service": "0x31", "routine_id": "0x0203", "warning": "Только с диагностическим оборудованием. Педаль тормоза нажата" },
+        { "id": "dsc_calib", "name": "Калибровка DSC (датчик угла руля)", "type": "adaptation", "description": "Обязательная калибровка после регулировки сход-развала или замены датчика угла", "service": "0x31", "routine_id": "0x0090" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS / ACSM (Airbag Control Safety Module)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "BMW-ENET / CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "Коды неисправностей системы SRS. Bosch ACSM B-коды BMW", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS. Только после замены всех неисправных компонентов", "service": "0x14", "warning": "Отключить АКБ за 30 минут до работы с SRS" },
+        { "id": "live_data", "name": "Данные ACSM", "type": "special", "description": "Состояние пиропатронов, цепей подушек, датчиков удара, преднатяжителей ремней" }
+      ]
+    },
+    {
+      "id": "cas",
+      "name": "Блок CAS / EWS (иммобилайзер, запуск)",
+      "address": "0x76D",
+      "response_address": "0x775",
+      "protocol": "BMW-ENET / CAN UDS",
+      "baudrate": 500000,
+      "note": "CAS — Car Access System (E60/E90+). EWS — Electronic Immobilizer (E46). CAS4/CAS4+ на F30/G20",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (CAS)", "type": "special", "description": "Коды иммобилайзера. A401A — ключ не авторизован, A4017 — проблема CAS", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (CAS)", "type": "special", "description": "Очистить ошибки CAS/EWS", "service": "0x14" },
+        { "id": "key_sync", "name": "Синхронизация ключей", "type": "adaptation", "description": "Прописка новых ключей через CAS блок. Требует дилерского оборудования или INPA/ISTA+", "warning": "На CAS3+ и CAS4 требуется ISN (Individual Serial Number) из ЭБУ двигателя" }
+      ]
+    },
+    {
+      "id": "battery_mgmt",
+      "name": "Управление зарядом АКБ (IBS / BMS)",
+      "address": "0x61",
+      "response_address": "0x69",
+      "protocol": "BMW-ENET / LIN/CAN",
+      "baudrate": 500000,
+      "note": "КРИТИЧНО: после замены аккумулятора ОБЯЗАТЕЛЬНА регистрация. Иначе — неправильный заряд, разряд АКБ",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (АКБ)", "type": "special", "description": "Коды неисправностей системы управления аккумулятором", "service": "0x19" },
+        { "id": "battery_register", "name": "Регистрация нового аккумулятора (IBS)", "type": "adaptation", "description": "ОБЯЗАТЕЛЬНАЯ процедура после замены АКБ. Ввод ёмкости, типа (AGM/EFB/обычный) и производителя", "service": "0x31", "routine_id": "0x4108", "warning": "Без регистрации новый АКБ будет заряжаться неправильно и быстро выйдет из строя" },
+        { "id": "live_data", "name": "Состояние АКБ", "type": "special", "description": "Напряжение, ток заряда/разряда, температура, SOC (%), SOH (%), остаток ресурса АКБ" }
+      ]
+    },
+    {
+      "id": "air_suspension",
+      "name": "Пневмоподвеска EHC (опция)",
+      "address": "0x736",
+      "response_address": "0x73E",
+      "protocol": "BMW-ENET / CAN UDS",
+      "baudrate": 500000,
+      "note": "Только для комплектаций с активной подвеской / пневмоподвеской. X5 E53/E70/F15, 5 Series E61 Touring",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (EHC)", "type": "special", "description": "Коды неисправностей пневмоподвески. Типичный: CD069 — потеря давления", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (EHC)", "type": "special", "description": "Очистить ошибки пневмоподвески", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры EHC", "type": "special", "description": "Высота кузова по 4 датчикам, давление в пневмоэлементах, статус компрессора, режим" },
+        { "id": "height_calib", "name": "Калибровка высоты кузова", "type": "adaptation", "description": "Сброс и повторное обучение датчиков высоты после замены пневмоэлементов или датчиков", "service": "0x31", "routine_id": "0x0501", "warning": "На ровной поверхности, без нагрузки, все двери закрыты" }
+      ]
+    },
+    {
+      "id": "instrument",
+      "name": "Комбинация приборов KOMBI",
+      "address": "0x720",
+      "response_address": "0x728",
+      "protocol": "BMW-ENET / CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (KOMBI)", "type": "special", "description": "Коды щитка приборов", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (KOMBI)", "type": "special", "description": "Очистить ошибки щитка", "service": "0x14" },
+        { "id": "cbs_reset", "name": "Сброс CBS через щиток", "type": "service", "description": "Альтернативный сброс Condition Based Service через комбинацию приборов", "service": "0x31", "routine_id": "0xE101" },
+        { "id": "odo_read", "name": "Чтение одометра", "type": "special", "description": "Считать пробег из щитка KOMBI", "service": "0x22", "did": "0xF10B" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "2E85": "Неисправность VANOS впускной — соленоид VANOS, давление масла, цепь ГРМ",
+    "2E86": "Неисправность VANOS выпускной — соленоид VANOS выпуск",
+    "2AAF": "Система высокого давления топлива — ТНВД, регулятор давления, форсунки",
+    "2D8E": "Датчик MAF недостоверен — MAF загрязнён, утечка воздуха",
+    "3F57": "Внутренняя ошибка ЭБУ — перепрошивка или замена блока",
+    "4240": "Общая ошибка трансмиссии — мехатроник ZF, масло АКПП",
+    "5E32": "Требуется калибровка DSC — калибровать после сход-развала",
+    "5E18": "Датчик угла поворота руля — замена или калибровка датчика",
+    "CD069": "Потеря давления пневмоподвески — пневмоэлемент, компрессор, клапан",
+    "A401A": "Ключ не авторизован — прописка ключа, синхронизация CAS",
+    "29E2": "Катализатор ниже нормы — замена катализатора, лямбда-зонды"
+  },
+  "notes": [
+    "Двигатели бензин: N46B20 (E46), N52B25/B30 (E90), N54B30 turbo (E90 335i), N55B30 (F30 335i), B48B20 (G20 320i/330i), B58B30 (G20 340i/M340i)",
+    "Двигатели дизель: M47D20 (E46 320d), N47D20 (E90 320d), N57D30 (F30 330d/335d), B47D20 (G20 320d)",
+    "ISTA+ (BMW dealer tool) рекомендуется для полного доступа. Бесплатные альтернативы: INPA (E-series), BimmerCode (F/G-series)",
+    "G20 (2019+) использует Ethernet-based ENET диагностику — требует специальный адаптер ENET или BMW ICOM Next",
+    "E46 использует K-Line диагностику (OBD-II стандарт), адрес 0x7E0 работает стандартно",
+    "Файл совместим с BMW 5 Series (E60/F10/G30), X3 (E83/F25/G01), X5 (E53/E70/F15/G05) на аналогичных платформах"
+  ]
+}

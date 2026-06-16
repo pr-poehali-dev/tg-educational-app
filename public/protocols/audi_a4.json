@@ -1,0 +1,121 @@
+{
+  "makeId": "audi",
+  "modelId": "a4",
+  "name": "Audi A4 / A6 / A3 / Q5 / Q7",
+  "generations": ["A4 B7 (2004-2008)", "A4 B8 (2007-2015)", "A4 B9 (2015+)"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / VAG UDS / VCDS Audi-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (Блок 01)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4 / UDS ISO 14229",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "P-коды двигателя Audi. Bosch Motronic ME9.1/MED17 (бензин), Bosch EDC17C64 (дизель)", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды двигателя", "service": "0x14" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя Audi: MAF, MAP, лямбда, давление топлива, TFSI/TDI специфика", "service": "0x01" },
+        { "id": "oil_reset", "name": "Сброс сервисного интервала Audi", "type": "service", "description": "Сброс Longlife/фиксированного ТО Audi", "service": "0x31", "routine_id": "0x0503" },
+        { "id": "throttle_adapt", "name": "Адаптация дросселя", "type": "adaptation", "description": "Обнуление электронного дросселя после чистки. TFSI/FSI двигатели", "service": "0x31", "routine_id": "0x0120" },
+        { "id": "injector_adapt", "name": "Адаптация форсунок FSI/TFSI (IMA)", "type": "adaptation", "description": "Адаптация форсунок непосредственного впрыска. Код с форсунки вводится в ЭБУ", "service": "0x2E", "did": "0x3B11", "note": "Только FSI/TFSI с непосредственным впрыском (A4 2.0T, A6 2.0T и т.д.)" },
+        { "id": "dpf_regen", "name": "Принудительная регенерация DPF (TDI)", "type": "service", "description": "Прожиг DPF на TDI двигателях (2.0 TDI EA189/EA288, 3.0 TDI)", "service": "0x31", "routine_id": "0x6002", "warning": "Только TDI. 60+ км/ч, ОЖ >80°C" },
+        { "id": "cam_adapt", "name": "Адаптация фаз ГРМ Audi", "type": "adaptation", "description": "Обучение положения распредвалов после замены цепи или сервисного ГРМ", "service": "0x31", "routine_id": "0x0141" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок АКПП S-Tronic DSG/Tiptronic (Блок 02)",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "note": "S-Tronic DSG-7 сухое (DQ200) на A4 1.8T/2.0 TFSI. S-Tronic DSG-7 мокрое (DQ500) на A4 2.0T quattro. Tiptronic (ZF 8HP) на A6/Q7",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (DSG/S-tronic)", "type": "special", "description": "Коды трансмиссии S-Tronic или Tiptronic Audi", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить ошибки КПП", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры КПП", "type": "special", "description": "Температура масла, передача, давление сцепления, статус мехатроника" },
+        { "id": "dsg_adapt", "name": "Адаптация S-Tronic (Основная)", "type": "adaptation", "description": "Базовая настройка S-Tronic DSG после замены мехатроника, сцепления или масла", "service": "0x31", "routine_id": "0x0805" },
+        { "id": "dsg_oil_reset", "name": "Сброс интервала масла S-Tronic", "type": "service", "description": "Сброс счётчика замены масла DSG", "service": "0x31", "routine_id": "0x0504" }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ESP (Блок 03)",
+      "address": "0x713",
+      "response_address": "0x77B",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS)", "type": "special", "description": "C-коды ABS/ESP Audi. Bosch ESP 9.0/iBooster на B9", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS)", "type": "special", "description": "Очистить ошибки ABS/ESP", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры ABS", "type": "special", "description": "Скорости 4 колёс, давление тормозов, флаги ESP/ASR, угол руля" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов", "type": "activation", "description": "Прокачка тормозной системы с насосом ABS/ESP", "service": "0x31", "routine_id": "0x0203" },
+        { "id": "steering_calib", "name": "Калибровка датчика угла руля", "type": "adaptation", "description": "Сброс нулевого положения ESP после регулировки сход-развала", "service": "0x31", "routine_id": "0x0090" }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS (Блок 15)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "B-коды SRS Audi. Цепи подушек, датчики удара", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS после ремонта", "service": "0x14", "warning": "Отключить АКБ на 30 минут. Все компоненты должны быть заменены" },
+        { "id": "live_data", "name": "Данные SRS", "type": "special", "description": "Состояние цепей пиропатронов, датчиков удара, ремней" }
+      ]
+    },
+    {
+      "id": "quattro",
+      "name": "Блок полного привода quattro / Haldex",
+      "address": "0x22",
+      "response_address": "0x2A",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "note": "Torsen quattro (механический) — отдельного ЭБУ нет. Haldex quattro (A3/TT quattro) — электронный блок",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (quattro)", "type": "special", "description": "Коды системы quattro / Haldex", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (quattro)", "type": "special", "description": "Очистить ошибки quattro", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры quattro/Haldex", "type": "special", "description": "Момент на осях, угловые скорости колёс, давление масла Haldex (если применимо)" },
+        { "id": "haldex_oil_reset", "name": "Сброс масла Haldex", "type": "service", "description": "Сброс счётчика замены масла Haldex coupling (только Haldex quattro)", "service": "0x31", "routine_id": "0x0507" }
+      ]
+    },
+    {
+      "id": "adblue",
+      "name": "Система SCR / AdBlue (Блок 0x75A)",
+      "address": "0x75A",
+      "response_address": "0x762",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "note": "TDI Euro 6 (EA288 после 2015). A4/A6/Q7 с 2.0 TDI/3.0 TDI Euro 6",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SCR/AdBlue)", "type": "special", "description": "Коды SCR/AdBlue TDI Euro 6. P20EE (эффективность SCR), P207F (качество реагента)", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SCR)", "type": "special", "description": "Очистить ошибки SCR/AdBlue", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры AdBlue", "type": "special", "description": "Уровень, концентрация, температура, давление насоса AdBlue, пробег до заправки" },
+        { "id": "adblue_reset", "name": "Сброс счётчика AdBlue", "type": "service", "description": "Сброс счётчика после заправки AdBlue", "service": "0x31", "routine_id": "0x03A5" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0016": "Рассогласование фаз — цепь ГРМ, натяжитель, фазовращатель TFSI",
+    "P0087": "Низкое давление топлива — ТНВД, регулятор HPFP",
+    "P0171": "Бедная смесь — MAF, утечки, форсунки FSI",
+    "P0299": "Давление наддува ниже нормы — турбина, N75, патрубки",
+    "P2015": "Заслонка впуска DISA — типична для V6/3.0 TFSI",
+    "P0420": "Катализатор ниже нормы",
+    "P20EE": "Низкая эффективность SCR — катализатор SCR, форсунка AdBlue",
+    "P0341": "Датчик распредвала — датчик, звёздочка, натяжитель цепи",
+    "18010": "Нет связи с ЭБУ — питание, CAN шина"
+  },
+  "notes": [
+    "Двигатели бензин: 1.8 TFSI (CDHA/CJEA B8), 2.0 TFSI (CDNB/CDHB/CVKB B8, CYMC/CZNA B9), 3.0 TFSI V6 (CAKA/CGWB B8)",
+    "Двигатели дизель: 2.0 TDI (CAGB/CJCA B8 EA189, DETA/DETA B9 EA288), 3.0 TDI V6 (CASB/CREC B8)",
+    "VCDS (Ross-Tech) или OBD Eleven дают полный доступ к Audi-специфичным функциям",
+    "A4 B9 (2015+) использует ModCAN/MOST шину дополнительно — требует адаптер с расширенной поддержкой",
+    "Файл совместим с Audi A3 (8V/8Y), A6 (C7/C8), Q5 (8R/FY), Q7 (4L/4M) на платформах MQB/MLB"
+  ]
+}

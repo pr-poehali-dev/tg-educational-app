@@ -1,0 +1,167 @@
+{
+  "makeId": "volkswagen",
+  "modelId": "golf",
+  "name": "Volkswagen Golf / Polo / Passat / Tiguan",
+  "generations": ["Golf V (2003-2008)", "Golf VI (2008-2013)", "Golf VII (2013-2020)", "Golf VIII (2020+)"],
+  "years": [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+  "protocol_version": "1.0",
+  "source": "OBD-II ISO 15765 / VAG UDS ISO 14229 / VCDS-совместимый",
+  "ecus": [
+    {
+      "id": "engine",
+      "name": "ЭБУ двигателя (Блок 01)",
+      "address": "0x7E0",
+      "response_address": "0x7E8",
+      "protocol": "CAN ISO 15765-4 / UDS ISO 14229",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC", "type": "special", "description": "Считать коды неисправностей двигателя (P-коды OBD-II и VAG-специфичные)", "service": "0x19", "subfunction": "0x02" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC", "type": "special", "description": "Очистить все коды неисправностей двигателя", "service": "0x14", "warning": "Все статусы готовности сбросятся. Потребуется ездовой цикл" },
+        { "id": "live_data", "name": "Поток данных", "type": "special", "description": "Параметры двигателя в реальном времени", "service": "0x01", "pids": [
+          { "pid": "0x05", "name": "Температура ОЖ", "unit": "°C" },
+          { "pid": "0x0B", "name": "Давление во впускном коллекторе", "unit": "кПа" },
+          { "pid": "0x0C", "name": "Обороты двигателя", "unit": "об/мин" },
+          { "pid": "0x0D", "name": "Скорость", "unit": "км/ч" },
+          { "pid": "0x10", "name": "Расход воздуха MAF", "unit": "г/с" },
+          { "pid": "0x11", "name": "Положение дросселя", "unit": "%" },
+          { "pid": "0x33", "name": "Абсолютное давление воздуха", "unit": "кПа" },
+          { "pid": "0x5C", "name": "Температура масла", "unit": "°C" }
+        ]},
+        { "id": "oil_reset", "name": "Сброс интервала ТО (сервисный сброс)", "type": "service", "description": "Сброс счётчика сервисного интервала. Применимо для Longlife и фиксированного ТО", "service": "0x31", "routine_id": "0x0503", "note": "На старых моделях (до 2004): удерживать кнопку сброса при включении зажигания" },
+        { "id": "throttle_adapt", "name": "Адаптация дроссельной заслонки", "type": "adaptation", "description": "Обнуление и повторное обучение электронного дросселя (EPC). Выполнять после чистки или замены", "service": "0x31", "routine_id": "0x0120", "warning": "Двигатель должен быть холодным (ниже 30°C ОЖ). Зажигание ON, двигатель не запускать" },
+        { "id": "injector_adapt", "name": "Адаптация форсунок (IMA)", "type": "adaptation", "description": "Ввод кодов коррекции форсунок с корпуса форсунки. Для дизельных двигателей TDI", "service": "0x2E", "did": "0x3B11", "note": "Код 6-16 символов, нанесён на каждую форсунку. Только для TDI Common Rail" },
+        { "id": "dpf_regen", "name": "Принудительная регенерация DPF", "type": "service", "description": "Принудительная прожиг сажевого фильтра при заполнении >80%", "service": "0x31", "routine_id": "0x6002", "warning": "Автомобиль должен быть в движении 60+ км/ч, температура ОЖ >80°C, уровень масла в норме" },
+        { "id": "egr_adapt", "name": "Адаптация клапана EGR", "type": "adaptation", "description": "Калибровка клапана рециркуляции выхлопных газов после замены или чистки", "service": "0x31", "routine_id": "0x3000" },
+        { "id": "cam_adapt", "name": "Адаптация фаз ГРМ (CVVT/Cam timing)", "type": "adaptation", "description": "Обучение положения распредвала после замены цепи или натяжителя", "service": "0x31", "routine_id": "0x0141" }
+      ]
+    },
+    {
+      "id": "transmission",
+      "name": "Блок управления АКПП/DSG (Блок 02)",
+      "address": "0x7E1",
+      "response_address": "0x7E9",
+      "protocol": "CAN UDS ISO 14229",
+      "baudrate": 500000,
+      "note": "DSG-6 (DQ250), DSG-7 сухое (DQ200), DSG-7 мокрое (DQ500). Механическая КПП — блок отсутствует",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (КПП)", "type": "special", "description": "Коды неисправностей АКПП/DSG", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (КПП)", "type": "special", "description": "Очистить ошибки КПП", "service": "0x14" },
+        { "id": "live_data", "name": "Поток данных КПП", "type": "special", "description": "Температура масла КПП, выбранная передача, давление сцепления, состояние мехатроника" },
+        { "id": "dsg_adapt", "name": "Адаптация DSG (основная)", "type": "adaptation", "description": "Базовая настройка DSG после замены мехатроника, сцепления или масла", "service": "0x31", "routine_id": "0x0805", "warning": "Только на прогретой КПП (60°C+). Автомобиль стоит, педаль тормоза нажата" },
+        { "id": "dsg_oil_reset", "name": "Сброс интервала масла DSG", "type": "service", "description": "Сброс счётчика замены масла в DSG", "service": "0x31", "routine_id": "0x0504" },
+        { "id": "clutch_adapt", "name": "Адаптация точки схватывания сцепления DSG", "type": "adaptation", "description": "Обучение точки касания сцепления. Выполнять после замены сцепления или масла", "steps": ["Прогреть КПП до 30-60°C", "Автомобиль стоит, ДВС запущен", "Запустить процедуру через диагностику", "Не трогать педали 3-5 минут"] }
+      ]
+    },
+    {
+      "id": "abs",
+      "name": "Блок ABS/ESP/TCS (Блок 03)",
+      "address": "0x713",
+      "response_address": "0x77B",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (ABS)", "type": "special", "description": "Коды неисправностей ABS/ESP/TCS. C-коды VAG", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (ABS)", "type": "special", "description": "Очистить ошибки тормозной системы", "service": "0x14" },
+        { "id": "live_data", "name": "Поток данных ABS", "type": "special", "description": "Скорости всех 4 колёс, давление тормозной жидкости, ускорения, статус ESP/TCS" },
+        { "id": "brake_bleed", "name": "Прокачка тормозов (с насосом ABS)", "type": "activation", "description": "Принудительная активация насоса ABS для прокачки тормозной системы", "service": "0x31", "routine_id": "0x0203", "warning": "Только при подключённом диагностическом оборудовании. Держать педаль тормоза нажатой" },
+        { "id": "steering_angle_reset", "name": "Калибровка датчика угла руля", "type": "adaptation", "description": "Сброс и калибровка датчика угла поворота. Обязательна после регулировки сход-развала", "service": "0x31", "routine_id": "0x0090", "steps": ["Выровнять колёса прямо", "Запустить процедуру", "Поворот руля влево до упора → вправо до упора → прямо"] }
+      ]
+    },
+    {
+      "id": "airbag",
+      "name": "Блок SRS/Airbag (Блок 15)",
+      "address": "0x7D0",
+      "response_address": "0x7D8",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SRS)", "type": "special", "description": "Коды неисправностей подушек безопасности и преднатяжителей. B-коды VAG", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SRS)", "type": "special", "description": "Очистить ошибки SRS после ремонта", "service": "0x14", "warning": "Устранить все неисправности перед сбросом. Лампа SRS не должна гореть" },
+        { "id": "live_data", "name": "Поток данных SRS", "type": "special", "description": "Состояние пиропатронов, датчиков удара, ремней с преднатяжителями, напряжение резервного конденсатора" },
+        { "id": "crash_data_clear", "name": "Очистка данных аварии", "type": "adaptation", "description": "Сброс данных зафиксированного ДТП из памяти блока SRS (если блок не сгорел)", "service": "0x31", "routine_id": "0x0157", "warning": "Только после полной замены всех сработавших компонентов SRS" }
+      ]
+    },
+    {
+      "id": "instrument",
+      "name": "Комбинация приборов (Блок 17)",
+      "address": "0x720",
+      "response_address": "0x728",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (щиток)", "type": "special", "description": "Коды неисправностей щитка приборов", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (щиток)", "type": "special", "description": "Очистить ошибки щитка приборов", "service": "0x14" },
+        { "id": "odo_read", "name": "Чтение одометра", "type": "special", "description": "Считать текущий пробег из блока щитка приборов", "service": "0x22", "did": "0xF10B" },
+        { "id": "service_reset", "name": "Сброс сервисного интервала (через щиток)", "type": "service", "description": "Альтернативный способ сброса ТО через щиток приборов", "service": "0x31", "routine_id": "0xE101" }
+      ]
+    },
+    {
+      "id": "climate",
+      "name": "Климат-контроль (Блок 08)",
+      "address": "0x714",
+      "response_address": "0x71C",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "note": "Климат-контроль Climatronic (автоматический). Ручной кондиционер отдельного блока не имеет",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (климат)", "type": "special", "description": "Коды неисправностей климат-контроля", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (климат)", "type": "special", "description": "Очистить ошибки климат-контроля", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры климата", "type": "special", "description": "Температуры датчиков (салон, улица, испаритель), обороты вентилятора, давление хладагента, статус компрессора" },
+        { "id": "ac_compressor_test", "name": "Тест компрессора кондиционера", "type": "activation", "description": "Принудительное включение муфты компрессора кондиционера для проверки", "warning": "Только при наличии хладагента R134a/R1234yf в системе" },
+        { "id": "flap_calibrate", "name": "Калибровка заслонок климата", "type": "adaptation", "description": "Обнуление и повторное обучение всех воздушных заслонок Climatronic после снятия блока", "service": "0x31", "routine_id": "0x0115" }
+      ]
+    },
+    {
+      "id": "eps",
+      "name": "Электроусилитель руля EPS (Блок 44)",
+      "address": "0x712",
+      "response_address": "0x71A",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (EPS)", "type": "special", "description": "Коды неисправностей электроусилителя руля", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (EPS)", "type": "special", "description": "Очистить ошибки EPS", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры EPS", "type": "special", "description": "Ток мотора EPS, угол руля, крутящий момент, температура мотора EPS, статус системы" },
+        { "id": "steering_basic_set", "name": "Базовая настройка EPS", "type": "adaptation", "description": "Обнуление блока EPS после замены рулевой рейки или самого блока. Калибровка нулевого положения", "service": "0x31", "routine_id": "0x0002", "steps": ["Установить колёса прямо", "Запустить процедуру базовой настройки", "Не двигать руль 10 секунд"] }
+      ]
+    },
+    {
+      "id": "adblue",
+      "name": "Система SCR / AdBlue (Блок 0x75A)",
+      "address": "0x75A",
+      "response_address": "0x762",
+      "protocol": "CAN UDS",
+      "baudrate": 500000,
+      "note": "Только для дизельных двигателей Euro 6 (TDI EA288 2015+). Golf VII 2.0 TDI и старше",
+      "functions": [
+        { "id": "dtc_read", "name": "Чтение кодов DTC (SCR)", "type": "special", "description": "Коды неисправностей системы SCR/AdBlue. Типичные: P20EE (эффективность SCR), P207F (качество реагента)", "service": "0x19" },
+        { "id": "dtc_clear", "name": "Удаление кодов DTC (SCR)", "type": "special", "description": "Очистить ошибки SCR/AdBlue", "service": "0x14" },
+        { "id": "live_data", "name": "Параметры AdBlue", "type": "special", "description": "Уровень AdBlue (л, %), температура бака, давление насоса, концентрация реагента, пробег до заправки" },
+        { "id": "adblue_reset", "name": "Сброс счётчика AdBlue", "type": "service", "description": "Сброс счётчика после заправки реагентом AdBlue", "service": "0x31", "routine_id": "0x03A5" },
+        { "id": "scr_prime", "name": "Прокачка системы AdBlue", "type": "activation", "description": "Принудительная прокачка насоса AdBlue для удаления воздуха после замены бака или насоса", "service": "0x31", "routine_id": "0x03A0" }
+      ]
+    }
+  ],
+  "common_dtc_codes": {
+    "P0087": "Давление топлива ниже нормы — ТНВД, регулятор давления, засорён фильтр",
+    "P0171": "Бедная смесь банк 1 — утечка воздуха, MAF, лямбда-зонд",
+    "P0299": "Давление наддува ниже нормы — турбина, перепускной клапан N75, патрубки наддува",
+    "P0401": "Недостаточный поток EGR — клапан EGR, патрубки EGR, сажа",
+    "P0420": "Низкая эффективность катализатора — катализатор, лямбда-зонды",
+    "P2015": "Заслонка впускного коллектора DISA — привод DISA, заслонка",
+    "P2187": "Бедная смесь на холостом ходу — мелкие подсосы, ДАД",
+    "P0300": "Случайные пропуски зажигания — свечи, катушки, форсунки",
+    "P0341": "Датчик положения распредвала — датчик, звёздочка, цепь ГРМ",
+    "P0016": "Рассогласование фаз коленвал/распредвал — цепь ГРМ, натяжитель, фазовращатель",
+    "U010200": "Нет CAN от ЭБУ двигателя — CAN шина, блок питания",
+    "18010": "Нет связи с блоком управления — питание, CAN"
+  },
+  "notes": [
+    "Двигатели: бензин 1.2TSI (CBZA/CJZA), 1.4TSI (CAXA/CZCA), 1.6MPI (BSE/CCSA), 2.0TSI GTI (AXX/BWA/CDLG/CHHB); дизель 1.6TDI (CAYB/CLHA), 2.0TDI (BKD/CFFB/CRBC/DFGA)",
+    "Golf VIII (2020+) использует MQB EVO и CAN FD — требует адаптер с поддержкой CAN FD 2.0",
+    "VCDS (Ross-Tech) или OBD Eleven рекомендуется для полного доступа к VAG-специфичным функциям",
+    "Адрес 0x713 для ABS актуален для модулей Bosch 8.x/9.x ESP. Более старые Golf V могут использовать 0x7AE",
+    "Golf VII с системой Start/Stop требует регистрацию АКБ после замены (через блок 61 — BEM)",
+    "Данный файл совместим также с Polo (AW/BZ), Passat (B7/B8), Tiguan (AD/AX) на той же платформе MQB"
+  ]
+}
