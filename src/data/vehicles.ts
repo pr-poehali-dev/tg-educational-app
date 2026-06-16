@@ -2758,7 +2758,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'priora', name: 'Приора (2170/2171/2172)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],
+      { id: 'priora', name: 'Приора (2170/2171/2172)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],
         ecus: [
           { id: 'engine', name: 'ЭБУ Январь 7.2 / BOSCH MP7', address: '0x7E0', protocol: 'ISO9141/CAN',
             functions: [
@@ -2895,7 +2895,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры MIVEC' },
             ]},
         ] },
-      { id: 'lancer', name: 'Lancer X (CY/CZ)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017],
+      { id: 'lancer', name: 'Lancer X (CY/CZ)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 1.5/1.8/2.0 MIVEC', address: '0x7E0', protocol: 'Mitsubishi-CAN',
             functions: [
