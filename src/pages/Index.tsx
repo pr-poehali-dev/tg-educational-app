@@ -4,6 +4,7 @@ import Icon from '@/components/ui/icon';
 import { VEHICLE_DB, REGIONS, type EcuBlock, type EcuFunction } from '@/data/vehicles';
 import { DTC_DB } from '@/data/dtc';
 import { elm327, LIVE_PARAMS_CONFIG, PARAM_GROUPS, type LiveParam } from '@/lib/bluetooth';
+import { useProtocolFolder } from '@/hooks/useProtocolFolder';
 
 // ── VIN API ───────────────────────────────────────────────────────────────────
 interface VinResult {
@@ -217,12 +218,21 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
   const [scanning, setScanning] = useState(false);
   const [scanResults, setScanResults] = useState<{ecu: string; faults: DtcEntry[]}[]>([]);
 
+  // Протоколы с телефона
+  const { findProtocol, folderPath, resetFolder, files } = useProtocolFolder();
+  const [protocolEcus, setProtocolEcus] = useState<EcuBlock[] | null>(null);
+  const [protocolStatus, setProtocolStatus] = useState<'idle' | 'loading' | 'found' | 'not_found'>('idle');
+
   const selectedMake = VEHICLE_DB.find(m => m.id === sel.make);
   const selectedModel = selectedMake?.models.find(m => m.id === sel.model);
+  // Используем ECU из файла протокола если найден, иначе из встроенной БД
+  const activeEcus = protocolEcus ?? selectedModel?.ecus ?? [];
   const ecuFaults = sel.ecu ? (MOCK_FAULTS[sel.ecu.id] || []) : [];
 
   const startLoad = (makeId: string) => {
     setSel(s => ({ ...s, make: makeId }));
+    setProtocolEcus(null);
+    setProtocolStatus('idle');
     setStep('loading'); setLoadProgress(0);
     const t = setInterval(() => {
       setLoadProgress(p => {
@@ -231,6 +241,19 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
       });
     }, 120);
   };
+
+  // Загрузка протокола после выбора года
+  const loadProtocolForSelection = useCallback(async (makeId: string, modelId: string, year: number) => {
+    setProtocolStatus('loading');
+    const data = await findProtocol(makeId, modelId, year);
+    if (data && data.ecus?.length > 0) {
+      setProtocolEcus(data.ecus as EcuBlock[]);
+      setProtocolStatus('found');
+    } else {
+      setProtocolEcus(null);
+      setProtocolStatus('not_found');
+    }
+  }, [findProtocol]);
 
   const startScan = () => {
     setScanning(true); setScanResults([]);
@@ -346,7 +369,11 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
       <SectionTitle title="Год выпуска" sub="Шаг 4 из 4" />
       <div className="grid grid-cols-3 gap-2">
         {[...(selectedModel?.years || [])].reverse().map(y => (
-          <button key={y} onClick={() => { setSel(s=>({...s, year: y})); setStep('ecus'); }}
+          <button key={y} onClick={() => {
+            setSel(s=>({...s, year: y}));
+            loadProtocolForSelection(sel.make, sel.model, y);
+            setStep('ecus');
+          }}
             className={`border-glow bg-card rounded-xl py-3 text-center font-display font-bold hover:bg-secondary transition ${sel.year === y ? 'gradient-primary text-[hsl(220,20%,8%)]' : ''}`}>
             {y}
           </button>
@@ -357,19 +384,45 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
 
   // ── ECUs List ──
   if (step === 'ecus') {
-    const totalFaults = (selectedModel?.ecus || []).reduce((s, e) => s + (MOCK_FAULTS[e.id]?.length || 0), 0);
-    const activeFaults = (selectedModel?.ecus || []).reduce((s, e) => s + (MOCK_FAULTS[e.id]?.filter(f=>f.status==='active').length || 0), 0);
+    const totalFaults = activeEcus.reduce((s, e) => s + (MOCK_FAULTS[e.id]?.length || 0), 0);
+    const activeFaults = activeEcus.reduce((s, e) => s + (MOCK_FAULTS[e.id]?.filter(f=>f.status==='active').length || 0), 0);
     return (
       <div className="space-y-4 animate-fade-up">
         <BackBtn onClick={() => setStep('year')} />
         {/* Авто-шапка */}
         <div className="gradient-primary rounded-xl p-4 flex items-center gap-3">
           <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl">{selectedMake?.logo}</div>
-          <div className="text-[hsl(220,20%,8%)]">
+          <div className="text-[hsl(220,20%,8%)] flex-1">
             <div className="font-display font-bold text-lg leading-tight">{selectedMake?.name} {selectedModel?.name}</div>
-            <div className="text-sm font-semibold opacity-80">{sel.year} · {selectedModel?.ecus.length} блоков</div>
+            <div className="text-sm font-semibold opacity-80">{sel.year} · {activeEcus.length} блоков</div>
           </div>
         </div>
+
+        {/* Статус протокола */}
+        {protocolStatus === 'loading' && (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground bg-secondary/50 rounded-xl p-3">
+            <Icon name="Loader2" size={14} className="animate-spin shrink-0" />
+            Ищем протокол в папке {folderPath}...
+          </div>
+        )}
+        {protocolStatus === 'found' && (
+          <div className="flex items-center gap-2 text-xs text-green-400 bg-green-400/10 rounded-xl p-3 border border-green-400/20">
+            <Icon name="FileCheck" size={14} className="shrink-0" />
+            Протокол загружен из файла · {activeEcus.length} блоков
+          </div>
+        )}
+        {protocolStatus === 'not_found' && files.length > 0 && (
+          <div className="flex items-center gap-2 text-xs text-amber-400 bg-amber-400/10 rounded-xl p-3 border border-amber-400/20">
+            <Icon name="FolderSearch" size={14} className="shrink-0" />
+            Протокол для этого авто не найден в папке. Используется встроенная БД.
+          </div>
+        )}
+        {protocolStatus === 'not_found' && files.length === 0 && (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground bg-secondary/50 rounded-xl p-3">
+            <Icon name="Database" size={14} className="shrink-0" />
+            Папка пуста. Используется встроенная БД.
+          </div>
+        )}
 
         {/* Кнопка 3: Быстрое тестирование */}
         <div className="border border-primary/30 bg-primary/5 rounded-xl p-4">
@@ -429,7 +482,7 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
         <div>
           <div className="font-display text-xs text-muted-foreground mb-2">БЛОКИ УПРАВЛЕНИЯ — НАЖМИТЕ ДЛЯ ПОДКЛЮЧЕНИЯ</div>
           <div className="space-y-2">
-            {selectedModel?.ecus.map(ecu => {
+            {activeEcus.map(ecu => {
               const faults = MOCK_FAULTS[ecu.id] || [];
               const active = faults.filter(f => f.status === 'active').length;
               return (
@@ -455,6 +508,18 @@ function ScreenVehicle({ btConnected }: { btConnected: boolean }) {
               );
             })}
           </div>
+        </div>
+
+        {/* Управление папкой протоколов */}
+        <div className="border border-border rounded-xl p-3 flex items-center gap-3">
+          <Icon name="FolderOpen" size={16} className="text-muted-foreground shrink-0" />
+          <div className="flex-1 min-w-0">
+            <div className="text-xs text-muted-foreground truncate">{folderPath || 'Папка не выбрана'}</div>
+            <div className="text-[11px] text-muted-foreground">{files.length} протоколов</div>
+          </div>
+          <button onClick={resetFolder} className="text-xs text-cyan-400 hover:text-cyan-300 transition shrink-0">
+            Сменить
+          </button>
         </div>
       </div>
     );
