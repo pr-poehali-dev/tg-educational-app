@@ -2040,6 +2040,883 @@ export const VEHICLE_DB: VehicleMake[] = [
         ] },
     ],
   },
+
+  // ── Дополнительные модели по всем маркам ─────────────────────────────────
+
+  // ── Volkswagen (дополнение) ──
+  {
+    id: 'vw_extra', name: 'Volkswagen', logo: 'VW', region: 'europe',
+    models: [
+      { id: 'touareg', name: 'Touareg (III)', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(), VAG_INSTRUMENT_ECU(),
+          { id: 'air_susp', name: 'Пневмоподвеска DCC', address: '0x5F', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки пневмоподвески' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Высота, давление, режимы' },
+              { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обнуление датчиков высоты кузова', warning: 'На ровной поверхности без нагрузки' },
+            ]} ] },
+      { id: 'touran', name: 'Touran (II)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
+      { id: 'sharan', name: 'Sharan (II)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
+      { id: 'arteon', name: 'Arteon / Shooting Brake', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
+      { id: 'taos', name: 'Taos / Tharu', years: [2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 'id4', name: 'ID.4 / ID.6 (EV)', years: [2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (электромотор)', address: '0x7E0', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (77/82 кВтч)', address: '0x7E4', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек' },
+              { id: 'cell_balance', name: 'Балансировка ячеек', type: 'adaptation', description: 'Принудительная балансировка АКБ' },
+            ]},
+          VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 'id3', name: 'ID.3 (EV)', years: [2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (электромотор)', address: '0x7E0', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (58/77 кВтч)', address: '0x7E4', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура' },
+            ]},
+          VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 'crafter', name: 'Crafter (II)', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 't_roc', name: 'T-Roc', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 't_cross', name: 'T-Cross', years: [2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 'amarok', name: 'Amarok (I/II)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 'caddy', name: 'Caddy (IV/V)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+    ],
+  },
+
+  // ── Audi (дополнение) ──
+  {
+    id: 'audi_extra', name: 'Audi', logo: 'AU', region: 'europe',
+    models: [
+      { id: 'a3', name: 'A3 (8V/8Y)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
+      { id: 'a5', name: 'A5 (8T/F5)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
+      { id: 'a7', name: 'A7 (C7/C8)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
+      { id: 'a8', name: 'A8 (D4/D5)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(),
+          { id: 'air_susp', name: 'Пневмоподвеска Adaptive Air', address: '0x5F', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки подвески' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Высота, давление' },
+              { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обнуление датчиков', warning: 'Без нагрузки, ровная поверхность' },
+            ]} ] },
+      { id: 'q3', name: 'Q3 (8U/F3)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 'q7', name: 'Q7 (4L/4M)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
+      { id: 'q8', name: 'Q8 / SQ8 / RSQ8', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
+      { id: 'e-tron', name: 'Q8 e-tron / e-tron GT (EV)', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (два мотора)', address: '0x7E0', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (95/114 кВтч)', address: '0x7E4', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек' },
+            ]},
+          VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 'tt', name: 'TT (8J/8S)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
+      { id: 'rs6', name: 'RS6 / RS7 (C8)', years: [2019,2020,2021,2022,2023,2024],
+        ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
+    ],
+  },
+
+  // ── BMW (дополнение) ──
+  {
+    id: 'bmw_extra', name: 'BMW / Mini', logo: 'BM', region: 'europe',
+    models: [
+      { id: '1series', name: '1 Series (E82/F20/F40)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: '2series', name: '2 Series / Active Tourer (F22/F45/G42)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: '4series', name: '4 Series (F32/G22)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: '6series', name: '6 Series / 8 Series (F06/G14/G15)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: '7series', name: '7 Series (F01/G11/G70)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU(),
+          { id: 'air_susp', name: 'Пневмоподвеска EHC', address: '0x36', protocol: 'BMW-ENET/CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки EHC' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Высота, давление, режимы' },
+              { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обнуление датчиков высоты', warning: 'На ровной поверхности без нагрузки' },
+            ]} ] },
+      { id: 'x1', name: 'X1 (E84/F48/U11)', years: [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: 'x2', name: 'X2 (F39)', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: 'x3', name: 'X3 (E83/F25/G01)', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: 'x4', name: 'X4 (F26/G02)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: 'x6', name: 'X6 (E71/F16/G06)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: 'x7', name: 'X7 (G07)', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
+      { id: 'ix', name: 'iX / iX3 / i4 (EV)', years: [2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'EME (Electric Motor Electronics)', address: '0x7E0', protocol: 'BMW-ENET/CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки EME' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (76-111 кВтч)', address: '0x7E4', protocol: 'BMW-ENET/CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек, балансировка' },
+            ]},
+          BMW_ABS_ECU()] },
+      { id: 'mini_clubman', name: 'Mini Cooper / Clubman / Countryman', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU()] },
+    ],
+  },
+
+  // ── Mercedes-Benz (дополнение) ──
+  {
+    id: 'mercedes_extra', name: 'Mercedes-Benz', logo: 'MB', region: 'europe',
+    models: [
+      { id: 'a-class', name: 'A-Class (W168/W169/W176/W177)', years: [1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [MERCEDES_ENGINE_ECU()] },
+      { id: 'b-class', name: 'B-Class (W245/W246/W247)', years: [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [MERCEDES_ENGINE_ECU()] },
+      { id: 'glc', name: 'GLC (X253/C254)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [MERCEDES_ENGINE_ECU(),
+          { id: 'abs', name: 'ESP (Electronic Stability Program)', address: '0x7E1', protocol: 'Mercedes-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ESP' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'brake_bleed', name: 'Прокачка тормозов', type: 'activation', description: 'Режим прокачки с насосом ESP' },
+            ]},
+          { id: 'airbag', name: 'SRS/Airbag (RCM)', address: '0x7E2', protocol: 'Mercedes-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки SRS' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+          { id: 'epb', name: 'EPB (стояночный тормоз)', address: '0x76', protocol: 'Mercedes-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки EPB' },
+              { id: 'epb_open', name: 'Открыть EPB', type: 'activation', description: 'Разжать колодки для замены', warning: 'Только при замене колодок' },
+              { id: 'epb_close', name: 'Закрыть EPB', type: 'activation', description: 'Зажать колодки после замены' },
+              { id: 'pad_reset', name: 'Сброс колодок', type: 'adaptation', description: 'Обнуление счётчика износа колодок' },
+            ]} ] },
+      { id: 'gle', name: 'GLE / ML (W166/W167)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [MERCEDES_ENGINE_ECU()] },
+      { id: 'gls', name: 'GLS / GL (X166/X167)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [MERCEDES_ENGINE_ECU(),
+          { id: 'air_susp', name: 'Пневмоподвеска AIRMATIC', address: '0x37', protocol: 'Mercedes-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки AIRMATIC' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Высота, давление, компрессор' },
+              { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обнуление датчиков высоты', warning: 'На ровной поверхности без нагрузки' },
+            ]} ] },
+      { id: 'g-class', name: 'G-Class (W463)', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [MERCEDES_ENGINE_ECU()] },
+      { id: 's-class', name: 'S-Class (W221/W222/W223)', years: [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [MERCEDES_ENGINE_ECU()] },
+      { id: 'sprinter', name: 'Sprinter (W906/W907)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [MERCEDES_ENGINE_ECU()] },
+      { id: 'vito', name: 'Vito / V-Class (W447)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [MERCEDES_ENGINE_ECU()] },
+      { id: 'eqc', name: 'EQC / EQB / EQA (EV)', years: [2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (два электромотора)', address: '0x7E0', protocol: 'Mercedes-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (66-108 кВтч)', address: '0x7E4', protocol: 'Mercedes-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек' },
+            ]},
+          MERCEDES_ENGINE_ECU()] },
+    ],
+  },
+
+  // ── Toyota (дополнение) ──
+  {
+    id: 'toyota_extra', name: 'Toyota / Lexus', logo: 'TY', region: 'asia',
+    models: [
+      { id: 'corolla', name: 'Corolla (E150/E160/E170/E210)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'highlander', name: 'Highlander / Kluger (XU40/XU50/XU70)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'hilux', name: 'Hilux (AN10/AN120/AN140)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'prado', name: 'Land Cruiser Prado (120/150/250)', years: [2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'fortuner', name: 'Fortuner (AN50/AN150)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'prius', name: 'Prius (W20/W30/W50/W60)', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU(),
+          { id: 'hv', name: 'Гибридный блок (HV ECU)', address: '0x7A0', protocol: 'Toyota-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки гибридной системы' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, температура, мощность' },
+            ]} ] },
+      { id: 'chr', name: 'C-HR (AX10)', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'yaris', name: 'Yaris (XP90/XP130/XP210)', years: [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'avensis', name: 'Avensis (T250/T270)', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'innova', name: 'Innova (AN40/AN140)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'bz4x', name: 'bZ4X / bZ3 (EV)', years: [2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (электромотор)', address: '0x7E0', protocol: 'Toyota-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (71.4 кВтч)', address: '0x7E4', protocol: 'Toyota-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура' },
+            ]},
+          TOYOTA_ABS_ECU()] },
+      // Lexus
+      { id: 'lx', name: 'Lexus LX (470/570/600)', years: [2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'rx', name: 'Lexus RX (300/330/350/450h)', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'nx', name: 'Lexus NX (AZ10/AZ20)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'es', name: 'Lexus ES (XV60/XV70)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+      { id: 'gx', name: 'Lexus GX (460/550)', years: [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
+    ],
+  },
+
+  // ── Kia (дополнение) ──
+  {
+    id: 'kia_extra', name: 'Kia', logo: 'KI', region: 'asia',
+    models: [
+      { id: 'cerato', name: 'Cerato / Forte (YD/BD)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'KIA-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс сервисного интервала' },
+            ]},
+          { id: 'abs', name: 'ABS/ESP', address: '0x7E1', protocol: 'KIA-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'sorento', name: 'Sorento (XM/UM/MQ4)', years: [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'KIA-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс' },
+            ]},
+          { id: 'abs', name: 'ABS/ESP', address: '0x7E1', protocol: 'KIA-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'stinger', name: 'Stinger (CK)', years: [2017,2018,2019,2020,2021,2022,2023],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 2.5T/3.3T', address: '0x7E0', protocol: 'KIA-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры V6 Turbo' },
+            ]},
+        ] },
+      { id: 'ev6', name: 'EV6 / EV9 (EV)', years: [2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (E-GMP)', address: '0x7E0', protocol: 'KIA-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (58/77.4 кВтч)', address: '0x7E4', protocol: 'KIA-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек' },
+              { id: 'cell_balance', name: 'Балансировка ячеек', type: 'adaptation', description: 'Балансировка АКБ' },
+            ]},
+        ] },
+      { id: 'carnival', name: 'Carnival (YP/KA4)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'KIA-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры' },
+            ]},
+        ] },
+      { id: 'seltos', name: 'Seltos (SP2)', years: [2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'KIA-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+    ],
+  },
+
+  // ── Hyundai (дополнение) ──
+  {
+    id: 'hyundai_extra', name: 'Hyundai / Genesis', logo: 'HY', region: 'asia',
+    models: [
+      { id: 'santa-fe', name: 'Santa Fe (CM/DM/TM/MX5)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Hyundai-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс сервисного интервала' },
+            ]},
+          { id: 'abs', name: 'ABS/ESP', address: '0x7E1', protocol: 'Hyundai-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'elantra', name: 'Elantra (MD/AD/CN7)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Hyundai-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+      { id: 'ioniq5', name: 'IONIQ 5 / IONIQ 6 (EV)', years: [2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (E-GMP)', address: '0x7E0', protocol: 'Hyundai-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (58/77.4 кВтч)', address: '0x7E4', protocol: 'Hyundai-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек, балансировка' },
+            ]},
+        ] },
+      { id: 'palisade', name: 'Palisade (LX2)', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Hyundai-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры' },
+            ]},
+        ] },
+      { id: 'genesis_gv80', name: 'Genesis GV80 / G80', years: [2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 2.5T/3.5T', address: '0x7E0', protocol: 'Hyundai-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры V6/I4T' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс Oil Life' },
+            ]},
+        ] },
+    ],
+  },
+
+  // ── Nissan (дополнение) ──
+  {
+    id: 'nissan_extra', name: 'Nissan / Infiniti', logo: 'NS', region: 'asia',
+    models: [
+      { id: 'juke', name: 'Juke (F15/F16)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры 1.0T/1.6T' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс сервисного интервала' },
+            ]},
+          { id: 'abs', name: 'ABS/VDC', address: '0x7E1', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS/VDC' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'murano', name: 'Murano (Z51/Z52)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 3.5 V6', address: '0x7E0', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры VQ35' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс счётчика ТО' },
+            ]},
+        ] },
+      { id: 'patrol', name: 'Patrol / Armada (Y62)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя VK56VD', address: '0x7E0', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки V8' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс масла' },
+            ]},
+          { id: 'abs', name: 'ABS/VDC/ATTS', address: '0x7E1', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS/VDC' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'navara', name: 'Navara (D40/D23)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ дизеля YD25DDTi', address: '0x7E0', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки дизеля' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры дизеля' },
+              { id: 'dpf_regen', name: 'Регенерация DPF', type: 'service', description: 'Принудительная регенерация DPF' },
+            ]},
+        ] },
+      { id: 'leaf', name: 'Leaf (ZE0/ZE1) EV', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'Силовой инвертор EM61/EM57', address: '0x7E0', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки инвертора' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (24/30/40/62 кВтч)', address: '0x7E4', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура, деградация ячеек' },
+            ]},
+        ] },
+      // Infiniti
+      { id: 'qx56', name: 'Infiniti QX56 / QX80', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя VK56VD', address: '0x7E0', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры V8 5.6' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс масла' },
+            ]},
+        ] },
+      { id: 'fx', name: 'Infiniti FX / QX70', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 3.7/5.0 V6/V8', address: '0x7E0', protocol: 'Nissan-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+    ],
+  },
+
+  // ── Renault (дополнение) ──
+  {
+    id: 'renault_extra', name: 'Renault / Alpine', logo: 'RN', region: 'europe',
+    models: [
+      { id: 'arkana', name: 'Arkana', years: [2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 1.3T/1.6E-Tech', address: '0x7E0', protocol: 'Renault-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс сервисного интервала' },
+            ]},
+          { id: 'abs', name: 'ABS/ESC', address: '0x7E1', protocol: 'Renault-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'megane', name: 'Megane (III/IV)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Renault-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+      { id: 'kaptur', name: 'Kaptur / Captur (HH/HJB)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Renault-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+      { id: 'koleos', name: 'Koleos (II)', years: [2016,2017,2018,2019,2020,2021,2022,2023],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 2.0/2.5', address: '0x7E0', protocol: 'Renault-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры' },
+            ]},
+        ] },
+      { id: 'zoe', name: 'Zoe / Megane E-Tech (EV)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (электромотор R240/R135)', address: '0x7E0', protocol: 'Renault-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS (22/41/52 кВтч)', address: '0x7E4', protocol: 'Renault-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек' },
+            ]},
+        ] },
+    ],
+  },
+
+  // ── Ford (дополнение) ──
+  {
+    id: 'ford_extra', name: 'Ford / Lincoln', logo: 'FD', region: 'usa',
+    models: [
+      { id: 'explorer', name: 'Explorer (V/VI)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'Ford-UDS',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры 2.3T/3.0T/3.5T' },
+              { id: 'oil_reset', name: 'Сброс Oil Life', type: 'service', description: 'Сброс Oil Life Monitor' },
+            ]},
+          { id: 'abs', name: 'ABS/AdvanceTrac (ABS Module)', address: '0x7E1', protocol: 'Ford-UDS',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'brake_bleed', name: 'Прокачка тормозов', type: 'activation', description: 'Режим прокачки ABS' },
+            ]},
+          { id: 'airbag', name: 'SRS/Airbag (RCM)', address: '0x7E2', protocol: 'Ford-UDS',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки SRS' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'ranger', name: 'Ranger (T6/P703)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 2.0T/2.3T/2.5', address: '0x7E0', protocol: 'Ford-UDS',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'dpf_regen', name: 'Регенерация DPF', type: 'service', description: 'Принудительная регенерация DPF (дизель)' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс Oil Life' },
+            ]},
+        ] },
+      { id: 'f150', name: 'F-150 (XIII/XIV)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя (PCM) EcoBoost/V8', address: '0x7E0', protocol: 'Ford-UDS',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры 2.7T/3.5T/5.0' },
+              { id: 'oil_reset', name: 'Сброс Oil Life', type: 'service', description: 'Сброс Oil Life Monitor' },
+            ]},
+        ] },
+      { id: 'mustang', name: 'Mustang (S550/S650)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 2.3T/5.0 V8', address: '0x7E0', protocol: 'Ford-UDS',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+      { id: 'transit', name: 'Transit (V363)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 2.0T/2.2D', address: '0x7E0', protocol: 'Ford-UDS',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'dpf_regen', name: 'Регенерация DPF', type: 'service', description: 'Регенерация DPF (дизель)' },
+            ]},
+        ] },
+      // Lincoln
+      { id: 'lincoln_navigator', name: 'Lincoln Navigator / Aviator', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 3.5T Twin', address: '0x7E0', protocol: 'Ford-UDS',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры V6 Twin Turbo' },
+              { id: 'oil_reset', name: 'Сброс Oil Life', type: 'service', description: 'Сброс Oil Life Monitor' },
+            ]},
+        ] },
+    ],
+  },
+
+  // ── Subaru (дополнение) ──
+  {
+    id: 'subaru_extra', name: 'Subaru', logo: 'SB', region: 'asia',
+    models: [
+      { id: 'xv', name: 'XV / Crosstrek (GP/GT/GU)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'Subaru-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры Boxer 2.0' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс сервисного интервала' },
+            ]},
+          { id: 'abs', name: 'ABS/VDC', address: '0x7E1', protocol: 'Subaru-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS/VDC' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'wrx', name: 'WRX / WRX STI (VA/VB)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя FA20DIT/EJ257', address: '0x7E0', protocol: 'Subaru-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры Boxer Turbo' },
+            ]},
+          { id: 'abs', name: 'ABS/VDC/DCCD', address: '0x7E1', protocol: 'Subaru-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS/DCCD' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Блокировка DCCD, момент' },
+            ]},
+        ] },
+      { id: 'baja', name: 'Ascent / Solterra (EV)', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя FB25 / MCU (EV)', address: '0x7E0', protocol: 'Subaru-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+    ],
+  },
+
+  // ── LADA (дополнение) ──
+  {
+    id: 'lada_extra', name: 'LADA / ВАЗ', logo: 'ЛД', region: 'russia',
+    models: [
+      { id: 'granta', name: 'Гранта / Гранта Cross (2190/2194)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ Январь 7.2 / Bosch M17.9.7', address: '0x7E0', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя 1.6' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка ошибок' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'idle_adapt', name: 'Адаптация холостого хода', type: 'adaptation', description: 'Обучение оборотов ХХ' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс интервала ТО' },
+            ]},
+          { id: 'abs', name: 'ABS (Bosch 8.0)', address: '0x7E1', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'priora', name: 'Приора (2170/2171/2172)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ Январь 7.2 / BOSCH MP7', address: '0x7E0', protocol: 'ISO9141/CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя 1.6 16v' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+      { id: 'niva_legend', name: 'Нива Legend / Нива Travel (2121)', years: [2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ Январь 7.2 1.7 л', address: '0x7E0', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя ВАЗ 21214' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+      { id: 'largus', name: 'Ларгус / Ларгус Cross (R90)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ Bosch ME17 (Renault K7M/H4M)', address: '0x7E0', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+      { id: 'vesta_ng', name: 'Веста НГ / Веста ЕСP (2022+)', years: [2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ Bosch ME17.9 1.8 / 1.6', address: '0x7E0', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс сервисного интервала' },
+            ]},
+          { id: 'abs', name: 'ABS/ESP (Bosch 9.3)', address: '0x7E1', protocol: 'CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS/ESP' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+    ],
+  },
+
+  // ── BYD (дополнение) ──
+  {
+    id: 'byd_extra', name: 'BYD', logo: 'BY', region: 'china',
+    models: [
+      { id: 'atto3', name: 'Atto 3 / Yuan Plus (EV)', years: [2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (BYD EDS)', address: '0x7E0', protocol: 'BYD-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS Blade Battery (60.48 кВтч)', address: '0x7E4', protocol: 'BYD-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек' },
+            ]},
+          { id: 'abs', name: 'ABS/ESP (Bosch)', address: '0x7E1', protocol: 'BYD-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'han', name: 'Han EV / Han DM', years: [2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (два мотора)', address: '0x7E0', protocol: 'BYD-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS Blade (77.4 кВтч)', address: '0x7E4', protocol: 'BYD-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура' },
+            ]},
+        ] },
+      { id: 'tang', name: 'Tang DM-i / Tang EV', years: [2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ DM-i 2.0T / MCU EV', address: '0x7E0', protocol: 'BYD-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя/MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры гибридной системы' },
+            ]},
+          { id: 'bms', name: 'BMS Blade (32.8/86.4 кВтч)', address: '0x7E4', protocol: 'BYD-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура' },
+            ]},
+        ] },
+      { id: 'dolphin', name: 'Dolphin / Seagull (EV)', years: [2021,2022,2023,2024],
+        ecus: [
+          { id: 'mcu', name: 'MCU (e-Platform 3.0)', address: '0x7E0', protocol: 'BYD-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки MCU' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, температура' },
+            ]},
+          { id: 'bms', name: 'BMS Blade (30.7/44.9 кВтч)', address: '0x7E4', protocol: 'BYD-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки батареи' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек' },
+            ]},
+        ] },
+    ],
+  },
+
+  // ── Mitsubishi (дополнение) ──
+  {
+    id: 'mitsubishi_extra', name: 'Mitsubishi', logo: 'MI', region: 'asia',
+    models: [
+      { id: 'eclipse_cross', name: 'Eclipse Cross (GK)', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 1.5T/2.4PHEV', address: '0x7E0', protocol: 'Mitsubishi-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс сервисного интервала' },
+            ]},
+          { id: 'abs', name: 'ABS/ASC', address: '0x7E1', protocol: 'Mitsubishi-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки ABS/ASC' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+            ]},
+        ] },
+      { id: 'asx', name: 'ASX / RVR (GA)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 1.6/2.0 MIVEC', address: '0x7E0', protocol: 'Mitsubishi-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры MIVEC' },
+            ]},
+        ] },
+      { id: 'lancer', name: 'Lancer X (CY/CZ)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ двигателя 1.5/1.8/2.0 MIVEC', address: '0x7E0', protocol: 'Mitsubishi-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки двигателя' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
+            ]},
+        ] },
+      { id: 'l200', name: 'L200 (KH/KL)', years: [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        ecus: [
+          { id: 'engine', name: 'ЭБУ дизеля 2.5D/2.4D DiD', address: '0x7E0', protocol: 'Mitsubishi-CAN',
+            functions: [
+              { id: 'dtc_read', name: 'Чтение кодов DTC', type: 'special', description: 'Ошибки дизеля' },
+              { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
+              { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры дизеля' },
+              { id: 'dpf_regen', name: 'Регенерация DPF', type: 'service', description: 'Принудительная регенерация DPF' },
+              { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс счётчика ТО' },
+            ]},
+        ] },
+    ],
+  },
 ];
 
 export const REGIONS = [
