@@ -109,7 +109,7 @@ function DtcCard({ entry }: { entry: DtcEntry }) {
 }
 
 // ── Экран: VIN ────────────────────────────────────────────────────────────────
-function ScreenVin() {
+function ScreenVin({ onVinDecoded }: { onVinDecoded?: (v: VinResult) => void }) {
   const [input, setInput] = useState('');
   const [result, setResult] = useState<VinResult | null>(null);
   const [loading, setLoading] = useState(false);
@@ -121,7 +121,8 @@ function ScreenVin() {
     setError(''); setLoading(true); setResult(null);
     const r = await fetchVin(v);
     setResult(r); setLoading(false);
-  }, [input]);
+    onVinDecoded?.(r);
+  }, [input, onVinDecoded]);
 
   const fields: [string, string, boolean][] = result ? [
     ['VIN', result.vin, true], ['Марка', result.make, false], ['Модель', result.model, false],
@@ -790,13 +791,66 @@ const SESSIONS_INIT: SessionRecord[] = [
   { id: 4, device: 'ELM327 BLE', make: 'Haval',        model: 'Jolion', date: '28.05.2025 11:00', duration: '8 мин', dtcCount: 0, status: 'ok' },
 ];
 
-function ScreenHistory() {
-  const [sessions] = useState<SessionRecord[]>(SESSIONS_INIT);
+interface ReportModal { session: SessionRecord; }
+
+function ScreenHistory({ lastVin }: { lastVin?: VinResult | null }) {
+  const [sessions, setSessions] = useState<SessionRecord[]>(SESSIONS_INIT);
   const [expanded, setExpanded] = useState<number | null>(null);
+  const [report, setReport] = useState<ReportModal | null>(null);
+
+  const deleteSession = (id: number) => {
+    setSessions(prev => prev.filter(s => s.id !== id));
+    setExpanded(null);
+  };
+
+  const exportHistory = () => {
+    const data = JSON.stringify(sessions, null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `diagnostic-history-${Date.now()}.json`;
+    a.click(); URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="space-y-4 animate-fade-up">
       <SectionTitle title="История подключений" sub={`${sessions.length} сессий диагностики`} />
+
+      {/* VIN с первой вкладки */}
+      {lastVin && (
+        <div className="border border-cyan/30 bg-cyan/5 rounded-xl p-4 space-y-2">
+          <div className="flex items-center gap-2">
+            <Icon name="Search" size={14} className="text-cyan shrink-0" />
+            <div className="font-display text-xs text-cyan">ПОСЛЕДНИЙ ДЕКОДИРОВАННЫЙ VIN</div>
+          </div>
+          <div className="flex items-center justify-between gap-2">
+            <div>
+              <div className="font-semibold text-sm">{lastVin.make} {lastVin.model} {lastVin.year}</div>
+              <div className="font-mono text-xs text-muted-foreground mt-0.5">{lastVin.vin}</div>
+            </div>
+            <button
+              onClick={() => {
+                const newSession: SessionRecord = {
+                  id: Date.now(), device: 'VIN Decoder', make: lastVin.make, model: lastVin.model,
+                  date: new Date().toLocaleString('ru-RU', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }),
+                  duration: '—', dtcCount: 0, status: 'ok',
+                };
+                setSessions(prev => [newSession, ...prev]);
+              }}
+              className="shrink-0 text-xs font-bold gradient-primary text-[hsl(220,20%,8%)] px-3 py-1.5 rounded-lg">
+              + В историю
+            </button>
+          </div>
+          <div className="grid grid-cols-3 gap-1.5 text-[11px]">
+            {[['Топливо', lastVin.fuel], ['Привод', lastVin.drive], ['Страна', lastVin.country]].map(([l,v]) => (
+              <div key={l} className="bg-secondary rounded-lg p-2">
+                <div className="text-muted-foreground">{l}</div>
+                <div className="font-semibold truncate">{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Сводка */}
       <div className="grid grid-cols-3 gap-2">
@@ -814,6 +868,12 @@ function ScreenHistory() {
 
       {/* Список сессий */}
       <div className="space-y-2">
+        {sessions.length === 0 && (
+          <div className="border-glow bg-card rounded-xl p-8 text-center">
+            <Icon name="History" size={32} className="text-muted-foreground mx-auto mb-2" />
+            <div className="text-sm text-muted-foreground">История пуста</div>
+          </div>
+        )}
         {sessions.map(s => (
           <div key={s.id} className={`bg-card rounded-xl overflow-hidden border ${s.status==='error'?'border-red-500/30':s.status==='warn'?'border-amber-400/25':'border-glow'}`}>
             <button className="w-full text-left p-4 flex items-start gap-3" onClick={() => setExpanded(expanded===s.id?null:s.id)}>
@@ -843,8 +903,16 @@ function ScreenHistory() {
                   ))}
                 </div>
                 <div className="flex gap-2 mt-3">
-                  <button className="flex-1 text-xs font-bold border border-primary/30 text-cyan py-2 rounded-lg hover:bg-primary/10 transition">Открыть отчёт</button>
-                  <button className="flex-1 text-xs font-bold border border-red-400/30 text-red-400 py-2 rounded-lg hover:bg-red-400/10 transition">Удалить</button>
+                  <button
+                    onClick={() => setReport({ session: s })}
+                    className="flex-1 text-xs font-bold border border-primary/30 text-cyan py-2 rounded-lg hover:bg-primary/10 transition flex items-center justify-center gap-1">
+                    <Icon name="FileText" size={13} />Открыть отчёт
+                  </button>
+                  <button
+                    onClick={() => deleteSession(s.id)}
+                    className="flex-1 text-xs font-bold border border-red-400/30 text-red-400 py-2 rounded-lg hover:bg-red-400/10 transition flex items-center justify-center gap-1">
+                    <Icon name="Trash2" size={13} />Удалить
+                  </button>
                 </div>
               </div>
             )}
@@ -852,9 +920,48 @@ function ScreenHistory() {
         ))}
       </div>
 
-      <button className="w-full border border-border text-muted-foreground text-sm font-semibold py-3 rounded-xl hover:bg-secondary transition flex items-center justify-center gap-2">
-        <Icon name="Download" size={16} />Экспорт истории
+      <button onClick={exportHistory} className="w-full border border-border text-muted-foreground text-sm font-semibold py-3 rounded-xl hover:bg-secondary transition flex items-center justify-center gap-2">
+        <Icon name="Download" size={16} />Экспорт истории (.json)
       </button>
+
+      {/* Модал: Отчёт */}
+      {report && (
+        <div className="fixed inset-0 z-50 bg-black/70 flex items-end justify-center p-4" onClick={() => setReport(null)}>
+          <div className="bg-card border-glow rounded-2xl w-full max-w-sm p-5 space-y-4 animate-fade-up" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
+              <div className="font-display text-base text-cyan-glow">Отчёт сессии</div>
+              <button onClick={() => setReport(null)}><Icon name="X" size={18} className="text-muted-foreground" /></button>
+            </div>
+            <div className="space-y-2 text-xs">
+              {[
+                ['Автомобиль', `${report.session.make} ${report.session.model}`],
+                ['Дата', report.session.date],
+                ['Длительность', report.session.duration],
+                ['Адаптер', report.session.device],
+                ['Найдено ошибок', String(report.session.dtcCount)],
+                ['Статус', report.session.status === 'ok' ? 'Без ошибок' : report.session.status === 'warn' ? 'Внимание' : 'Критические ошибки'],
+              ].map(([l, v]) => (
+                <div key={l} className="flex justify-between bg-secondary rounded-lg px-3 py-2">
+                  <span className="text-muted-foreground">{l}</span>
+                  <span className="font-semibold">{v}</span>
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => {
+                const text = `Отчёт диагностики\n${report.session.make} ${report.session.model}\nДата: ${report.session.date}\nАдаптер: ${report.session.device}\nДлительность: ${report.session.duration}\nОшибок: ${report.session.dtcCount}`;
+                const blob = new Blob([text], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url;
+                a.download = `report-${report.session.id}.txt`; a.click();
+                URL.revokeObjectURL(url);
+              }}
+              className="w-full gradient-primary text-[hsl(220,20%,8%)] font-bold py-2.5 rounded-xl text-sm flex items-center justify-center gap-2">
+              <Icon name="Download" size={16} />Скачать отчёт
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -863,10 +970,36 @@ function ScreenHistory() {
 const APP_VERSION = '2.1.0';
 const LIBRARY_VERSION = '2024-06-15';
 
+// Марки с возможностью загрузки библиотек
+interface MakeLibEntry {
+  id: string; name: string; icon: string; color: string;
+  status: 'builtin' | 'partial' | 'empty';
+  pids: string;
+  loaded?: { fileName: string; version: string; makes: number };
+}
+
+const MAKE_LIBS: MakeLibEntry[] = [
+  { id: 'obd2',    name: 'OBD-II (SAE J1979)', icon: 'Gauge',     color: 'text-green-400',  status: 'builtin', pids: '25 PIDs' },
+  { id: 'dtc',     name: 'DTC база (ISO 15031-6)', icon: 'BookOpen', color: 'text-green-400', status: 'builtin', pids: `${Object.keys(DTC_DB).length} кодов` },
+  { id: 'vin',     name: 'VIN декодер (NHTSA)', icon: 'Search',    color: 'text-green-400',  status: 'builtin', pids: 'API онлайн' },
+  { id: 'vag',     name: 'VAG (VW / Audi / Skoda / SEAT)', icon: 'Car', color: 'text-amber-400', status: 'partial', pids: 'Базовые' },
+  { id: 'bmw',     name: 'BMW / Mini',           icon: 'Car',      color: 'text-amber-400',  status: 'partial', pids: 'Базовые' },
+  { id: 'toyota',  name: 'Toyota / Lexus',       icon: 'Car',      color: 'text-amber-400',  status: 'partial', pids: 'Базовые' },
+  { id: 'mercedes',name: 'Mercedes-Benz',        icon: 'Car',      color: 'text-muted-foreground', status: 'empty', pids: 'Нет данных' },
+  { id: 'hyundai', name: 'Hyundai / Kia',        icon: 'Car',      color: 'text-muted-foreground', status: 'empty', pids: 'Нет данных' },
+  { id: 'ford',    name: 'Ford / Lincoln',       icon: 'Car',      color: 'text-muted-foreground', status: 'empty', pids: 'Нет данных' },
+  { id: 'renault', name: 'Renault / Dacia',      icon: 'Car',      color: 'text-muted-foreground', status: 'empty', pids: 'Нет данных' },
+  { id: 'lada',    name: 'LADA / ВАЗ',          icon: 'Car',      color: 'text-muted-foreground', status: 'empty', pids: 'Нет данных' },
+  { id: 'chinese', name: 'Chinese OEM (Haval/Chery/Geely)', icon: 'Car', color: 'text-amber-400', status: 'partial', pids: 'Базовые' },
+];
+
 function ScreenUpdates() {
   const [checkState, setCheckState] = useState<'idle'|'checking'|'uptodate'|'available'>('idle');
-  const [importStep, setImportStep] = useState<'idle'|'parsing'|'done'|'error'>('idle');
-  const [importMsg, setImportMsg] = useState('');
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [libs, setLibs] = useState<MakeLibEntry[]>(MAKE_LIBS);
+  const [uploadTarget, setUploadTarget] = useState<string | null>(null);
+  const [uploadStep, setUploadStep] = useState<'idle'|'parsing'|'done'|'error'>('idle');
+  const [uploadMsg, setUploadMsg] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
 
   const checkUpdates = () => {
@@ -874,33 +1007,53 @@ function ScreenUpdates() {
     setTimeout(() => setCheckState('uptodate'), 2000);
   };
 
+  const startUpload = (makeId: string) => {
+    setUploadTarget(makeId);
+    setUploadStep('idle');
+    setUploadMsg('');
+    fileRef.current?.click();
+  };
+
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-    setImportStep('parsing');
+    if (!file || !uploadTarget) return;
+    setUploadStep('parsing');
     const reader = new FileReader();
     reader.onload = (ev) => {
       try {
         const text = ev.target?.result as string;
         const json = JSON.parse(text);
-        // Проверяем структуру файла
-        if (!json.version || !json.makes) throw new Error('Неверная структура файла');
+        if (!json.version) throw new Error('Нет поля version');
+        const makesCount = json.makes?.length ?? json.ecus?.length ?? 1;
         setTimeout(() => {
-          setImportStep('done');
-          setImportMsg(`✓ Загружено: ${json.makes?.length ?? 0} марок, версия ${json.version}`);
-        }, 1200);
-      } catch (err) {
-        setImportStep('error');
-        setImportMsg('Ошибка: файл не соответствует формату AutoDiag Library (.adl.json)');
+          setUploadStep('done');
+          setUploadMsg(`Загружено: ${makesCount} блоков, v${json.version}`);
+          setLibs(prev => prev.map(l => l.id === uploadTarget
+            ? { ...l, status: 'builtin', pids: `${makesCount} блоков`, loaded: { fileName: file.name, version: json.version, makes: makesCount } }
+            : l
+          ));
+        }, 1000);
+      } catch {
+        setUploadStep('error');
+        setUploadMsg('Ошибка: файл не соответствует формату .adl.json');
       }
     };
     reader.readAsText(file);
     e.target.value = '';
   };
 
+  const resetUpload = () => { setUploadTarget(null); setUploadStep('idle'); setUploadMsg(''); };
+
   return (
     <div className="space-y-5 animate-fade-up">
-      <SectionTitle title="Обновления и библиотеки" sub="Управление версиями и базами данных" />
+      <div className="flex items-start justify-between gap-3">
+        <SectionTitle title="Обновления и библиотеки" sub="Управление версиями и базами данных" />
+        <button
+          onClick={() => setShowInstructions(true)}
+          className="shrink-0 flex items-center gap-1.5 text-xs font-bold border border-amber-400/40 text-amber-400 px-3 py-2 rounded-xl hover:bg-amber-400/10 transition mt-1">
+          <Icon name="BookOpen" size={14} />Инструкции
+        </button>
+      </div>
 
       {/* Версия приложения */}
       <div className="border-glow bg-card rounded-xl p-4 space-y-3">
@@ -924,194 +1077,190 @@ function ScreenUpdates() {
         {checkState==='uptodate' && <div className="text-xs text-green-400 text-center">Установлена последняя версия</div>}
       </div>
 
-      {/* Загрузка библиотеки */}
-      <div className="border-glow bg-card rounded-xl p-4 space-y-3">
-        <div className="font-display text-sm text-muted-foreground">ЗАГРУЗКА БИБЛИОТЕКИ АВТОМОБИЛЯ</div>
+      {/* Библиотеки по маркам */}
+      <div className="space-y-2">
+        <div className="font-display text-xs text-muted-foreground">БИБЛИОТЕКИ ПРОТОКОЛОВ ПО МАРКАМ</div>
         <div className="text-xs text-muted-foreground leading-relaxed">
-          Каждая библиотека — это JSON-файл формата <span className="font-mono text-cyan">.adl.json</span> с описанием блоков управления, функций, адаптаций и сервисных операций для конкретной марки/модели.
+          Загрузи файл <span className="font-mono text-cyan">.adl.json</span> для нужной марки — локально с устройства или по ссылке с сервера.
         </div>
 
-        {/* Формат файла */}
-        <div className="bg-secondary rounded-xl p-3 text-xs font-mono text-muted-foreground space-y-0.5">
-          <div className="text-cyan mb-1">{"// Формат AutoDiag Library v1"}</div>
-          <div>{"{"}</div>
-          <div className="pl-3"><span className="text-amber-400">"version"</span>{": "}<span className="text-green-400">"2024-06-15"</span>{","}</div>
-          <div className="pl-3"><span className="text-amber-400">"makes"</span>{": ["}<span className="text-muted-foreground">{"{ id, name, models: [...] }"}]</span></div>
-          <div>{"}"}</div>
-        </div>
+        {/* Статусы загрузки */}
+        {uploadStep === 'parsing' && (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground bg-secondary rounded-xl px-4 py-3">
+            <Icon name="Loader" size={14} className="animate-spin text-cyan" />Разбор файла...
+          </div>
+        )}
+        {uploadStep === 'done' && (
+          <div className="flex items-center justify-between bg-green-400/10 border border-green-400/30 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-2 text-xs text-green-400"><Icon name="CheckCircle" size={14} />{uploadMsg}</div>
+            <button onClick={resetUpload} className="text-[11px] text-muted-foreground underline">OK</button>
+          </div>
+        )}
+        {uploadStep === 'error' && (
+          <div className="flex items-center justify-between bg-red-400/10 border border-red-400/30 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-2 text-xs text-red-400"><Icon name="AlertCircle" size={14} />{uploadMsg}</div>
+            <button onClick={resetUpload} className="text-[11px] text-muted-foreground underline">Закрыть</button>
+          </div>
+        )}
 
         <input ref={fileRef} type="file" accept=".json,.adl.json" className="hidden" onChange={handleFile} />
 
-        {importStep === 'idle' && (
-          <button onClick={() => fileRef.current?.click()}
-            className="w-full border border-primary/40 text-cyan font-bold py-3 rounded-xl hover:bg-primary/10 transition flex items-center justify-center gap-2">
-            <Icon name="FolderOpen" size={18} />Выбрать файл библиотеки (.adl.json)
-          </button>
-        )}
-        {importStep === 'parsing' && (
-          <div className="flex items-center gap-3 text-sm text-muted-foreground py-2">
-            <Icon name="Loader" size={16} className="animate-spin text-cyan" />Разбор файла библиотеки...
-          </div>
-        )}
-        {importStep === 'done' && (
-          <div className="space-y-2">
-            <div className="text-sm text-green-400 flex items-center gap-2"><Icon name="CheckCircle" size={16} />{importMsg}</div>
-            <button onClick={() => { setImportStep('idle'); setImportMsg(''); }} className="text-xs text-muted-foreground underline">Загрузить другой файл</button>
-          </div>
-        )}
-        {importStep === 'error' && (
-          <div className="space-y-2">
-            <div className="text-sm text-red-400 flex items-start gap-2"><Icon name="AlertCircle" size={16} className="shrink-0 mt-0.5" />{importMsg}</div>
-            <button onClick={() => { setImportStep('idle'); setImportMsg(''); }} className="text-xs text-muted-foreground underline">Попробовать снова</button>
-          </div>
-        )}
-      </div>
-
-      {/* Где брать данные для библиотек */}
-      <div className="space-y-3">
-        <div className="font-display text-xs text-muted-foreground">ГДЕ БРАТЬ ДАННЫЕ ДЛЯ БИБЛИОТЕК</div>
-
-        {/* 1. ASAM */}
-        <div className="border-glow bg-card rounded-xl p-4 space-y-2">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0">
-                <Icon name="FileCode" size={16} className="text-cyan" />
-              </div>
-              <div>
-                <div className="font-semibold text-sm">ASAM MCD-2D / ODX</div>
-                <div className="text-[11px] text-muted-foreground">Открытый стандарт описания диагностики</div>
-              </div>
-            </div>
-            <a href="https://www.asam.net/standards/detail/mcd-2-d/" target="_blank" rel="noreferrer"
-              className="shrink-0 text-[11px] text-cyan border border-cyan/30 rounded-full px-2.5 py-1 hover:bg-cyan/10 transition flex items-center gap-1">
-              <Icon name="ExternalLink" size={11} />Сайт
-            </a>
-          </div>
-          <div className="text-xs text-muted-foreground leading-relaxed">
-            Международный стандарт ISO 22901. Описывает диагностические данные в формате ODX (XML). Именно в этом формате производители передают данные официальным партнёрам.
-          </div>
-          <div className="bg-secondary rounded-lg p-2.5 text-[11px] space-y-1 text-muted-foreground">
-            <div className="font-semibold text-foreground mb-1">Как использовать:</div>
-            <div>1. Скачать ODX-файл для нужной марки (если доступен публично или куплен)</div>
-            <div>2. Распарсить XML — теги <span className="font-mono text-cyan">{'<DIAG-SERVICE>'}</span>, <span className="font-mono text-cyan">{'<PARAM>'}</span></div>
-            <div>3. Сконвертировать в <span className="font-mono text-cyan">.adl.json</span> и загрузить сюда</div>
-          </div>
-        </div>
-
-        {/* 2. OpenDiag / GitHub */}
-        <div className="border-glow bg-card rounded-xl p-4 space-y-2">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-purple-400/10 flex items-center justify-center shrink-0">
-                <Icon name="Github" size={16} className="text-purple-400" />
-              </div>
-              <div>
-                <div className="font-semibold text-sm">OpenDiagnostics / GitHub</div>
-                <div className="text-[11px] text-muted-foreground">Сообщество reverse engineering</div>
-              </div>
-            </div>
-            <a href="https://github.com/topics/obd2-diagnostics" target="_blank" rel="noreferrer"
-              className="shrink-0 text-[11px] text-purple-400 border border-purple-400/30 rounded-full px-2.5 py-1 hover:bg-purple-400/10 transition flex items-center gap-1">
-              <Icon name="ExternalLink" size={11} />GitHub
-            </a>
-          </div>
-          <div className="text-xs text-muted-foreground leading-relaxed">
-            Репозитории с уже готовыми расшифровками протоколов: <span className="text-foreground">pyOBD, python-OBD, freediag, OpenVehicles</span>. Содержат PID-таблицы, описания блоков, команды для конкретных марок.
-          </div>
-          <div className="bg-secondary rounded-lg p-2.5 text-[11px] space-y-1 text-muted-foreground">
-            <div className="font-semibold text-foreground mb-1">Полезные репозитории:</div>
-            <div>• <span className="font-mono text-cyan">github.com/brendan-w/python-OBD</span> — PID база</div>
-            <div>• <span className="font-mono text-cyan">github.com/nopacak/carscanner</span> — протоколы марок</div>
-            <div>• <span className="font-mono text-cyan">github.com/iDiagnostics</span> — VAG/BMW блоки</div>
-          </div>
-        </div>
-
-        {/* 3. Реверс-инжиниринг */}
-        <div className="border-glow bg-card rounded-xl p-4 space-y-2">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-amber-400/10 flex items-center justify-center shrink-0">
-                <Icon name="Radio" size={16} className="text-amber-400" />
-              </div>
-              <div>
-                <div className="font-semibold text-sm">Реверс-инжиниринг (SocketCAN)</div>
-                <div className="text-[11px] text-muted-foreground">Захват трафика с реального авто</div>
-              </div>
-            </div>
-            <a href="https://www.csselectronics.com/pages/can-bus-simple-intro-tutorial" target="_blank" rel="noreferrer"
-              className="shrink-0 text-[11px] text-amber-400 border border-amber-400/30 rounded-full px-2.5 py-1 hover:bg-amber-400/10 transition flex items-center gap-1">
-              <Icon name="ExternalLink" size={11} />Гайд
-            </a>
-          </div>
-          <div className="text-xs text-muted-foreground leading-relaxed">
-            Подключаешь SocketCAN-адаптер к OBD-II, запускаешь оригинальный сканер (ODIS, ISTA, Techstream) и записываешь весь CAN-трафик. Затем расшифровываешь команды и ответы.
-          </div>
-          <div className="bg-secondary rounded-lg p-2.5 text-[11px] space-y-1 text-muted-foreground">
-            <div className="font-semibold text-foreground mb-1">Что нужно:</div>
-            <div>1. Адаптер <span className="text-foreground">PCAN-USB</span> или <span className="text-foreground">CANable</span> (~30-80$)</div>
-            <div>2. Программа <span className="font-mono text-cyan">Wireshark</span> + плагин SocketCAN или <span className="font-mono text-cyan">SavvyCAN</span></div>
-            <div>3. Оригинальный сканер работает → ты записываешь все запросы/ответы</div>
-            <div>4. Расшифрованные команды оформляешь в <span className="font-mono text-cyan">.adl.json</span></div>
-          </div>
-        </div>
-
-        {/* 4. Дилерская документация */}
-        <div className="border-glow bg-card rounded-xl p-4 space-y-2">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-green-400/10 flex items-center justify-center shrink-0">
-                <Icon name="BookOpen" size={16} className="text-green-400" />
-              </div>
-              <div>
-                <div className="font-semibold text-sm">Дилерская документация</div>
-                <div className="text-[11px] text-muted-foreground">WIS / ELSA / TIS / ISTA</div>
-              </div>
-            </div>
-          </div>
-          <div className="text-xs text-muted-foreground leading-relaxed">
-            Официальные системы содержат описания всех параметров, адреса блоков, коды адаптаций. Доступ — через официальных дилеров или подписку.
-          </div>
-          <div className="bg-secondary rounded-lg p-2.5 text-[11px] space-y-1.5 text-muted-foreground">
-            <div className="font-semibold text-foreground mb-1">Системы по маркам:</div>
-            <div className="grid grid-cols-2 gap-1">
-              <div><span className="text-foreground">VW/Audi/Skoda</span> → ELSA / ODIS</div>
-              <div><span className="text-foreground">BMW/Mini</span> → ISTA-D / ISTA-P</div>
-              <div><span className="text-foreground">Toyota/Lexus</span> → TIS / Techstream</div>
-              <div><span className="text-foreground">Mercedes</span> → WIS / XENTRY</div>
-              <div><span className="text-foreground">Ford</span> → IDS / FJDS</div>
-              <div><span className="text-foreground">Hyundai/Kia</span> → GDS / KDS</div>
-            </div>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="border border-cyan/25 bg-cyan/5 rounded-xl p-4 text-xs text-muted-foreground leading-relaxed">
-          <span className="text-foreground font-semibold">Нашла данные?</span> Пришли мне описание параметров для нужной марки — я оформлю в формат <span className="font-mono text-cyan">.adl.json</span> и загрузишь через кнопку выше.
-        </div>
-      </div>
-
-      {/* Что уже встроено */}
-      <div className="border-glow bg-card rounded-xl p-4">
-        <div className="font-display text-xs text-muted-foreground mb-3">ВСТРОЕННЫЕ БИБЛИОТЕКИ</div>
         <div className="space-y-2">
-          {[
-            { name: 'Стандарт OBD-II (SAE J1979)', status: 'ok', pids: '25 PIDs' },
-            { name: 'DTC база (ISO 15031-6)', status: 'ok', pids: `${Object.keys(DTC_DB).length} кодов` },
-            { name: 'VIN декодер (NHTSA)', status: 'ok', pids: 'API онлайн' },
-            { name: 'VAG (VW/Audi/Skoda)', status: 'partial', pids: 'Базовые функции' },
-            { name: 'BMW / Mini', status: 'partial', pids: 'Базовые функции' },
-            { name: 'Toyota / Lexus', status: 'partial', pids: 'Базовые функции' },
-            { name: 'Chinese OEM (Haval/Chery/Geely)', status: 'partial', pids: 'Базовые функции' },
-          ].map(lib => (
-            <div key={lib.name} className="flex items-center gap-3 text-xs">
-              <div className={`w-2 h-2 rounded-full shrink-0 ${lib.status==='ok'?'bg-green-400':'bg-amber-400'}`} />
-              <span className="flex-1">{lib.name}</span>
-              <span className="text-muted-foreground">{lib.pids}</span>
+          {libs.map(lib => (
+            <div key={lib.id} className={`border rounded-xl p-3 flex items-center gap-3 ${lib.status==='builtin'?'border-green-400/25 bg-green-400/5':lib.status==='partial'?'border-amber-400/20 bg-card':'border-border bg-card'}`}>
+              <div className={`w-2 h-2 rounded-full shrink-0 ${lib.status==='builtin'?'bg-green-400':lib.status==='partial'?'bg-amber-400':'bg-muted-foreground/40'}`} />
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-semibold truncate">{lib.name}</div>
+                {lib.loaded
+                  ? <div className="text-[11px] text-green-400 font-mono truncate">{lib.loaded.fileName} · v{lib.loaded.version}</div>
+                  : <div className="text-[11px] text-muted-foreground">{lib.pids}</div>
+                }
+              </div>
+              {lib.status === 'builtin' && !lib.loaded ? (
+                <span className="shrink-0 text-[11px] font-bold text-green-400 bg-green-400/10 px-2 py-0.5 rounded-full">Встроена</span>
+              ) : (
+                <button
+                  onClick={() => startUpload(lib.id)}
+                  disabled={uploadStep === 'parsing'}
+                  className="shrink-0 flex items-center gap-1 text-[11px] font-bold border border-primary/30 text-cyan px-2.5 py-1.5 rounded-lg hover:bg-primary/10 transition disabled:opacity-40">
+                  <Icon name="Upload" size={12} />{lib.loaded ? 'Обновить' : 'Загрузить'}
+                </button>
+              )}
             </div>
           ))}
         </div>
       </div>
+
+      {/* Модал: Инструкции */}
+      {showInstructions && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-end justify-center" onClick={() => setShowInstructions(false)}>
+          <div className="bg-card border-glow rounded-t-2xl w-full max-w-xl max-h-[85vh] overflow-y-auto animate-fade-up" onClick={e => e.stopPropagation()}>
+            <div className="sticky top-0 bg-card border-b border-border px-5 py-4 flex items-center justify-between">
+              <div className="font-display text-base text-cyan-glow">Где брать данные для библиотек</div>
+              <button onClick={() => setShowInstructions(false)}><Icon name="X" size={18} className="text-muted-foreground" /></button>
+            </div>
+            <div className="p-5 space-y-4">
+
+              {/* 1. ASAM */}
+              <div className="border-glow bg-secondary rounded-xl p-4 space-y-2">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0">
+                      <Icon name="FileCode" size={16} className="text-cyan" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-sm">ASAM MCD-2D / ODX</div>
+                      <div className="text-[11px] text-muted-foreground">Открытый стандарт ISO 22901</div>
+                    </div>
+                  </div>
+                  <a href="https://www.asam.net/standards/detail/mcd-2-d/" target="_blank" rel="noreferrer"
+                    className="shrink-0 text-[11px] text-cyan border border-cyan/30 rounded-full px-2.5 py-1 hover:bg-cyan/10 transition flex items-center gap-1">
+                    <Icon name="ExternalLink" size={11} />Сайт
+                  </a>
+                </div>
+                <div className="text-xs text-muted-foreground leading-relaxed">
+                  Производители передают данные официальным партнёрам в формате ODX (XML). Именно в этом формате описаны все блоки, параметры и функции.
+                </div>
+                <div className="bg-background rounded-lg p-2.5 text-[11px] space-y-1 text-muted-foreground">
+                  <div className="font-semibold text-foreground mb-1">Шаги:</div>
+                  <div>1. Скачать ODX-файл для нужной марки</div>
+                  <div>2. Распарсить XML — теги <span className="font-mono text-cyan">{'<DIAG-SERVICE>'}</span>, <span className="font-mono text-cyan">{'<PARAM>'}</span></div>
+                  <div>3. Конвертировать в <span className="font-mono text-cyan">.adl.json</span> → загрузить выше</div>
+                </div>
+              </div>
+
+              {/* 2. GitHub */}
+              <div className="border-glow bg-secondary rounded-xl p-4 space-y-2">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-purple-400/10 flex items-center justify-center shrink-0">
+                      <Icon name="Github" size={16} className="text-purple-400" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-sm">OpenDiagnostics / GitHub</div>
+                      <div className="text-[11px] text-muted-foreground">Сообщество reverse engineering</div>
+                    </div>
+                  </div>
+                  <a href="https://github.com/topics/obd2-diagnostics" target="_blank" rel="noreferrer"
+                    className="shrink-0 text-[11px] text-purple-400 border border-purple-400/30 rounded-full px-2.5 py-1 hover:bg-purple-400/10 transition flex items-center gap-1">
+                    <Icon name="ExternalLink" size={11} />GitHub
+                  </a>
+                </div>
+                <div className="text-xs text-muted-foreground leading-relaxed">
+                  Репозитории с готовыми расшифровками протоколов: <span className="text-foreground">pyOBD, python-OBD, freediag, OpenVehicles</span>.
+                </div>
+                <div className="bg-background rounded-lg p-2.5 text-[11px] space-y-1 text-muted-foreground">
+                  <div className="font-semibold text-foreground mb-1">Полезные репозитории:</div>
+                  <div>• <span className="font-mono text-cyan">github.com/brendan-w/python-OBD</span></div>
+                  <div>• <span className="font-mono text-cyan">github.com/rnd-ash/OpenVehicleDiag</span></div>
+                  <div>• <span className="font-mono text-cyan">github.com/iDiagnostics</span></div>
+                </div>
+              </div>
+
+              {/* 3. Реверс-инжиниринг */}
+              <div className="border-glow bg-secondary rounded-xl p-4 space-y-2">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-amber-400/10 flex items-center justify-center shrink-0">
+                      <Icon name="Radio" size={16} className="text-amber-400" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-sm">Реверс-инжиниринг (SocketCAN)</div>
+                      <div className="text-[11px] text-muted-foreground">Захват трафика с реального авто</div>
+                    </div>
+                  </div>
+                  <a href="https://www.csselectronics.com/pages/can-bus-simple-intro-tutorial" target="_blank" rel="noreferrer"
+                    className="shrink-0 text-[11px] text-amber-400 border border-amber-400/30 rounded-full px-2.5 py-1 hover:bg-amber-400/10 transition flex items-center gap-1">
+                    <Icon name="ExternalLink" size={11} />Гайд
+                  </a>
+                </div>
+                <div className="text-xs text-muted-foreground leading-relaxed">
+                  Подключаешь SocketCAN-адаптер к OBD-II, запускаешь оригинальный сканер и записываешь весь CAN-трафик.
+                </div>
+                <div className="bg-background rounded-lg p-2.5 text-[11px] space-y-1 text-muted-foreground">
+                  <div>1. Адаптер <span className="text-foreground">PCAN-USB</span> или <span className="text-foreground">CANable</span> (~30–80$)</div>
+                  <div>2. Программа <span className="font-mono text-cyan">SavvyCAN</span> или <span className="font-mono text-cyan">Wireshark</span></div>
+                  <div>3. Записываешь запросы/ответы оригинального сканера</div>
+                  <div>4. Расшифрованные команды → <span className="font-mono text-cyan">.adl.json</span></div>
+                </div>
+              </div>
+
+              {/* 4. Дилерская документация */}
+              <div className="border-glow bg-secondary rounded-xl p-4 space-y-2">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-8 h-8 rounded-lg bg-green-400/10 flex items-center justify-center shrink-0">
+                    <Icon name="BookOpen" size={16} className="text-green-400" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm">Дилерская документация</div>
+                    <div className="text-[11px] text-muted-foreground">WIS / ELSA / TIS / ISTA</div>
+                  </div>
+                </div>
+                <div className="bg-background rounded-lg p-2.5 text-[11px] text-muted-foreground">
+                  <div className="grid grid-cols-2 gap-1.5">
+                    <div><span className="text-foreground">VW/Audi/Skoda</span> → ELSA / ODIS</div>
+                    <div><span className="text-foreground">BMW/Mini</span> → ISTA-D / ISTA-P</div>
+                    <div><span className="text-foreground">Toyota/Lexus</span> → TIS / Techstream</div>
+                    <div><span className="text-foreground">Mercedes</span> → WIS / XENTRY</div>
+                    <div><span className="text-foreground">Ford</span> → IDS / FJDS</div>
+                    <div><span className="text-foreground">Hyundai/Kia</span> → GDS / KDS</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="border border-cyan/25 bg-cyan/5 rounded-xl p-4 text-xs text-muted-foreground leading-relaxed">
+                <span className="text-foreground font-semibold">Нашла данные?</span> Пришли описание параметров для нужной марки — оформлю в <span className="font-mono text-cyan">.adl.json</span> и загрузишь через кнопку в списке выше.
+              </div>
+
+              <button onClick={() => setShowInstructions(false)}
+                className="w-full gradient-primary text-[hsl(220,20%,8%)] font-bold py-3 rounded-xl text-sm">
+                Закрыть
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -1132,6 +1281,8 @@ const Index = () => {
   const [btName, setBtName] = useState<string | null>(null);
   const [btError, setBtError] = useState('');
   const [btConnecting, setBtConnecting] = useState(false);
+  // Поднятый VIN-результат: передаётся в историю
+  const [lastVin, setLastVin] = useState<VinResult | null>(null);
 
   useEffect(() => {
     elm327.onDisconnect(() => { setBtConnected(false); setBtName(null); });
@@ -1187,9 +1338,9 @@ const Index = () => {
         )}
 
         {/* Страницы */}
-        {tab === 'vin'     && <ScreenVin />}
+        {tab === 'vin'     && <ScreenVin onVinDecoded={setLastVin} />}
         {tab === 'vehicle' && <ScreenVehicle btConnected={btConnected} />}
-        {tab === 'history' && <ScreenHistory />}
+        {tab === 'history' && <ScreenHistory lastVin={lastVin} />}
         {tab === 'dtc'     && <ScreenDTC />}
         {tab === 'updates' && <ScreenUpdates />}
       </div>
