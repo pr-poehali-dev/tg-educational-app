@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import Icon from '@/components/ui/icon';
 import { VEHICLE_DB, REGIONS, type EcuBlock, type EcuFunction } from '@/data/vehicles';
 import { DTC_DB } from '@/data/dtc';
@@ -1046,7 +1047,15 @@ function detectMakeId(fileName: string, json: Record<string, unknown>, libs: Mak
 function ScreenUpdates() {
   const [checkState, setCheckState] = useState<'idle'|'checking'|'uptodate'|'available'>('idle');
   const [showInstructions, setShowInstructions] = useState(false);
-  const [libs, setLibs] = useState<MakeLibEntry[]>(MAKE_LIBS_INIT);
+  const [libs, setLibs] = useState<MakeLibEntry[]>(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('libs_loaded') ?? '{}') as Record<string, MakeLibEntry['loaded']>;
+      return MAKE_LIBS_INIT.map(l => saved[l.id]
+        ? { ...l, status: 'builtin' as const, pids: `${saved[l.id]!.count} блоков`, loaded: saved[l.id] }
+        : l
+      );
+    } catch { return MAKE_LIBS_INIT; }
+  });
   const [uploadTarget, setUploadTarget] = useState<string | null>(null); // null = авторежим
   const [batchResults, setBatchResults] = useState<{name: string; makeId: string|null; ok: boolean; msg: string}[]>([]);
   const [showBatch, setShowBatch] = useState(false);
@@ -1054,7 +1063,12 @@ function ScreenUpdates() {
   const [uploadMsg, setUploadMsg] = useState('');
   const [dtcStep, setDtcStep] = useState<'idle'|'parsing'|'done'|'error'>('idle');
   const [dtcMsg, setDtcMsg] = useState('');
-  const [dtcCount, setDtcCount] = useState(Object.keys(DTC_DB).length);
+  const [dtcCount, setDtcCount] = useState(() => {
+    try {
+      const ext = JSON.parse(localStorage.getItem('dtc_ext') ?? '{}') as Record<string, unknown>;
+      return Object.keys(DTC_DB).length + Object.keys(ext).length;
+    } catch { return Object.keys(DTC_DB).length; }
+  });
   const [libSearch, setLibSearch] = useState('');
   const [regionFilter, setRegionFilter] = useState('Все');
   const fileRef = useRef<HTMLInputElement>(null);
@@ -1073,6 +1087,20 @@ function ScreenUpdates() {
     fileRef.current?.click();
   };
 
+  // Сохраняем загруженные библиотеки в localStorage при каждом изменении
+  useEffect(() => {
+    const loaded: Record<string, MakeLibEntry['loaded']> = {};
+    libs.forEach(l => { if (l.loaded) loaded[l.id] = l.loaded; });
+    localStorage.setItem('libs_loaded', JSON.stringify(loaded));
+  }, [libs]);
+
+  const saveLib = (makeId: string, loadedData: MakeLibEntry['loaded']) => {
+    setLibs(prev => prev.map(l => l.id === makeId
+      ? { ...l, status: 'builtin' as const, pids: `${loadedData!.count} блоков`, loaded: loadedData }
+      : l
+    ));
+  };
+
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !uploadTarget) return;
@@ -1087,10 +1115,7 @@ function ScreenUpdates() {
         setTimeout(() => {
           setUploadStep('done');
           setUploadMsg(`Загружено: ${count} блоков, версия ${ver}`);
-          setLibs(prev => prev.map(l => l.id === uploadTarget
-            ? { ...l, status: 'builtin' as const, pids: `${count} блоков`, loaded: { fileName: file.name, version: ver, count } }
-            : l
-          ));
+          saveLib(uploadTarget, { fileName: file.name, version: ver, count });
         }, 800);
       } catch {
         setUploadStep('error');
@@ -1117,10 +1142,7 @@ function ScreenUpdates() {
           const count = (json.makes as unknown[])?.length ?? (json.ecus as unknown[])?.length ?? (json.pids as unknown[])?.length ?? 1;
           const ver = (json.version as string) ?? '—';
           if (makeId) {
-            setLibs(prev => prev.map(l => l.id === makeId
-              ? { ...l, status: 'builtin' as const, pids: `${count} блоков`, loaded: { fileName: file.name, version: ver, count } }
-              : l
-            ));
+            saveLib(makeId, { fileName: file.name, version: ver, count });
             results.push({ name: file.name, makeId, ok: true, msg: `→ ${MAKE_LIBS_INIT.find(l=>l.id===makeId)?.name ?? makeId}, ${count} блоков` });
           } else {
             results.push({ name: file.name, makeId: null, ok: false, msg: 'Марка не распознана — загрузи вручную' });
@@ -1349,9 +1371,9 @@ function ScreenUpdates() {
         </div>
       </div>
 
-      {/* Модал: Инструкции */}
-      {showInstructions && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4" onClick={() => setShowInstructions(false)}>
+      {/* Модал: Инструкции — через portal чтобы не зависел от скролла */}
+      {showInstructions && createPortal(
+        <div className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4" onClick={() => setShowInstructions(false)}>
           <div className="bg-card border-glow rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="sticky top-0 bg-card border-b border-border px-5 py-4 flex items-center justify-between">
               <div className="font-display text-base text-cyan-glow">Где брать данные для библиотек</div>
@@ -1477,7 +1499,8 @@ function ScreenUpdates() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
