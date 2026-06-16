@@ -203,7 +203,7 @@ export const VEHICLE_DB: VehicleMake[] = [
     id: 'vw', name: 'Volkswagen', logo: '🔵', region: 'europe',
     models: [
       {
-        id: 'golf', name: 'Golf (VII/VIII)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'golf', name: 'Golf (VII/VIII)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU(), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(), VAG_INSTRUMENT_ECU(), VAG_STEERING_ECU(),
           { id: 'parking', name: 'Электрический стояночный тормоз (EPB)', address: '0x35', protocol: 'CAN',
             functions: [
@@ -215,11 +215,11 @@ export const VEHICLE_DB: VehicleMake[] = [
         ],
       },
       {
-        id: 'passat', name: 'Passat (B7/B8)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
+        id: 'passat', name: 'Passat (B7/B8)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
         ecus: [VAG_ENGINE_ECU(), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(), VAG_INSTRUMENT_ECU(), VAG_STEERING_ECU()],
       },
       {
-        id: 'tiguan', name: 'Tiguan (I/II)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'tiguan', name: 'Tiguan (I/II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU(), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(), VAG_INSTRUMENT_ECU(),
           { id: '4motion', name: 'Блок управления 4Motion (Haldex)', address: '0x22', protocol: 'CAN',
             functions: [
@@ -232,7 +232,7 @@ export const VEHICLE_DB: VehicleMake[] = [
         ],
       },
       {
-        id: 'polo', name: 'Polo (V/VI)', years: [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
+        id: 'polo', name: 'Polo (V/VI)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
         ecus: [VAG_ENGINE_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_INSTRUMENT_ECU()],
       },
     ],
@@ -243,11 +243,11 @@ export const VEHICLE_DB: VehicleMake[] = [
     id: 'audi', name: 'Audi', logo: '⚪', region: 'europe',
     models: [
       {
-        id: 'a4', name: 'A4 (B8/B9)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'a4', name: 'A4 (B8/B9)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(), VAG_INSTRUMENT_ECU(), VAG_STEERING_ECU()],
       },
       {
-        id: 'a6', name: 'A6 (C7/C8)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'a6', name: 'A6 (C7/C8)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU(), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(), VAG_INSTRUMENT_ECU(), VAG_STEERING_ECU(),
           { id: 'airsusp', name: 'Пневматическая подвеска (Airmatic)', address: '0x34', protocol: 'CAN',
             functions: [
@@ -260,7 +260,7 @@ export const VEHICLE_DB: VehicleMake[] = [
         ],
       },
       {
-        id: 'q5', name: 'Q5 (8R/FY)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'q5', name: 'Q5 (8R/FY)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU(), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(), VAG_INSTRUMENT_ECU()],
       },
     ],
@@ -271,7 +271,7 @@ export const VEHICLE_DB: VehicleMake[] = [
     id: 'bmw', name: 'BMW', logo: '🔷', region: 'europe',
     models: [
       {
-        id: '3series', name: '3 Series (F30/G20)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: '3series', name: '3 Series (F30/G20)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU(),
           { id: 'airbag', name: 'Модуль SRS (MRS)', address: '0x00', protocol: 'BMW-ENET',
             functions: [
@@ -289,7 +289,7 @@ export const VEHICLE_DB: VehicleMake[] = [
         ],
       },
       {
-        id: '5series', name: '5 Series (F10/G30)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: '5series', name: '5 Series (F10/G30)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU(),
           { id: 'airsusp', name: 'Электронная подвеска (EDC)', address: '0xA0', protocol: 'BMW-ENET',
             functions: [
@@ -300,7 +300,7 @@ export const VEHICLE_DB: VehicleMake[] = [
         ],
       },
       {
-        id: 'x5', name: 'X5 (E70/F15/G05)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'x5', name: 'X5 (E70/F15/G05)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()],
       },
     ],
@@ -311,7 +311,7 @@ export const VEHICLE_DB: VehicleMake[] = [
     id: 'mercedes', name: 'Mercedes-Benz', logo: '⭐', region: 'europe',
     models: [
       {
-        id: 'c-class', name: 'C-Class (W204/W205)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021],
+        id: 'c-class', name: 'C-Class (W204/W205)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021],
         ecus: [MERCEDES_ENGINE_ECU(),
           { id: 'abs', name: 'Блок ESP (ABS)', address: '0x03', protocol: 'Mercedes-CAN',
             functions: [
@@ -330,7 +330,7 @@ export const VEHICLE_DB: VehicleMake[] = [
         ],
       },
       {
-        id: 'e-class', name: 'E-Class (W212/W213)', years: [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'e-class', name: 'E-Class (W212/W213)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU()],
       },
     ],
@@ -341,7 +341,7 @@ export const VEHICLE_DB: VehicleMake[] = [
     id: 'toyota', name: 'Toyota', logo: '🔴', region: 'asia',
     models: [
       {
-        id: 'camry', name: 'Camry (V50/V70)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'camry', name: 'Camry (V50/V70)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU(),
           { id: 'transmission', name: 'Блок управления АКПП (ECT)', address: '0x28', protocol: 'Toyota-CAN',
             functions: [
@@ -358,11 +358,11 @@ export const VEHICLE_DB: VehicleMake[] = [
         ],
       },
       {
-        id: 'rav4', name: 'RAV4 (IV/V)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'rav4', name: 'RAV4 (IV/V)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()],
       },
       {
-        id: 'land-cruiser', name: 'Land Cruiser (200/300)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'land-cruiser', name: 'Land Cruiser (200/300)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU(),
           { id: 'kdss', name: 'Гидропневматическая подвеска KDSS', address: '0x3E', protocol: 'Toyota-CAN',
             functions: [
@@ -381,7 +381,7 @@ export const VEHICLE_DB: VehicleMake[] = [
     id: 'kia', name: 'Kia', logo: '🟡', region: 'asia',
     models: [
       {
-        id: 'rio', name: 'Rio (III/IV)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'rio', name: 'Rio (III/IV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'Блок управления двигателем (ECM)', address: '0x01', protocol: 'KIA-CAN/UDS',
             functions: [
@@ -402,7 +402,7 @@ export const VEHICLE_DB: VehicleMake[] = [
         ],
       },
       {
-        id: 'sportage', name: 'Sportage (III/IV/V)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'sportage', name: 'Sportage (III/IV/V)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'Блок управления двигателем (ECM)', address: '0x01', protocol: 'KIA-CAN/UDS',
             functions: [
@@ -422,7 +422,7 @@ export const VEHICLE_DB: VehicleMake[] = [
     id: 'lada', name: 'LADA (АвтоВАЗ)', logo: '🇷🇺', region: 'russia',
     models: [
       {
-        id: 'vesta', name: 'Vesta / Vesta Cross', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'vesta', name: 'Vesta / Vesta Cross', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'Блок управления двигателем (BOSCH/ЯНВАРЬ)', address: '0x01', protocol: 'ISO14230/CAN',
             functions: [
@@ -444,7 +444,7 @@ export const VEHICLE_DB: VehicleMake[] = [
         ],
       },
       {
-        id: 'xray', name: 'XRAY / XRAY Cross', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+        id: 'xray', name: 'XRAY / XRAY Cross', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'Блок управления двигателем', address: '0x01', protocol: 'CAN',
             functions: [
@@ -461,7 +461,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'hyundai', name: 'Hyundai', logo: '🔵', region: 'asia',
     models: [
-      { id: 'solaris', name: 'Solaris (I/II)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'solaris', name: 'Solaris (I/II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (Kefico/Bosch)', address: '0x01', protocol: 'KWP2000/CAN',
             functions: [
@@ -479,7 +479,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'sas_calib', name: 'Калибровка датчика руля',   type: 'adaptation', description: 'Обнуление SAS', warning: 'Руль по центру' },
             ]},
         ]},
-      { id: 'creta', name: 'Creta (I/II)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'creta', name: 'Creta (I/II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -489,7 +489,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс ТО',          type: 'service', description: 'Сброс интервала ТО' },
             ]},
         ]},
-      { id: 'tucson', name: 'Tucson (II/III/IV)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'tucson', name: 'Tucson (II/III/IV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -507,7 +507,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'haval', name: 'Haval / Tank', logo: '🟢', region: 'china',
     models: [
-      { id: 'jolion', name: 'Jolion', years: [2021,2022,2023,2024],
+      { id: 'jolion', name: 'Jolion', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя GW4B15A', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -534,7 +534,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'brake_bleed', name: 'Прокачка тормозов',        type: 'activation', description: 'Режим прокачки с насосом ABS' },
             ]},
         ]},
-      { id: 'f7', name: 'F7 / F7x', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'f7', name: 'F7 / F7x', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя GW4C20NT', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -544,7 +544,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс масла',        type: 'service', description: 'Обнуление ТО' },
             ]},
         ]},
-      { id: 'tank300', name: 'Tank 300', years: [2021,2022,2023,2024],
+      { id: 'tank300', name: 'Tank 300', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 2.0T', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -561,7 +561,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: '4wd_calib',  name: 'Калибровка 4WD',           type: 'adaptation', description: 'Обучение электронной блокировки' },
             ]},
         ]},
-      { id: 'tank500', name: 'Tank 500', years: [2022,2023,2024],
+      { id: 'tank500', name: 'Tank 500', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 3.0T V6', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -578,7 +578,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'chery', name: 'Chery / Omoda / Exeed', logo: '🔴', region: 'china',
     models: [
-      { id: 'tiggo4pro', name: 'Tiggo 4 Pro', years: [2022,2023,2024],
+      { id: 'tiggo4pro', name: 'Tiggo 4 Pro', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ SQRE4T15B (1.5T)', address: '0x01', protocol: 'CAN/ISO14229',
             functions: [
@@ -602,7 +602,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'sas_calib',   name: 'Калибровка датчика руля',   type: 'adaptation', description: 'Обнуление SAS', warning: 'Руль по центру' },
             ]},
         ]},
-      { id: 'tiggo7pro', name: 'Tiggo 7 Pro / 7 Pro Max', years: [2020,2021,2022,2023,2024],
+      { id: 'tiggo7pro', name: 'Tiggo 7 Pro / 7 Pro Max', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ SQRE4T15C (1.5T)', address: '0x01', protocol: 'CAN/ISO14229',
             functions: [
@@ -612,7 +612,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс ТО',          type: 'service', description: 'Сброс сервисного интервала' },
             ]},
         ]},
-      { id: 'omoda5', name: 'Omoda 5', years: [2022,2023,2024],
+      { id: 'omoda5', name: 'Omoda 5', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ 1.6T TGDI', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -639,7 +639,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'geely', name: 'Geely / Zeekr', logo: '🔵', region: 'china',
     models: [
-      { id: 'atlas-pro', name: 'Atlas / Atlas Pro', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'atlas-pro', name: 'Atlas / Atlas Pro', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ JLD-4G20 (2.0T)', address: '0x01', protocol: 'CAN/ISO14229',
             functions: [
@@ -658,7 +658,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset',   name: 'Сброс масла 7DCT',       type: 'service',    description: 'Обнуление интервала масла' },
             ]},
         ]},
-      { id: 'coolray', name: 'Coolray', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'coolray', name: 'Coolray', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ JLH-3G15TD (1.5T)', address: '0x01', protocol: 'CAN/ISO14229',
             functions: [
@@ -668,7 +668,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс ТО',          type: 'service', description: 'Сброс ТО' },
             ]},
         ]},
-      { id: 'monjaro', name: 'Monjaro / Xingyue L', years: [2022,2023,2024],
+      { id: 'monjaro', name: 'Monjaro / Xingyue L', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ 2.0T HD4', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -685,7 +685,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'changan', name: 'Changan', logo: '🔷', region: 'china',
     models: [
-      { id: 'cs55plus', name: 'CS55 Plus', years: [2021,2022,2023,2024],
+      { id: 'cs55plus', name: 'CS55 Plus', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ BlueCORE 1.5T', address: '0x01', protocol: 'CAN/ISO14229',
             functions: [
@@ -702,7 +702,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'sas_calib', name: 'Калибровка датчика руля',   type: 'adaptation', description: 'Обнуление SAS', warning: 'Руль по центру' },
             ]},
         ]},
-      { id: 'cs35plus', name: 'CS35 Plus', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'cs35plus', name: 'CS35 Plus', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ 1.4T / 1.6L', address: '0x01', protocol: 'CAN/ISO14229',
             functions: [
@@ -712,7 +712,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс ТО',          type: 'service', description: 'Сброс ТО' },
             ]},
         ]},
-      { id: 'uni-t', name: 'UNI-T / UNI-V / UNI-K', years: [2020,2021,2022,2023,2024],
+      { id: 'uni-t', name: 'UNI-T / UNI-V / UNI-K', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ BlueCORE 1.5T TGDI', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -729,7 +729,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'byd', name: 'BYD', logo: '🟩', region: 'china',
     models: [
-      { id: 'seal', name: 'Seal / Sea Lion', years: [2022,2023,2024],
+      { id: 'seal', name: 'Seal / Sea Lion', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'bms', name: 'Система управления АКБ (BMS)', address: '0x05', protocol: 'CAN/UDS',
             functions: [
@@ -751,7 +751,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных',       type: 'special', description: 'Режим работы, мощность, рекуперация' },
             ]},
         ]},
-      { id: 'song-plus', name: 'Song Plus / Song Pro', years: [2021,2022,2023,2024],
+      { id: 'song-plus', name: 'Song Plus / Song Pro', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ 1.5T DM-i (PHEV)', address: '0x01', protocol: 'CAN/UDS',
             functions: [
@@ -767,7 +767,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'exeed', name: 'Exeed / Jetour / Jaecoo', logo: '⭐', region: 'china',
     models: [
-      { id: 'txl', name: 'Exeed TXL', years: [2019,2020,2021,2022,2023],
+      { id: 'txl', name: 'Exeed TXL', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [
           { id: 'engine', name: 'ЭБУ 2.0T TGDI', address: '0x01', protocol: 'CAN/ISO14229',
             functions: [
@@ -777,7 +777,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс ТО',          type: 'service', description: 'Сброс ТО' },
             ]},
         ]},
-      { id: 'jetour-x70', name: 'Jetour X70 / Dashing', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'jetour-x70', name: 'Jetour X70 / Dashing', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ 1.5T/2.0T', address: '0x01', protocol: 'CAN/ISO14229',
             functions: [
@@ -804,7 +804,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'nissan', name: 'Nissan', logo: '⚪', region: 'asia',
     models: [
-      { id: 'qashqai', name: 'Qashqai (J10/J11)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021],
+      { id: 'qashqai', name: 'Qashqai (J10/J11)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x01', protocol: 'Nissan-CAN/ISO14229',
             functions: [
@@ -822,7 +822,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'sas_calib',   name: 'Калибровка датчика руля',   type: 'adaptation', description: 'Обнуление SAS', warning: 'Руль по центру' },
             ]},
         ]},
-      { id: 'x-trail', name: 'X-Trail (T31/T32)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
+      { id: 'x-trail', name: 'X-Trail (T31/T32)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x01', protocol: 'Nissan-CAN',
             functions: [
@@ -839,7 +839,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'renault', name: 'Renault', logo: '🟡', region: 'europe',
     models: [
-      { id: 'duster', name: 'Duster (I/II)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'duster', name: 'Duster (I/II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x01', protocol: 'CAN/K-Line',
             functions: [
@@ -857,7 +857,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'brake_bleed', name: 'Прокачка тормозов',        type: 'activation', description: 'Режим прокачки тормозов' },
             ]},
         ]},
-      { id: 'logan', name: 'Logan / Sandero (I/II)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021],
+      { id: 'logan', name: 'Logan / Sandero (I/II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021],
         ecus: [
           { id: 'engine', name: 'ЭБУ Siemens/Bosch', address: '0x01', protocol: 'CAN/K-Line',
             functions: [
@@ -874,7 +874,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'ford', name: 'Ford', logo: '🔵', region: 'usa',
     models: [
-      { id: 'focus', name: 'Focus (II/III)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],
+      { id: 'focus', name: 'Focus (II/III)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'CAN/Ford-UDS',
             functions: [
@@ -891,7 +891,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'sas_calib',   name: 'Калибровка датчика руля',   type: 'adaptation', description: 'Обнуление SAS', warning: 'Руль по центру' },
             ]},
         ]},
-      { id: 'kuga', name: 'Kuga / Escape (II/III)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021],
+      { id: 'kuga', name: 'Kuga / Escape (II/III)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'CAN/Ford-UDS',
             functions: [
@@ -908,7 +908,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'mazda', name: 'Mazda', logo: '🔴', region: 'asia',
     models: [
-      { id: 'cx5', name: 'CX-5 (I/II)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'cx5', name: 'CX-5 (I/II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ SKYACTIV-G/D', address: '0x7E0', protocol: 'Mazda-CAN',
             functions: [
@@ -919,7 +919,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset',   name: 'Сброс счётчика масла',   type: 'service',    description: 'Обнуление Mazda Oil Life Monitor' },
             ]},
         ]},
-      { id: 'mazda6', name: 'Mazda 6 (GJ)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
+      { id: 'mazda6', name: 'Mazda 6 (GJ)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [
           { id: 'engine', name: 'ЭБУ SKYACTIV-G 2.0/2.5', address: '0x7E0', protocol: 'Mazda-CAN',
             functions: [
@@ -936,7 +936,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'subaru', name: 'Subaru', logo: '⭐', region: 'asia',
     models: [
-      { id: 'outback', name: 'Outback / Legacy (V/VI)', years: [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'outback', name: 'Outback / Legacy (V/VI)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'Subaru-CAN',
             functions: [
@@ -954,7 +954,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'awd_calib',  name: 'Калибровка AWD',          type: 'adaptation', description: 'Обучение системы AWD после замены компонентов' },
             ]},
         ]},
-      { id: 'forester', name: 'Forester (SJ/SK)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'forester', name: 'Forester (SJ/SK)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Subaru-CAN',
             functions: [
@@ -971,7 +971,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'mitsubishi', name: 'Mitsubishi', logo: '♦', region: 'asia',
     models: [
-      { id: 'outlander', name: 'Outlander (III)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
+      { id: 'outlander', name: 'Outlander (III)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'Mitsubishi-CAN',
             functions: [
@@ -988,7 +988,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'sas_calib',   name: 'Калибровка датчика руля',   type: 'adaptation', description: 'Обнуление SAS', warning: 'Руль по центру' },
             ]},
         ]},
-      { id: 'pajero-sport', name: 'Pajero Sport (III)', years: [2016,2017,2018,2019,2020,2021,2022,2023],
+      { id: 'pajero-sport', name: 'Pajero Sport (III)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [
           { id: 'engine', name: 'ЭБУ 2.4D / 3.0 MIVEC', address: '0x7E0', protocol: 'Mitsubishi-CAN',
             functions: [
@@ -1007,17 +1007,17 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'skoda', name: 'Škoda', logo: 'ŠK', region: 'europe',
     models: [
-      { id: 'octavia', name: 'Octavia (A8)', years: [2020,2021,2022,2023,2024],
+      { id: 'octavia', name: 'Octavia (A8)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(), VAG_INSTRUMENT_ECU()] },
       { id: 'superb', name: 'Superb (III)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'kodiaq', name: 'Kodiaq', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'kodiaq', name: 'Kodiaq', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'karoq', name: 'Karoq', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'karoq', name: 'Karoq', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'rapid', name: 'Rapid / Scala', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
+      { id: 'rapid', name: 'Rapid / Scala', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'fabia', name: 'Fabia (IV)', years: [2021,2022,2023,2024],
+      { id: 'fabia', name: 'Fabia (IV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
     ],
   },
@@ -1025,13 +1025,13 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'seat', name: 'SEAT / Cupra', logo: 'SE', region: 'europe',
     models: [
-      { id: 'leon', name: 'Leon (IV)', years: [2020,2021,2022,2023,2024],
+      { id: 'leon', name: 'Leon (IV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'ateca', name: 'Ateca / Cupra Ateca', years: [2016,2017,2018,2019,2020,2021,2022,2023],
+      { id: 'ateca', name: 'Ateca / Cupra Ateca', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'formentor', name: 'Cupra Formentor', years: [2021,2022,2023,2024],
+      { id: 'formentor', name: 'Cupra Formentor', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'ibiza', name: 'Ibiza (V)', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'ibiza', name: 'Ibiza (V)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
     ],
   },
@@ -1039,7 +1039,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'porsche', name: 'Porsche', logo: 'PR', region: 'europe',
     models: [
-      { id: 'cayenne', name: 'Cayenne (III)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'cayenne', name: 'Cayenne (III)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(),
           { id: 'pasm', name: 'Активная подвеска PASM', address: '0x36', protocol: 'CAN',
             functions: [
@@ -1048,13 +1048,13 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Высота, жёсткость, датчики' },
               { id: 'calib', name: 'Калибровка PASM', type: 'adaptation', description: 'Обучение нулевого положения', warning: 'Автомобиль должен стоять на ровной поверхности' },
             ]} ] },
-      { id: 'macan', name: 'Macan (I/II)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'macan', name: 'Macan (I/II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'panamera', name: 'Panamera (II)', years: [2016,2017,2018,2019,2020,2021,2022,2023],
+      { id: 'panamera', name: 'Panamera (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: '911', name: '911 (992)', years: [2019,2020,2021,2022,2023,2024],
+      { id: '911', name: '911 (992)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'taycan', name: 'Taycan (EV)', years: [2020,2021,2022,2023,2024],
+      { id: 'taycan', name: 'Taycan (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'Блок управления двигателем (MCU)', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -1076,7 +1076,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'volvo', name: 'Volvo', logo: 'VV', region: 'europe',
     models: [
-      { id: 'xc90', name: 'XC90 (II)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'xc90', name: 'XC90 (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'Volvo-CAN',
             functions: [
@@ -1103,7 +1103,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обучение нулевого положения кузова', warning: 'На ровной поверхности, без нагрузки' },
             ]},
         ] },
-      { id: 'xc60', name: 'XC60 (II)', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'xc60', name: 'XC60 (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Volvo-CAN',
             functions: [
@@ -1123,7 +1123,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'v90', name: 'V90 / S90', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'v90', name: 'V90 / S90', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Volvo-CAN',
             functions: [
@@ -1138,7 +1138,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'peugeot', name: 'Peugeot', logo: 'PG', region: 'europe',
     models: [
-      { id: '3008', name: '3008 / 5008 (II)', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: '3008', name: '3008 / 5008 (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (BSM)', address: '0x7E0', protocol: 'PSA-CAN',
             functions: [
@@ -1167,7 +1167,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'pad_reset', name: 'Сброс колодок', type: 'adaptation', description: 'Обнуление износа тормозных колодок' },
             ]},
         ] },
-      { id: '208', name: '208 / e-208 (II)', years: [2019,2020,2021,2022,2023,2024],
+      { id: '208', name: '208 / e-208 (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя / MCU', address: '0x7E0', protocol: 'PSA-CAN',
             functions: [
@@ -1181,7 +1181,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: '508', name: '508 (II)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: '508', name: '508 (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'PSA-CAN',
             functions: [
@@ -1196,7 +1196,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'citroen', name: 'Citroën / DS', logo: 'CI', region: 'europe',
     models: [
-      { id: 'c5x', name: 'C5 X', years: [2021,2022,2023,2024],
+      { id: 'c5x', name: 'C5 X', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'PSA-CAN',
             functions: [
@@ -1212,7 +1212,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обучение нулевого уровня', warning: 'На ровной поверхности без нагрузки' },
             ]},
         ] },
-      { id: 'berlingo', name: 'Berlingo / Rifter (III)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'berlingo', name: 'Berlingo / Rifter (III)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'PSA-CAN',
             functions: [
@@ -1222,7 +1222,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dpf_regen', name: 'Регенерация DPF', type: 'service', description: 'Принудительная регенерация DPF (дизель)' },
             ]},
         ] },
-      { id: 'ds7', name: 'DS 7 Crossback', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'ds7', name: 'DS 7 Crossback', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'PSA-CAN',
             functions: [
@@ -1237,7 +1237,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'opel', name: 'Opel / Vauxhall', logo: 'OP', region: 'europe',
     models: [
-      { id: 'astra', name: 'Astra (L)', years: [2021,2022,2023,2024],
+      { id: 'astra', name: 'Astra (L)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'GM-CAN',
             functions: [
@@ -1257,7 +1257,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'mokka', name: 'Mokka-e / Mokka (B)', years: [2020,2021,2022,2023,2024],
+      { id: 'mokka', name: 'Mokka-e / Mokka (B)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ / MCU', address: '0x7E0', protocol: 'GM-CAN',
             functions: [
@@ -1266,7 +1266,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры' },
             ]},
         ] },
-      { id: 'insignia', name: 'Insignia (B)', years: [2017,2018,2019,2020,2021,2022,2023],
+      { id: 'insignia', name: 'Insignia (B)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'GM-CAN',
             functions: [
@@ -1303,7 +1303,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'alfa_giulia', name: 'Alfa Romeo Giulia', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'alfa_giulia', name: 'Alfa Romeo Giulia', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'FCA-CAN',
             functions: [
@@ -1323,7 +1323,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'alfa_stelvio', name: 'Alfa Romeo Stelvio', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'alfa_stelvio', name: 'Alfa Romeo Stelvio', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'FCA-CAN',
             functions: [
@@ -1338,7 +1338,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'jaguar_lr', name: 'Jaguar / Land Rover', logo: 'JLR', region: 'europe',
     models: [
-      { id: 'range_rover', name: 'Range Rover (L460)', years: [2021,2022,2023,2024],
+      { id: 'range_rover', name: 'Range Rover (L460)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'JLR-CAN',
             functions: [
@@ -1365,7 +1365,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обнуление датчиков высоты кузова', warning: 'На ровной поверхности без нагрузки' },
             ]},
         ] },
-      { id: 'defender', name: 'Defender (L663)', years: [2020,2021,2022,2023,2024],
+      { id: 'defender', name: 'Defender (L663)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'JLR-CAN',
             functions: [
@@ -1385,7 +1385,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Режим, муфты, дифференциалы' },
             ]},
         ] },
-      { id: 'f-pace', name: 'Jaguar F-Pace / E-Pace', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'f-pace', name: 'Jaguar F-Pace / E-Pace', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'JLR-CAN',
             functions: [
@@ -1402,7 +1402,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'chevrolet', name: 'Chevrolet / GMC / Cadillac', logo: 'GM', region: 'usa',
     models: [
-      { id: 'equinox', name: 'Equinox / Traverse (III)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'equinox', name: 'Equinox / Traverse (III)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'GM-LAN',
             functions: [
@@ -1423,7 +1423,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'tahoe', name: 'Tahoe / Suburban (V)', years: [2020,2021,2022,2023,2024],
+      { id: 'tahoe', name: 'Tahoe / Suburban (V)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'GM-LAN',
             functions: [
@@ -1439,7 +1439,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'brake_bleed', name: 'Прокачка тормозов', type: 'activation', description: 'Автопрокачка с EBCM' },
             ]},
         ] },
-      { id: 'cadillac_xt', name: 'Cadillac XT5 / XT6', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'cadillac_xt', name: 'Cadillac XT5 / XT6', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'GM-LAN',
             functions: [
@@ -1460,7 +1460,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'chrysler', name: 'Chrysler / Dodge / RAM / Jeep', logo: 'CR', region: 'usa',
     models: [
-      { id: 'jeep_grand_cher', name: 'Jeep Grand Cherokee (WL)', years: [2021,2022,2023,2024],
+      { id: 'jeep_grand_cher', name: 'Jeep Grand Cherokee (WL)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'FCA-CAN',
             functions: [
@@ -1487,7 +1487,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Режим 4WD, муфты' },
             ]},
         ] },
-      { id: 'ram1500', name: 'RAM 1500 (DT)', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'ram1500', name: 'RAM 1500 (DT)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'FCA-CAN',
             functions: [
@@ -1502,7 +1502,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'dodge_charger', name: 'Dodge Charger / Challenger', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
+      { id: 'dodge_charger', name: 'Dodge Charger / Challenger', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'FCA-CAN',
             functions: [
@@ -1517,7 +1517,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'tesla', name: 'Tesla', logo: 'TL', region: 'usa',
     models: [
-      { id: 'model3', name: 'Model 3 / Model Y', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'model3', name: 'Model 3 / Model Y', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'vehicle', name: 'VCU (Vehicle Control Unit)', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -1536,7 +1536,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'brake_bleed', name: 'Прокачка тормозов', type: 'activation', description: 'Режим прокачки iBooster', warning: 'Только с профессиональным оборудованием' },
             ]},
         ] },
-      { id: 'modelS', name: 'Model S / Model X', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'modelS', name: 'Model S / Model X', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'vehicle', name: 'VCU (Vehicle Control)', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -1557,7 +1557,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'honda', name: 'Honda / Acura', logo: 'HN', region: 'asia',
     models: [
-      { id: 'cr-v', name: 'CR-V (VI)', years: [2022,2023,2024],
+      { id: 'cr-v', name: 'CR-V (VI)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM/PCM)', address: '0x7E0', protocol: 'Honda-CAN',
             functions: [
@@ -1585,7 +1585,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'epb_close', name: 'Закрыть EPB', type: 'activation', description: 'Зажать колодки после замены' },
             ]},
         ] },
-      { id: 'civic', name: 'Civic (XI)', years: [2021,2022,2023,2024],
+      { id: 'civic', name: 'Civic (XI)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'Honda-CAN',
             functions: [
@@ -1600,7 +1600,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'pilot', name: 'Honda Pilot / Passport', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'pilot', name: 'Honda Pilot / Passport', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'Honda-CAN',
             functions: [
@@ -1616,7 +1616,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'mazda_new', name: 'Mazda', logo: 'MZ', region: 'asia',
     models: [
-      { id: 'cx50', name: 'CX-50 / CX-90', years: [2022,2023,2024],
+      { id: 'cx50', name: 'CX-50 / CX-90', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'Mazda-CAN',
             functions: [
@@ -1644,7 +1644,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'suzuki', name: 'Suzuki', logo: 'SZ', region: 'asia',
     models: [
-      { id: 'vitara', name: 'Vitara / S-Cross (II)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'vitara', name: 'Vitara / S-Cross (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'Suzuki-CAN',
             functions: [
@@ -1660,7 +1660,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'jimny', name: 'Jimny (IV)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'jimny', name: 'Jimny (IV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Suzuki-CAN',
             functions: [
@@ -1680,7 +1680,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'isuzu', name: 'Isuzu', logo: 'IZ', region: 'asia',
     models: [
-      { id: 'd-max', name: 'D-Max / mu-X (III)', years: [2020,2021,2022,2023,2024],
+      { id: 'd-max', name: 'D-Max / mu-X (III)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ дизеля (ECM)', address: '0x7E0', protocol: 'Isuzu-CAN',
             functions: [
@@ -1719,7 +1719,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'rexton', name: 'Rexton G4 / Torres', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'rexton', name: 'Rexton G4 / Torres', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя / дизеля', address: '0x7E0', protocol: 'SsangYong-CAN',
             functions: [
@@ -1737,7 +1737,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'tata', name: 'Tata Motors', logo: 'TT', region: 'asia',
     models: [
-      { id: 'nexon', name: 'Nexon / Nexon EV', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'nexon', name: 'Nexon / Nexon EV', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя / MCU', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -1757,7 +1757,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'safari', name: 'Tata Safari / Harrier', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'safari', name: 'Tata Safari / Harrier', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ дизеля Kryotec', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -1772,7 +1772,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'mahindra', name: 'Mahindra', logo: 'MH', region: 'asia',
     models: [
-      { id: 'thar', name: 'Thar (2020)', years: [2020,2021,2022,2023,2024],
+      { id: 'thar', name: 'Thar (2020)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя mStallion/mHawk', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -1786,7 +1786,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Режим 4WD' },
             ]},
         ] },
-      { id: 'xuv700', name: 'XUV700', years: [2021,2022,2023,2024],
+      { id: 'xuv700', name: 'XUV700', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -1804,7 +1804,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'mg_saic', name: 'MG / Roewe (SAIC)', logo: 'MG', region: 'china',
     models: [
-      { id: 'mg5', name: 'MG5 / MG ZS EV', years: [2020,2021,2022,2023,2024],
+      { id: 'mg5', name: 'MG5 / MG ZS EV', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ / MCU (EV)', address: '0x7E0', protocol: 'SAIC-CAN',
             functions: [
@@ -1823,7 +1823,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'mg4', name: 'MG4 (MULAN) EV', years: [2022,2023,2024],
+      { id: 'mg4', name: 'MG4 (MULAN) EV', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (Motor Control)', address: '0x7E0', protocol: 'SAIC-CAN',
             functions: [
@@ -1842,7 +1842,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'changan', name: 'Changan / Deepal / Avatr', logo: 'CA', region: 'china',
     models: [
-      { id: 'cs75plus', name: 'CS75 Plus / CS85', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'cs75plus', name: 'CS75 Plus / CS85', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя Blue Core', address: '0x7E0', protocol: 'Changan-CAN',
             functions: [
@@ -1857,7 +1857,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'deepal_l7', name: 'Deepal L7 / S7 (EV/PHEV)', years: [2022,2023,2024],
+      { id: 'deepal_l7', name: 'Deepal L7 / S7 (EV/PHEV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (EV)', address: '0x7E0', protocol: 'Changan-CAN',
             functions: [
@@ -1876,7 +1876,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'gac', name: 'GAC / Trumpchi / Aion', logo: 'GA', region: 'china',
     models: [
-      { id: 'gs8', name: 'Trumpchi GS8 (II)', years: [2021,2022,2023,2024],
+      { id: 'gs8', name: 'Trumpchi GS8 (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 2.0T', address: '0x7E0', protocol: 'GAC-CAN',
             functions: [
@@ -1891,7 +1891,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'aion_s', name: 'Aion S / Aion Y (EV)', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'aion_s', name: 'Aion S / Aion Y (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (Motor Control)', address: '0x7E0', protocol: 'GAC-CAN',
             functions: [
@@ -1910,7 +1910,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'nio_li', name: 'NIO / Li Auto / Xpeng', logo: 'NL', region: 'china',
     models: [
-      { id: 'li_l9', name: 'Li L9 / L8 / L7 (EREV)', years: [2022,2023,2024],
+      { id: 'li_l9', name: 'Li L9 / L8 / L7 (EREV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ генератора (Range Extender)', address: '0x7E0', protocol: 'Li-CAN',
             functions: [
@@ -1928,7 +1928,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Мощность, ток, крутящий момент' },
             ]},
         ] },
-      { id: 'xpeng_p7', name: 'Xpeng P7 / G9', years: [2020,2021,2022,2023,2024],
+      { id: 'xpeng_p7', name: 'Xpeng P7 / G9', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (EV)', address: '0x7E0', protocol: 'Xpeng-CAN',
             functions: [
@@ -1947,7 +1947,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'jac_sehol', name: 'JAC / Sehol', logo: 'JC', region: 'china',
     models: [
-      { id: 'js4', name: 'JAC JS4 / Sehol X4 Plus', years: [2021,2022,2023,2024],
+      { id: 'js4', name: 'JAC JS4 / Sehol X4 Plus', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 1.5T', address: '0x7E0', protocol: 'JAC-CAN',
             functions: [
@@ -1970,7 +1970,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'gaz_group', name: 'ГАЗ (Газель / Соболь / Валдай)', logo: 'ГАЗ', region: 'russia',
     models: [
-      { id: 'gazelle_next', name: 'Газель NEXT / NN', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'gazelle_next', name: 'Газель NEXT / NN', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя УМЗ/Cummins/YUNNEI', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -1991,7 +1991,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'uaz', name: 'УАЗ', logo: 'УАЗ', region: 'russia',
     models: [
-      { id: 'patriot', name: 'Патриот (с 2016)', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'patriot', name: 'Патриот (с 2016)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ Январь 7.2 / Bosch ME17', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -2012,7 +2012,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Режим 4WD' },
             ]},
         ] },
-      { id: 'hunter', name: 'УАЗ Хантер / 469', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
+      { id: 'hunter', name: 'УАЗ Хантер / 469', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
         ecus: [
           { id: 'engine', name: 'ЭБУ Микас 7.1 / Январь 5.1', address: '0x7E0', protocol: 'ISO9141',
             functions: [
@@ -2029,7 +2029,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'daihatsu', name: 'Daihatsu', logo: 'DH', region: 'asia',
     models: [
-      { id: 'rocky', name: 'Rocky / Terios (II)', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'rocky', name: 'Rocky / Terios (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 1.0T', address: '0x7E0', protocol: 'Toyota-CAN',
             functions: [
@@ -2047,7 +2047,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'vw_extra', name: 'Volkswagen', logo: 'VW', region: 'europe',
     models: [
-      { id: 'touareg', name: 'Touareg (III)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'touareg', name: 'Touareg (III)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(), VAG_INSTRUMENT_ECU(),
           { id: 'air_susp', name: 'Пневмоподвеска DCC', address: '0x5F', protocol: 'CAN',
             functions: [
@@ -2056,15 +2056,15 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Высота, давление, режимы' },
               { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обнуление датчиков высоты кузова', warning: 'На ровной поверхности без нагрузки' },
             ]} ] },
-      { id: 'touran', name: 'Touran (II)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'touran', name: 'Touran (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'sharan', name: 'Sharan (II)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
+      { id: 'sharan', name: 'Sharan (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'arteon', name: 'Arteon / Shooting Brake', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'arteon', name: 'Arteon / Shooting Brake', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'taos', name: 'Taos / Tharu', years: [2020,2021,2022,2023,2024],
+      { id: 'taos', name: 'Taos / Tharu', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'id4', name: 'ID.4 / ID.6 (EV)', years: [2020,2021,2022,2023,2024],
+      { id: 'id4', name: 'ID.4 / ID.6 (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (электромотор)', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -2078,7 +2078,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'cell_balance', name: 'Балансировка ячеек', type: 'adaptation', description: 'Принудительная балансировка АКБ' },
             ]},
           VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'id3', name: 'ID.3 (EV)', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'id3', name: 'ID.3 (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (электромотор)', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -2091,15 +2091,15 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура' },
             ]},
           VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'crafter', name: 'Crafter (II)', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'crafter', name: 'Crafter (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 't_roc', name: 'T-Roc', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 't_roc', name: 'T-Roc', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 't_cross', name: 'T-Cross', years: [2019,2020,2021,2022,2023,2024],
+      { id: 't_cross', name: 'T-Cross', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'amarok', name: 'Amarok (I/II)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'amarok', name: 'Amarok (I/II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'caddy', name: 'Caddy (IV/V)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'caddy', name: 'Caddy (IV/V)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
     ],
   },
@@ -2108,13 +2108,13 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'audi_extra', name: 'Audi', logo: 'AU', region: 'europe',
     models: [
-      { id: 'a3', name: 'A3 (8V/8Y)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'a3', name: 'A3 (8V/8Y)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'a5', name: 'A5 (8T/F5)', years: [2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'a5', name: 'A5 (8T/F5)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'a7', name: 'A7 (C7/C8)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'a7', name: 'A7 (C7/C8)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'a8', name: 'A8 (D4/D5)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'a8', name: 'A8 (D4/D5)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU(),
           { id: 'air_susp', name: 'Пневмоподвеска Adaptive Air', address: '0x5F', protocol: 'CAN',
             functions: [
@@ -2123,13 +2123,13 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Высота, давление' },
               { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обнуление датчиков', warning: 'Без нагрузки, ровная поверхность' },
             ]} ] },
-      { id: 'q3', name: 'Q3 (8U/F3)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'q3', name: 'Q3 (8U/F3)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'q7', name: 'Q7 (4L/4M)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'q7', name: 'Q7 (4L/4M)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'q8', name: 'Q8 / SQ8 / RSQ8', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'q8', name: 'Q8 / SQ8 / RSQ8', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
-      { id: 'e-tron', name: 'Q8 e-tron / e-tron GT (EV)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'e-tron', name: 'Q8 e-tron / e-tron GT (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (два мотора)', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -2144,7 +2144,7 @@ export const VEHICLE_DB: VehicleMake[] = [
           VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
       { id: 'tt', name: 'TT (8J/8S)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU()] },
-      { id: 'rs6', name: 'RS6 / RS7 (C8)', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'rs6', name: 'RS6 / RS7 (C8)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [VAG_ENGINE_ECU('0x01'), VAG_TRANSMISSION_ECU(), VAG_ABS_ECU(), VAG_AIRBAG_ECU(), VAG_CLIMATE_ECU()] },
     ],
   },
@@ -2153,15 +2153,15 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'bmw_extra', name: 'BMW / Mini', logo: 'BM', region: 'europe',
     models: [
-      { id: '1series', name: '1 Series (E82/F20/F40)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: '1series', name: '1 Series (E82/F20/F40)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: '2series', name: '2 Series / Active Tourer (F22/F45/G42)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: '2series', name: '2 Series / Active Tourer (F22/F45/G42)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: '4series', name: '4 Series (F32/G22)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: '4series', name: '4 Series (F32/G22)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: '6series', name: '6 Series / 8 Series (F06/G14/G15)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: '6series', name: '6 Series / 8 Series (F06/G14/G15)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: '7series', name: '7 Series (F01/G11/G70)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: '7series', name: '7 Series (F01/G11/G70)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU(),
           { id: 'air_susp', name: 'Пневмоподвеска EHC', address: '0x36', protocol: 'BMW-ENET/CAN',
             functions: [
@@ -2170,19 +2170,19 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Высота, давление, режимы' },
               { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обнуление датчиков высоты', warning: 'На ровной поверхности без нагрузки' },
             ]} ] },
-      { id: 'x1', name: 'X1 (E84/F48/U11)', years: [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'x1', name: 'X1 (E84/F48/U11)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: 'x2', name: 'X2 (F39)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'x2', name: 'X2 (F39)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: 'x3', name: 'X3 (E83/F25/G01)', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'x3', name: 'X3 (E83/F25/G01)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: 'x4', name: 'X4 (F26/G02)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'x4', name: 'X4 (F26/G02)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: 'x6', name: 'X6 (E71/F16/G06)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'x6', name: 'X6 (E71/F16/G06)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: 'x7', name: 'X7 (G07)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'x7', name: 'X7 (G07)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU(), BMW_GEARBOX_ECU()] },
-      { id: 'ix', name: 'iX / iX3 / i4 (EV)', years: [2021,2022,2023,2024],
+      { id: 'ix', name: 'iX / iX3 / i4 (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'EME (Electric Motor Electronics)', address: '0x7E0', protocol: 'BMW-ENET/CAN',
             functions: [
@@ -2195,7 +2195,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек, балансировка' },
             ]},
           BMW_ABS_ECU()] },
-      { id: 'mini_clubman', name: 'Mini Cooper / Clubman / Countryman', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'mini_clubman', name: 'Mini Cooper / Clubman / Countryman', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [BMW_ENGINE_ECU(), BMW_ABS_ECU()] },
     ],
   },
@@ -2206,9 +2206,9 @@ export const VEHICLE_DB: VehicleMake[] = [
     models: [
       { id: 'a-class', name: 'A-Class (W168/W169/W176/W177)', years: [1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU()] },
-      { id: 'b-class', name: 'B-Class (W245/W246/W247)', years: [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'b-class', name: 'B-Class (W245/W246/W247)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU()] },
-      { id: 'glc', name: 'GLC (X253/C254)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'glc', name: 'GLC (X253/C254)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU(),
           { id: 'abs', name: 'ESP (Electronic Stability Program)', address: '0x7E1', protocol: 'Mercedes-CAN',
             functions: [
@@ -2228,9 +2228,9 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'epb_close', name: 'Закрыть EPB', type: 'activation', description: 'Зажать колодки после замены' },
               { id: 'pad_reset', name: 'Сброс колодок', type: 'adaptation', description: 'Обнуление счётчика износа колодок' },
             ]} ] },
-      { id: 'gle', name: 'GLE / ML (W166/W167)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'gle', name: 'GLE / ML (W166/W167)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU()] },
-      { id: 'gls', name: 'GLS / GL (X166/X167)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'gls', name: 'GLS / GL (X166/X167)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU(),
           { id: 'air_susp', name: 'Пневмоподвеска AIRMATIC', address: '0x37', protocol: 'Mercedes-CAN',
             functions: [
@@ -2239,15 +2239,15 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Высота, давление, компрессор' },
               { id: 'height_calib', name: 'Калибровка высоты', type: 'adaptation', description: 'Обнуление датчиков высоты', warning: 'На ровной поверхности без нагрузки' },
             ]} ] },
-      { id: 'g-class', name: 'G-Class (W463)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'g-class', name: 'G-Class (W463)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU()] },
-      { id: 's-class', name: 'S-Class (W221/W222/W223)', years: [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 's-class', name: 'S-Class (W221/W222/W223)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU()] },
-      { id: 'sprinter', name: 'Sprinter (W906/W907)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'sprinter', name: 'Sprinter (W906/W907)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU()] },
-      { id: 'vito', name: 'Vito / V-Class (W447)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'vito', name: 'Vito / V-Class (W447)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [MERCEDES_ENGINE_ECU()] },
-      { id: 'eqc', name: 'EQC / EQB / EQA (EV)', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'eqc', name: 'EQC / EQB / EQA (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (два электромотора)', address: '0x7E0', protocol: 'Mercedes-CAN',
             functions: [
@@ -2267,17 +2267,17 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'toyota_extra', name: 'Toyota / Lexus', logo: 'TY', region: 'asia',
     models: [
-      { id: 'corolla', name: 'Corolla (E150/E160/E170/E210)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'corolla', name: 'Corolla (E150/E160/E170/E210)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'highlander', name: 'Highlander / Kluger (XU40/XU50/XU70)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'highlander', name: 'Highlander / Kluger (XU40/XU50/XU70)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'hilux', name: 'Hilux (AN10/AN120/AN140)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'hilux', name: 'Hilux (AN10/AN120/AN140)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'prado', name: 'Land Cruiser Prado (120/150/250)', years: [2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'prado', name: 'Land Cruiser Prado (120/150/250)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'fortuner', name: 'Fortuner (AN50/AN150)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'fortuner', name: 'Fortuner (AN50/AN150)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'prius', name: 'Prius (W20/W30/W50/W60)', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'prius', name: 'Prius (W20/W30/W50/W60)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU(),
           { id: 'hv', name: 'Гибридный блок (HV ECU)', address: '0x7A0', protocol: 'Toyota-CAN',
             functions: [
@@ -2285,15 +2285,15 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, температура, мощность' },
             ]} ] },
-      { id: 'chr', name: 'C-HR (AX10)', years: [2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'chr', name: 'C-HR (AX10)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'yaris', name: 'Yaris (XP90/XP130/XP210)', years: [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'yaris', name: 'Yaris (XP90/XP130/XP210)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'avensis', name: 'Avensis (T250/T270)', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],
+      { id: 'avensis', name: 'Avensis (T250/T270)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'innova', name: 'Innova (AN40/AN140)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'innova', name: 'Innova (AN40/AN140)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'bz4x', name: 'bZ4X / bZ3 (EV)', years: [2022,2023,2024],
+      { id: 'bz4x', name: 'bZ4X / bZ3 (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (электромотор)', address: '0x7E0', protocol: 'Toyota-CAN',
             functions: [
@@ -2307,15 +2307,15 @@ export const VEHICLE_DB: VehicleMake[] = [
             ]},
           TOYOTA_ABS_ECU()] },
       // Lexus
-      { id: 'lx', name: 'Lexus LX (470/570/600)', years: [2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'lx', name: 'Lexus LX (470/570/600)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'rx', name: 'Lexus RX (300/330/350/450h)', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'rx', name: 'Lexus RX (300/330/350/450h)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'nx', name: 'Lexus NX (AZ10/AZ20)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'nx', name: 'Lexus NX (AZ10/AZ20)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'es', name: 'Lexus ES (XV60/XV70)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'es', name: 'Lexus ES (XV60/XV70)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
-      { id: 'gx', name: 'Lexus GX (460/550)', years: [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'gx', name: 'Lexus GX (460/550)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [TOYOTA_ENGINE_ECU(), TOYOTA_ABS_ECU()] },
     ],
   },
@@ -2324,7 +2324,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'kia_extra', name: 'Kia', logo: 'KI', region: 'asia',
     models: [
-      { id: 'cerato', name: 'Cerato / Forte (YD/BD)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'cerato', name: 'Cerato / Forte (YD/BD)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'KIA-CAN',
             functions: [
@@ -2339,7 +2339,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'sorento', name: 'Sorento (XM/UM/MQ4)', years: [2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'sorento', name: 'Sorento (XM/UM/MQ4)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'KIA-CAN',
             functions: [
@@ -2354,7 +2354,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'stinger', name: 'Stinger (CK)', years: [2017,2018,2019,2020,2021,2022,2023],
+      { id: 'stinger', name: 'Stinger (CK)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 2.5T/3.3T', address: '0x7E0', protocol: 'KIA-CAN',
             functions: [
@@ -2363,7 +2363,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры V6 Turbo' },
             ]},
         ] },
-      { id: 'ev6', name: 'EV6 / EV9 (EV)', years: [2021,2022,2023,2024],
+      { id: 'ev6', name: 'EV6 / EV9 (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (E-GMP)', address: '0x7E0', protocol: 'KIA-CAN',
             functions: [
@@ -2377,7 +2377,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'cell_balance', name: 'Балансировка ячеек', type: 'adaptation', description: 'Балансировка АКБ' },
             ]},
         ] },
-      { id: 'carnival', name: 'Carnival (YP/KA4)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'carnival', name: 'Carnival (YP/KA4)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'KIA-CAN',
             functions: [
@@ -2386,7 +2386,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры' },
             ]},
         ] },
-      { id: 'seltos', name: 'Seltos (SP2)', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'seltos', name: 'Seltos (SP2)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'KIA-CAN',
             functions: [
@@ -2402,7 +2402,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'hyundai_extra', name: 'Hyundai / Genesis', logo: 'HY', region: 'asia',
     models: [
-      { id: 'santa-fe', name: 'Santa Fe (CM/DM/TM/MX5)', years: [2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'santa-fe', name: 'Santa Fe (CM/DM/TM/MX5)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Hyundai-CAN',
             functions: [
@@ -2417,7 +2417,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'elantra', name: 'Elantra (MD/AD/CN7)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'elantra', name: 'Elantra (MD/AD/CN7)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Hyundai-CAN',
             functions: [
@@ -2426,7 +2426,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
             ]},
         ] },
-      { id: 'ioniq5', name: 'IONIQ 5 / IONIQ 6 (EV)', years: [2021,2022,2023,2024],
+      { id: 'ioniq5', name: 'IONIQ 5 / IONIQ 6 (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (E-GMP)', address: '0x7E0', protocol: 'Hyundai-CAN',
             functions: [
@@ -2439,7 +2439,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура ячеек, балансировка' },
             ]},
         ] },
-      { id: 'palisade', name: 'Palisade (LX2)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'palisade', name: 'Palisade (LX2)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Hyundai-CAN',
             functions: [
@@ -2448,7 +2448,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры' },
             ]},
         ] },
-      { id: 'genesis_gv80', name: 'Genesis GV80 / G80', years: [2020,2021,2022,2023,2024],
+      { id: 'genesis_gv80', name: 'Genesis GV80 / G80', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 2.5T/3.5T', address: '0x7E0', protocol: 'Hyundai-CAN',
             functions: [
@@ -2465,7 +2465,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'nissan_extra', name: 'Nissan / Infiniti', logo: 'NS', region: 'asia',
     models: [
-      { id: 'juke', name: 'Juke (F15/F16)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'juke', name: 'Juke (F15/F16)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'Nissan-CAN',
             functions: [
@@ -2480,7 +2480,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'murano', name: 'Murano (Z51/Z52)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'murano', name: 'Murano (Z51/Z52)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 3.5 V6', address: '0x7E0', protocol: 'Nissan-CAN',
             functions: [
@@ -2490,7 +2490,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс счётчика ТО' },
             ]},
         ] },
-      { id: 'patrol', name: 'Patrol / Armada (Y62)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'patrol', name: 'Patrol / Armada (Y62)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя VK56VD', address: '0x7E0', protocol: 'Nissan-CAN',
             functions: [
@@ -2505,7 +2505,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'navara', name: 'Navara (D40/D23)', years: [2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
+      { id: 'navara', name: 'Navara (D40/D23)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [
           { id: 'engine', name: 'ЭБУ дизеля YD25DDTi', address: '0x7E0', protocol: 'Nissan-CAN',
             functions: [
@@ -2515,7 +2515,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dpf_regen', name: 'Регенерация DPF', type: 'service', description: 'Принудительная регенерация DPF' },
             ]},
         ] },
-      { id: 'leaf', name: 'Leaf (ZE0/ZE1) EV', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'leaf', name: 'Leaf (ZE0/ZE1) EV', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'Силовой инвертор EM61/EM57', address: '0x7E0', protocol: 'Nissan-CAN',
             functions: [
@@ -2529,7 +2529,7 @@ export const VEHICLE_DB: VehicleMake[] = [
             ]},
         ] },
       // Infiniti
-      { id: 'qx56', name: 'Infiniti QX56 / QX80', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'qx56', name: 'Infiniti QX56 / QX80', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя VK56VD', address: '0x7E0', protocol: 'Nissan-CAN',
             functions: [
@@ -2539,7 +2539,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс масла' },
             ]},
         ] },
-      { id: 'fx', name: 'Infiniti FX / QX70', years: [2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017],
+      { id: 'fx', name: 'Infiniti FX / QX70', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 3.7/5.0 V6/V8', address: '0x7E0', protocol: 'Nissan-CAN',
             functions: [
@@ -2555,7 +2555,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'renault_extra', name: 'Renault / Alpine', logo: 'RN', region: 'europe',
     models: [
-      { id: 'arkana', name: 'Arkana', years: [2019,2020,2021,2022,2023,2024],
+      { id: 'arkana', name: 'Arkana', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 1.3T/1.6E-Tech', address: '0x7E0', protocol: 'Renault-CAN',
             functions: [
@@ -2570,7 +2570,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'megane', name: 'Megane (III/IV)', years: [2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
+      { id: 'megane', name: 'Megane (III/IV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Renault-CAN',
             functions: [
@@ -2579,7 +2579,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
             ]},
         ] },
-      { id: 'kaptur', name: 'Kaptur / Captur (HH/HJB)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'kaptur', name: 'Kaptur / Captur (HH/HJB)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя', address: '0x7E0', protocol: 'Renault-CAN',
             functions: [
@@ -2588,7 +2588,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
             ]},
         ] },
-      { id: 'koleos', name: 'Koleos (II)', years: [2016,2017,2018,2019,2020,2021,2022,2023],
+      { id: 'koleos', name: 'Koleos (II)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 2.0/2.5', address: '0x7E0', protocol: 'Renault-CAN',
             functions: [
@@ -2597,7 +2597,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры' },
             ]},
         ] },
-      { id: 'zoe', name: 'Zoe / Megane E-Tech (EV)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'zoe', name: 'Zoe / Megane E-Tech (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (электромотор R240/R135)', address: '0x7E0', protocol: 'Renault-CAN',
             functions: [
@@ -2617,7 +2617,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'ford_extra', name: 'Ford / Lincoln', logo: 'FD', region: 'usa',
     models: [
-      { id: 'explorer', name: 'Explorer (V/VI)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'explorer', name: 'Explorer (V/VI)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM)', address: '0x7E0', protocol: 'Ford-UDS',
             functions: [
@@ -2638,7 +2638,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'ranger', name: 'Ranger (T6/P703)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'ranger', name: 'Ranger (T6/P703)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 2.0T/2.3T/2.5', address: '0x7E0', protocol: 'Ford-UDS',
             functions: [
@@ -2649,7 +2649,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс ТО', type: 'service', description: 'Сброс Oil Life' },
             ]},
         ] },
-      { id: 'f150', name: 'F-150 (XIII/XIV)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'f150', name: 'F-150 (XIII/XIV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (PCM) EcoBoost/V8', address: '0x7E0', protocol: 'Ford-UDS',
             functions: [
@@ -2659,7 +2659,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'oil_reset', name: 'Сброс Oil Life', type: 'service', description: 'Сброс Oil Life Monitor' },
             ]},
         ] },
-      { id: 'mustang', name: 'Mustang (S550/S650)', years: [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'mustang', name: 'Mustang (S550/S650)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 2.3T/5.0 V8', address: '0x7E0', protocol: 'Ford-UDS',
             functions: [
@@ -2668,7 +2668,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
             ]},
         ] },
-      { id: 'transit', name: 'Transit (V363)', years: [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'transit', name: 'Transit (V363)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 2.0T/2.2D', address: '0x7E0', protocol: 'Ford-UDS',
             functions: [
@@ -2679,7 +2679,7 @@ export const VEHICLE_DB: VehicleMake[] = [
             ]},
         ] },
       // Lincoln
-      { id: 'lincoln_navigator', name: 'Lincoln Navigator / Aviator', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'lincoln_navigator', name: 'Lincoln Navigator / Aviator', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 3.5T Twin', address: '0x7E0', protocol: 'Ford-UDS',
             functions: [
@@ -2696,7 +2696,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'subaru_extra', name: 'Subaru', logo: 'SB', region: 'asia',
     models: [
-      { id: 'xv', name: 'XV / Crosstrek (GP/GT/GU)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'xv', name: 'XV / Crosstrek (GP/GT/GU)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя (ECM)', address: '0x7E0', protocol: 'Subaru-CAN',
             functions: [
@@ -2711,7 +2711,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'wrx', name: 'WRX / WRX STI (VA/VB)', years: [2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'wrx', name: 'WRX / WRX STI (VA/VB)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя FA20DIT/EJ257', address: '0x7E0', protocol: 'Subaru-CAN',
             functions: [
@@ -2726,7 +2726,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Блокировка DCCD, момент' },
             ]},
         ] },
-      { id: 'baja', name: 'Ascent / Solterra (EV)', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'baja', name: 'Ascent / Solterra (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя FB25 / MCU (EV)', address: '0x7E0', protocol: 'Subaru-CAN',
             functions: [
@@ -2742,7 +2742,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'lada_extra', name: 'LADA / ВАЗ', logo: 'ЛД', region: 'russia',
     models: [
-      { id: 'granta', name: 'Гранта / Гранта Cross (2190/2194)', years: [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'granta', name: 'Гранта / Гранта Cross (2190/2194)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ Январь 7.2 / Bosch M17.9.7', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -2767,7 +2767,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
             ]},
         ] },
-      { id: 'niva_legend', name: 'Нива Legend / Нива Travel (2121)', years: [2020,2021,2022,2023,2024],
+      { id: 'niva_legend', name: 'Нива Legend / Нива Travel (2121)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ Январь 7.2 1.7 л', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -2776,7 +2776,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
             ]},
         ] },
-      { id: 'largus', name: 'Ларгус / Ларгус Cross (R90)', years: [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'largus', name: 'Ларгус / Ларгус Cross (R90)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ Bosch ME17 (Renault K7M/H4M)', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -2785,7 +2785,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
             ]},
         ] },
-      { id: 'vesta_ng', name: 'Веста НГ / Веста ЕСP (2022+)', years: [2022,2023,2024],
+      { id: 'vesta_ng', name: 'Веста НГ / Веста ЕСP (2022+)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ Bosch ME17.9 1.8 / 1.6', address: '0x7E0', protocol: 'CAN',
             functions: [
@@ -2807,7 +2807,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'byd_extra', name: 'BYD', logo: 'BY', region: 'china',
     models: [
-      { id: 'atto3', name: 'Atto 3 / Yuan Plus (EV)', years: [2021,2022,2023,2024],
+      { id: 'atto3', name: 'Atto 3 / Yuan Plus (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (BYD EDS)', address: '0x7E0', protocol: 'BYD-CAN',
             functions: [
@@ -2825,7 +2825,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'han', name: 'Han EV / Han DM', years: [2020,2021,2022,2023,2024],
+      { id: 'han', name: 'Han EV / Han DM', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (два мотора)', address: '0x7E0', protocol: 'BYD-CAN',
             functions: [
@@ -2838,7 +2838,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура' },
             ]},
         ] },
-      { id: 'tang', name: 'Tang DM-i / Tang EV', years: [2018,2019,2020,2021,2022,2023,2024],
+      { id: 'tang', name: 'Tang DM-i / Tang EV', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ DM-i 2.0T / MCU EV', address: '0x7E0', protocol: 'BYD-CAN',
             functions: [
@@ -2851,7 +2851,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'SOC, SOH, температура' },
             ]},
         ] },
-      { id: 'dolphin', name: 'Dolphin / Seagull (EV)', years: [2021,2022,2023,2024],
+      { id: 'dolphin', name: 'Dolphin / Seagull (EV)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'mcu', name: 'MCU (e-Platform 3.0)', address: '0x7E0', protocol: 'BYD-CAN',
             functions: [
@@ -2871,7 +2871,7 @@ export const VEHICLE_DB: VehicleMake[] = [
   {
     id: 'mitsubishi_extra', name: 'Mitsubishi', logo: 'MI', region: 'asia',
     models: [
-      { id: 'eclipse_cross', name: 'Eclipse Cross (GK)', years: [2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'eclipse_cross', name: 'Eclipse Cross (GK)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 1.5T/2.4PHEV', address: '0x7E0', protocol: 'Mitsubishi-CAN',
             functions: [
@@ -2886,7 +2886,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'dtc_clear', name: 'Удаление кодов DTC', type: 'special', description: 'Очистка' },
             ]},
         ] },
-      { id: 'asx', name: 'ASX / RVR (GA)', years: [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'asx', name: 'ASX / RVR (GA)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ двигателя 1.6/2.0 MIVEC', address: '0x7E0', protocol: 'Mitsubishi-CAN',
             functions: [
@@ -2904,7 +2904,7 @@ export const VEHICLE_DB: VehicleMake[] = [
               { id: 'live_data', name: 'Поток данных', type: 'special', description: 'Параметры двигателя' },
             ]},
         ] },
-      { id: 'l200', name: 'L200 (KH/KL)', years: [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
+      { id: 'l200', name: 'L200 (KH/KL)', years: [2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],
         ecus: [
           { id: 'engine', name: 'ЭБУ дизеля 2.5D/2.4D DiD', address: '0x7E0', protocol: 'Mitsubishi-CAN',
             functions: [
